@@ -14,13 +14,12 @@ import {
 import { RootState } from "./store";
 //API키
 export default function Search() {
-  const [videos, setVideos] = useState < any > [];
+  const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [pageToken, setPageToken] = useState("");
-  const [commentData, setCommentData] = useState < any > {};
+  const [commentData, setCommentData] = useState([]);
   const [selectedVideo, setSelectedVideo] = useState(null);
-  const [categoryNumber, setCategoryNumber] =
-    (useState < number) | (null > null);
+  const [categoryNumber, setCategoryNumber] = useState(null);
   const location = useLocation();
   const recData = location.state.data;
   const newCategory = useSelector((state) => state.category.category);

@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { data, Link, useNavigate } from "react-router-dom";
 import "./css/NavBar.css";
 import { changeCategory } from "./store";
 import { searchYoutubeVideos } from "./func/GetApi";
@@ -13,7 +13,7 @@ import {
 } from "react-icons/bs";
 
 function NavBar() {
-  const [youtubeSearch, SetYoutubeSearch] = useState("");
+  const [youtubeSearch, setYoutubeSearch] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleKeyDown = async (e) => {
@@ -65,13 +65,13 @@ function NavBar() {
               동물
             </Nav.Link>
           </Nav>
-          <Nav className="mr-auto">
+          {/* <Nav className="mr-auto">
             <Nav.Link>
               <input
                 type="text"
                 placeholder={`검색어입력`}
                 value={youtubeSearch}
-                onChange={(e) => SetYoutubeSearch(e.target.value)}
+                onChange={(e) => setYoutubeSearch(e.target.value)}
                 onKeyDown={handleKeyDown}
               />
               <span>
@@ -80,6 +80,25 @@ function NavBar() {
                 </Link>
               </span>
             </Nav.Link>
+            <Nav.Link>
+              <BsFillPersonFill style={{ fontSize: "30px" }} />
+            </Nav.Link>
+          </Nav> */}
+          <Nav className="mr-auto">
+            <input
+              type="text"
+              placeholder={`검색어입력`}
+              value={youtubeSearch}
+              onChange={(e) => setYoutubeSearch(e.target.value)}
+              onKeyDown={handleKeyDown}
+            />
+            <Link
+              to={"/search"}
+              state={{ data: youtubeSearch }}
+              className="nav-link"
+            >
+              <BsSearch className="searchIcons" />
+            </Link>
             <Nav.Link>
               <BsFillPersonFill style={{ fontSize: "30px" }} />
             </Nav.Link>
