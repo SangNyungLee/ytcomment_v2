@@ -5,7 +5,7 @@ import { BsArrowBarRight } from "react-icons/bs";
 const Sidebar = ({ width = 220 }) => {
   const [isOpen, setOpen] = useState(false);
   const [xPosition, setX] = useState(width);
-  const side = useRef < HTMLDivElement > null;
+  const side = useRef(null);
 
   // button 클릭 시 토글
   const toggleMenu = () => {

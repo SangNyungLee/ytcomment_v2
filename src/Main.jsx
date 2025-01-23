@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { BsYoutube, BsFillPinFill } from "react-icons/bs";
 import { truncateText } from "./func/GetApi";
-import { RootState } from "./store";
 import "./css/Pagination.css";
 import Pagination from "react-js-pagination";
 
@@ -51,8 +50,6 @@ export default function Main() {
     window.scrollTo(0, 0); // 페이지 이동시 스크롤 위치 제일 위로 초기화
     fetchVideos(page, newCategory);
   }, [newCategory, page]);
-
-  console.log("vidoes : ", videos);
   // video 목록 받은거 업데이트 하는 부분
   // useEffect(() => {
   //   console.log("업데이트된 목록!!", videos);
