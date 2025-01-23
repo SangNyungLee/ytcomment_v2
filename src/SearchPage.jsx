@@ -28,7 +28,7 @@ export default function SearchPage() {
   const myId = recData.id;
   const [comment, setComment] = useState([]);
   //원래 시간으로 돌려주는 함수
-  function formatPublishedAt(publishedAt: any) {
+  function formatPublishedAt(publishedAt) {
     const date = new Date(publishedAt);
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, "0");
@@ -37,14 +37,14 @@ export default function SearchPage() {
   }
 
   //조회수 변경해주는 방법
-  function formatNumber(number: number) {
+  function formatNumber(number) {
     return new Intl.NumberFormat("ko-KR", {
       notation: "compact",
       maximumFractionDigits: 1,
     }).format(number);
   }
   //클립 버튼 눌렀을 때 복사되는거
-  const getUrl = (e: MouseEvent) => {
+  const getUrl = (e) => {
     console.log("링크는", e);
   };
   useEffect(() => {
@@ -57,7 +57,7 @@ export default function SearchPage() {
 
     fetchComments(recData.id.videoId, 10, "")
       .then((res) => {
-        const newComments = res.items.map((ment: any) => {
+        const newComments = res.items.map((ment) => {
           return {
             authorName: ment.snippet.topLevelComment.snippet.authorDisplayName,
             text: ment.snippet.topLevelComment.snippet.textOriginal,
@@ -131,7 +131,7 @@ export default function SearchPage() {
         <br />
         <div className="hashTags">
           {recData.snippet.tags
-            ? recData.snippet.tags.map((res: any) => (
+            ? recData.snippet.tags.map((res) => (
                 <span className="tags btn" id={res}>
                   #{res}
                 </span>
@@ -158,7 +158,7 @@ export default function SearchPage() {
             </select>
           </div>
           <div className="commentList">
-            {comment.map((res: any) => (
+            {comment.map((res) => (
               <div className="commentDiv">
                 <img src={`${res.imgUrl}`} className="commentImg" />
                 <div>
@@ -203,7 +203,7 @@ export default function SearchPage() {
                   <button
                     className="btn"
                     style={{ backgroundColor: "#F55145", marginLeft: "15px" }}
-                    onClick={(e: any) => getUrl(e.target.value)}
+                    onClick={(e) => getUrl(e.target.value)}
                   >
                     <BsPaperclip />
                     복사하기

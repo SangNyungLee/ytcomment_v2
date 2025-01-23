@@ -13,14 +13,14 @@ export default function Lside() {
   const [userPw, setUserPw] = useState("");
   const cookieString = document.cookie;
   const userName = sessionStorage.getItem("userName");
-  const handleKeyPress = (event: React.KeyboardEvent<HTMLElement>) => {
+  const handleKeyPress = (event) => {
     if (event.key === "Enter") {
       getLogin();
     }
   };
   //로그인 하는 함수
   const getLogin = async () => {
-    const result: any = await axios.post("http://localhost:8000/api/login", {
+    const result = await axios.post("http://localhost:8000/api/login", {
       userId,
       userPw,
     });

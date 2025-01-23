@@ -14,23 +14,22 @@ import {
 import { RootState } from "./store";
 //API키
 export default function Search() {
-  const [videos, setVideos] = useState<any>([]);
+  const [videos, setVideos] = useState < any > [];
   const [loading, setLoading] = useState(false);
   const [pageToken, setPageToken] = useState("");
-  const [commentData, setCommentData] = useState<any>({});
+  const [commentData, setCommentData] = useState < any > {};
   const [selectedVideo, setSelectedVideo] = useState(null);
-  const [categoryNumber, setCategoryNumber] = useState<number | null>(null);
+  const [categoryNumber, setCategoryNumber] =
+    (useState < number) | (null > null);
   const location = useLocation();
   const recData = location.state.data;
-  const newCategory = useSelector(
-    (state: RootState) => state.category.category
-  );
+  const newCategory = useSelector((state) => state.category.category);
 
-  const fetchVideos = async (token: string) => {
+  const fetchVideos = async (token) => {
     setLoading(true);
     try {
       setVideos([]);
-      const res: any = await searchYoutubeVideos(recData, token);
+      const res = await searchYoutubeVideos(recData, token);
       //댓글 불러오기
       const newVideos = res.data.items;
       if (categoryNumber === null || categoryNumber !== newCategory) {
@@ -86,7 +85,7 @@ export default function Search() {
     <div className="text-center">
       <h1>인기동영상</h1>
       <Row className="justify-content-center" style={{ width: "100%" }}>
-        {videos.map((video: any) => (
+        {videos.map((video) => (
           <Col
             xs={7}
             sm={7}
@@ -129,25 +128,23 @@ export default function Search() {
                   {commentData[video.id.videoId] && (
                     <div>
                       <div>
-                        {commentData[video.id.videoId].items.map(
-                          (comment: any) => (
-                            <div key={comment.id}>
-                              <div className="commentStyle">
-                                <div style={{ marginBottom: "5px" }}>
-                                  <span style={{ marginRight: "3px" }}>👍</span>
-                                  {
-                                    comment.snippet.topLevelComment.snippet
-                                      .likeCount
-                                  }
-                                </div>{" "}
+                        {commentData[video.id.videoId].items.map((comment) => (
+                          <div key={comment.id}>
+                            <div className="commentStyle">
+                              <div style={{ marginBottom: "5px" }}>
+                                <span style={{ marginRight: "3px" }}>👍</span>
                                 {
                                   comment.snippet.topLevelComment.snippet
-                                    .textOriginal
+                                    .likeCount
                                 }
-                              </div>
+                              </div>{" "}
+                              {
+                                comment.snippet.topLevelComment.snippet
+                                  .textOriginal
+                              }
                             </div>
-                          )
-                        )}
+                          </div>
+                        ))}
 
                         <button className="btn moreBtn">
                           <BsYoutube className="btnIcon" />

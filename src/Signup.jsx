@@ -13,7 +13,7 @@ function Signup() {
   const [userId, setUserId] = useState("");
   const [userPw, setUserPw] = useState("");
   const getLogin = async () => {
-    const result: any = await axios.post("http://localhost:8000/api/login", {
+    const result = await axios.post("http://localhost:8000/api/login", {
       userId,
       userPw,
     });
@@ -27,7 +27,7 @@ function Signup() {
       alert("로그인에 성공하셨습니다.!");
     }
   };
-  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyPress = (event) => {
     if (event.key === "Enter") {
       getLogin();
     }

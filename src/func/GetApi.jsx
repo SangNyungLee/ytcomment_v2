@@ -1,10 +1,6 @@
 import axios from "axios";
 //댓글 가져오기
-const fetchComments = async (
-  videoId: string,
-  commentNumber: number,
-  token: string
-) => {
+const fetchComments = async (videoId, commentNumber, token) => {
   try {
     const res = await axios.get(
       "https://www.googleapis.com/youtube/v3/commentThreads",
@@ -27,7 +23,7 @@ const fetchComments = async (
 };
 
 // 통계값 가져오기
-const getStatistics = async (videoId: String) => {
+const getStatistics = async (videoId) => {
   try {
     const res = await axios.get(
       "https://www.googleapis.com/youtube/v3/videos",
@@ -48,7 +44,7 @@ const getStatistics = async (videoId: String) => {
 };
 
 //검색어 입력받은거 가져오기
-const searchYoutubeVideos = async (query: string, pageToken: string) => {
+const searchYoutubeVideos = async (query, pageToken) => {
   try {
     const result = await axios.get(
       "https://www.googleapis.com/youtube/v3/search",
@@ -71,7 +67,7 @@ const searchYoutubeVideos = async (query: string, pageToken: string) => {
 };
 //댓글 가져오기
 //글자수 제한 함수
-function truncateText(text: string) {
+function truncateText(text) {
   if (text.length <= 50) {
     return text;
   } else {
@@ -79,7 +75,7 @@ function truncateText(text: string) {
     return sliceText;
   }
 }
-function getCookie(key: string, data: any) {
+function getCookie(key, data) {
   const token = data;
   // 만료날짜 설정
   const expires = new Date();

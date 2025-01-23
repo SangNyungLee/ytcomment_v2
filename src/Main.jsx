@@ -13,20 +13,17 @@ import "./css/Pagination.css";
 import Pagination from "react-js-pagination";
 
 export default function Main() {
-  const [videos, setVideos] = useState<any>([]);
+  const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [page, setPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
+  const newCategory = useSelector((state) => state.category.category);
 
-  const newCategory = useSelector(
-    (state: RootState) => state.category.category
-  );
-
-  const handlePageChange = (page: number) => {
+  const handlePageChange = (page) => {
     setPage(page);
   };
-  const fetchVideos = async (page: number, newCategory: number) => {
+  const fetchVideos = async (page, newCategory) => {
     setLoading(true);
     try {
       const res = await axios.post("http://localhost:8000/api/trending", {
@@ -44,7 +41,7 @@ export default function Main() {
   };
   // 전체 페이지 개수 가져오는거
   useEffect(() => {
-    axios.get("http://localhost:8000/api/totalPage").then((res: any) => {
+    axios.get("http://localhost:8000/api/totalPage").then((res) => {
       setTotalItems(res.data.totalNumber);
     });
   }, []);
@@ -55,6 +52,7 @@ export default function Main() {
     fetchVideos(page, newCategory);
   }, [newCategory, page]);
 
+  console.log("vidoes : ", videos);
   // video 목록 받은거 업데이트 하는 부분
   // useEffect(() => {
   //   console.log("업데이트된 목록!!", videos);
@@ -74,12 +72,11 @@ export default function Main() {
   // };
 
   ////////
-
   return (
     <div className="text-center">
       {/* <h1>인기동영상</h1> */}
       <Row className="justify-content-center" style={{ width: "100%" }}>
-        {videos.map((video: any) => (
+        {videos.map((video) => (
           <Col xs={7} sm={7} md={5} lg={4} xl={3} xxl={2} key={video.id}>
             <Card style={{ width: "100%", marginBottom: "20px" }}>
               {selectedVideo === video.id ? (

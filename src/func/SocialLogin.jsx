@@ -4,8 +4,8 @@ import axios from "axios";
 import { getCookie } from "./GetApi";
 import "../css/KakaoButton.css";
 const SocialKaKao = () => {
-  const kakaoClientId = process.env.REACT_APP_KAKAO_JAVASCRIPT_KEY!;
-  const kakaoOnSuccess = async (data: any) => {
+  const kakaoClientId = process.env.REACT_APP_KAKAO_JAVASCRIPT_KEY;
+  const kakaoOnSuccess = async (data) => {
     console.log(data);
     const idToken = data.response.access_token; // 엑세스 토큰 백엔드로 전달
     const result = await axios.post("http://localhost:8000/api/auth/kakao", {
@@ -15,8 +15,8 @@ const SocialKaKao = () => {
     sessionStorage.setItem("userName", result.data.user.username.nickname);
     alert("로그인에 성공하셨습니다.!");
   };
-  const kakaoOnFailure = (error: any) => {
-    alert("로그인에 실패하였습니다.");
+  const kakaoOnFailure = (error) => {
+    alert("로그인에 실패하였습니다.", error);
   };
 
   return (

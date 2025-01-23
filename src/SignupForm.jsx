@@ -9,7 +9,7 @@ function SignupForm() {
   const [userName, setUserName] = useState("");
   const [isPasswordMatch, setIsPasswordMatch] = useState(false);
 
-  const PasswordCheck = (e: any) => {
+  const PasswordCheck = (e) => {
     const { value } = e.target;
     setUserPwCheck(value);
     setIsPasswordMatch(value === userPw);
@@ -21,7 +21,7 @@ function SignupForm() {
         .post("http://localhost:8000/api/checkUserEmail", {
           userEmail: userEmail,
         })
-        .then((res: any) => {
+        .then((res) => {
           if (res.data == "success") {
             // 가입가능한 이메일이면
             alert("가입가능한 이메일입니다.");
@@ -39,7 +39,7 @@ function SignupForm() {
   const handleSignup = async () => {
     if (isPasswordMatch) {
       try {
-        const response: any = await axios.post(
+        const response = await axios.post(
           "http://localhost:8000/api/userSignup",
           {
             userEmail,

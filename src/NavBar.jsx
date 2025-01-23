@@ -16,7 +16,7 @@ function NavBar() {
   const [youtubeSearch, SetYoutubeSearch] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const handleKeyDown = async (e: any) => {
+  const handleKeyDown = async (e) => {
     if (e.key === "Enter") {
       searchYoutubeVideos(youtubeSearch, " ");
       navigate("/search", { state: { data: youtubeSearch } });

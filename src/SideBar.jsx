@@ -5,7 +5,7 @@ import { BsArrowBarRight } from "react-icons/bs";
 const Sidebar = ({ width = 220 }) => {
   const [isOpen, setOpen] = useState(false);
   const [xPosition, setX] = useState(width);
-  const side = useRef<HTMLDivElement>(null);
+  const side = useRef < HTMLDivElement > null;
 
   // button 클릭 시 토글
   const toggleMenu = () => {
@@ -19,9 +19,9 @@ const Sidebar = ({ width = 220 }) => {
   };
 
   // 사이드바 외부 클릭시 닫히는 함수
-  const handleClose = async (e: MouseEvent) => {
+  const handleClose = async (e) => {
     let sideArea = side.current;
-    let sideCildren = side.current?.contains(e.target as Node);
+    let sideCildren = side.current?.contains(e.target);
     if (isOpen && (!sideArea || !sideCildren)) {
       await setX(width);
       await setOpen(false);

@@ -16,7 +16,7 @@ import SignupForm from "./SignupForm";
 import SearchPage from "./SearchPage";
 function App() {
   // 초기 상태를 window.innerWidth로 설정
-  const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
     const handleResize = () => {
