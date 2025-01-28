@@ -1,11 +1,13 @@
 package site.ytcomment.popular.DTO;
 
 import lombok.Builder;
+import lombok.Getter;
 
 import java.util.Date;
 
+@Getter
 @Builder
-public class VideoResponseDTO {
+public class VideoResponseDTO extends PagingDTO {
     private String id;
     private String channelTitle;
     private String title;
