@@ -10,5 +10,10 @@
         <module name="popular.main" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="popular" target="17" />
+      <module name="popular.main" target="17" />
+      <module name="popular.test" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>
