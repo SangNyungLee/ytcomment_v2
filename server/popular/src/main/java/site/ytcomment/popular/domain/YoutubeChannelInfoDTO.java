@@ -17,4 +17,5 @@ public class YoutubeChannelInfoDTO {
     private String tags;
     private int categoryId;
     private LocalDateTime publishedAt;
+
 }
