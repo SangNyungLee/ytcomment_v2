@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import site.ytcomment.popular.domain.YoutubeChannelInfoDTO;
+import site.ytcomment.popular.DTO.YoutubeChannelInfoDTO;
 import site.ytcomment.popular.mapper.TrendingMapper;
 
 import java.time.LocalDateTime;

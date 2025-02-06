@@ -1,4 +1,4 @@
-package site.ytcomment.popular.domain;
+package site.ytcomment.popular.DTO;
 
 import lombok.Builder;
 import lombok.Data;
