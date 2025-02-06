@@ -8,6 +8,6 @@
                             id, channelTitle, title
             ,description, thumbnails, channelId, tags, categoryId, publishedAt
         )
-        VALUES (#{channelId}, #{title}, #{channelTitle})
+        VALUES (#{id}, #{channelTitle}, #{title}, #{description}, #{thumbnails}, #{channelId}, #{tags}, #{categoryId}, #{publishedAt})
     </insert>
 </mapper>
