@@ -8,10 +8,10 @@ import java.time.LocalDateTime;
 @Builder
 @Getter
 public class YoutubeVideoCommentDTO {
-    private String videoId;
+    private String id;
     private int likeCount;
     private String textOriginal;
-    private String authorName;
+    private String authorDisplayName;
     private String authorProfileImageUrl;
     private LocalDateTime publishedAt;
 }

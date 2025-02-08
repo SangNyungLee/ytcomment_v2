@@ -10,7 +10,7 @@
     </insert>
 
     <insert id="insertStatistics">
-        INSERT INTO statistics (id, channelViewCount, channelFavoriteCount, channelCommentCount, channelLikeCount)
+        INSERT IGNORE INTO statistics (id, channelViewCount, channelFavoriteCount, channelCommentCount, channelLikeCount)
         VALUES (#{id}, #{channelViewCount}, #{channelFavoriteCount}, #{channelCommentCount}, #{channelLikeCount})
     </insert>
 </mapper>

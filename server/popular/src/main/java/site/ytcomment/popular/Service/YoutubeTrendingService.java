@@ -25,10 +25,10 @@ public class YoutubeTrendingService implements TrendingMapper {
 
     private final WebClient.Builder webClientBuilder;
     private final TrendingMapper trendingMapper;
-
+    private final YoutubeCommentService youtubeCommentService;
     @Value("${youtube.api.key}")
     private String apiKey;
-    @Value("${youtube.api.url}")
+    @Value("${youtube.video.api.url}")
     private String apiUrl;
 
     @Override
@@ -56,11 +56,13 @@ public class YoutubeTrendingService implements TrendingMapper {
 
         try {
             JsonNode data = new ObjectMapper().readTree(result);
+            List<String> videoIdList = new ArrayList<>();
             /// JsonNode -> stream으로 변경하기 위해서 StreamSupport.stream함수 사용, spliterator는 stream짤라주는 함수임
             List<YoutubeChannelInfoDTO> videoList = StreamSupport.stream(data.get("items").spliterator(), false)
                     .map(item -> {
                         /// 시간 변환 "publishedAt": "2025-02-03T09:00:06Z"
                         String dateStr = item.get("snippet").get("publishedAt").asText();
+                        videoIdList.add(item.get("id").asText());
                         LocalDateTime localDateTime = LocalDateTime.parse(dateStr, DateTimeFormatter.ISO_DATE_TIME);
 
                         return YoutubeChannelInfoDTO.builder()
@@ -95,7 +97,7 @@ public class YoutubeTrendingService implements TrendingMapper {
             /// forEach(video -> youtubeUserMapper.insertVideo(video)) 람다식표현
             videoList.forEach(trendingMapper::insertVideo); // Video 데이터 넣기
             statistics.forEach(trendingMapper::insertStatistics); // statistics 데이터 넣기
-
+            System.out.println(youtubeCommentService.searchComment(videoIdList)); // commentService불러와서 videoId값 별로 Comment값 가져오기
             return data;
         } catch (JsonProcessingException e){
             return null;
