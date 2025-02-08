@@ -8,11 +8,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import site.ytcomment.popular.DTO.YoutubeChannelInfoDTO;
+import site.ytcomment.popular.DTO.YoutubeVideoStatisticsDTO;
 import site.ytcomment.popular.mapper.TrendingMapper;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -32,6 +34,9 @@ public class YoutubeTrendingService implements TrendingMapper {
     @Override
     public void insertVideo(YoutubeChannelInfoDTO youtubeChannelInfoDTO) {
     }
+    @Override
+    public void insertStatistics(YoutubeVideoStatisticsDTO youtubeVideoStatisticsDTO) {
+    }
 
     public JsonNode searchVideos() {
         String result = webClientBuilder.baseUrl(apiUrl)
@@ -39,7 +44,7 @@ public class YoutubeTrendingService implements TrendingMapper {
                 .get()
                 .uri(uriBuilder -> uriBuilder
                         .queryParam("key", apiKey)
-                        .queryParam("part", "snippet")
+                        .queryParam("part", "snippet, statistics")
                         .queryParam("chart", "mostPopular")
                         .queryParam("maxResults", 2)
                         .queryParam("videoCategoryId", 0)
@@ -75,8 +80,22 @@ public class YoutubeTrendingService implements TrendingMapper {
                                 .build();
                     })
                     .toList();
+            /// 통계값 넣기
+            List<YoutubeVideoStatisticsDTO> statistics = StreamSupport.stream(data.get("items").spliterator(), false)
+                    .map(item ->{
+                        return YoutubeVideoStatisticsDTO.builder()
+                                .id(item.get("id").asText())
+                                .channelViewCount(item.get("statistics").get("viewCount").asLong())
+                                .channelFavoriteCount(item.get("statistics").get("favoriteCount").asInt())
+                                .channelCommentCount(item.get("statistics").get("commentCount").asInt())
+                                .channelLikeCount(item.get("statistics").get("likeCount").asInt())
+                                .build();
+                    }).toList();
+
             /// forEach(video -> youtubeUserMapper.insertVideo(video)) 람다식표현
-            videoList.forEach(trendingMapper::insertVideo);
+            videoList.forEach(trendingMapper::insertVideo); // Video 데이터 넣기
+            statistics.forEach(trendingMapper::insertStatistics); // statistics 데이터 넣기
+
             return data;
         } catch (JsonProcessingException e){
             return null;
