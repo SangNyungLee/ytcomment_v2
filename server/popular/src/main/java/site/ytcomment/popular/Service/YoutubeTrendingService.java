@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -16,10 +17,12 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class YoutubeTrendingService implements TrendingMapper {
 
@@ -94,7 +97,9 @@ public class YoutubeTrendingService implements TrendingMapper {
                                     .channelViewCount(item.get("statistics").get("viewCount").asLong())
                                     .channelFavoriteCount(item.get("statistics").get("favoriteCount").asInt())
                                     .channelCommentCount(item.get("statistics").get("commentCount").asInt())
-                                    .channelLikeCount(item.get("statistics").get("likeCount").asInt())
+//                                    .channelLikeCount(item.get("statistics").get("likeCount").asInt())
+                                    .channelLikeCount(Optional.ofNullable(item.get("statistics").get("likeCount"))
+                                            .map(JsonNode::asInt).orElse(0))
                                     .build();
                         }).toList();
 
@@ -104,6 +109,7 @@ public class YoutubeTrendingService implements TrendingMapper {
                 System.out.println(youtubeCommentService.searchComment(videoIdList)); // commentService불러와서 videoId값 별로 Comment값 가져오기
             }
             catch (JsonProcessingException e){
+                log.warn("메시지 오류 ", e);
                 return null;
             } catch (DateTimeParseException e){
                 ///  데이터타입 파싱처리 오류
