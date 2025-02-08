@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Service
@@ -64,7 +65,11 @@ public class YoutubeTrendingService implements TrendingMapper {
                                 .description(item.get("snippet").get("description").asText())
                                 .thumbnails(item.get("snippet").get("thumbnails").get("standard").get("url").asText())
                                 .channelId(item.get("snippet").get("channelId").asText())
-                                .tags(item.get("snippet").get("tags").asText())
+                                /// tags는 배열로 되어 있어서 split 해줌
+                                .tags(item.get("snippet").has("tags") ?
+                                        StreamSupport.stream(item.get("snippet").get("tags").spliterator(), false)
+                                                .map(JsonNode::asText)
+                                                .collect(Collectors.joining(",")) : null)
                                 .categoryId(item.get("snippet").get("categoryId").asInt())
                                 .publishedAt(localDateTime)
                                 .build();

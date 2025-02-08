@@ -5,10 +5,7 @@
 <mapper namespace="site.ytcomment.popular.mapper.TrendingMapper">
     <insert id="insertVideo">
         <!-- INSERT IGNORE : 중복된 값이 있으면 아무것도 안 하고 넘어가기-->
-        INSERT INTO test (
-                            id, channelTitle, title
-            ,description, thumbnails, channelId, tags, categoryId, publishedAt
-        )
+        INSERT INTO channelInfo (id, channelTitle, title, description, thumbnails, channelId, tags, categoryId, publishedAt)
         VALUES (#{id}, #{channelTitle}, #{title}, #{description}, #{thumbnails}, #{channelId}, #{tags}, #{categoryId}, #{publishedAt})
     </insert>
 </mapper>
