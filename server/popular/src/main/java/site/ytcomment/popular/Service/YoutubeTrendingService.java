@@ -38,73 +38,78 @@ public class YoutubeTrendingService implements TrendingMapper {
     public void insertStatistics(YoutubeVideoStatisticsDTO youtubeVideoStatisticsDTO) {
     }
 
-    public JsonNode searchVideos() {
-        String result = webClientBuilder.baseUrl(apiUrl)
-                .build()
-                .get()
-                .uri(uriBuilder -> uriBuilder
-                        .queryParam("key", apiKey)
-                        .queryParam("part", "snippet, statistics")
-                        .queryParam("chart", "mostPopular")
-                        .queryParam("maxResults", 2)
-                        .queryParam("videoCategoryId", 0)
-                        .queryParam("regionCode", "KR")
-                        .build())
-                .retrieve()
-                .bodyToMono(String.class)
-                .block();
+    public String searchVideos() {
+        List<Integer> categoryIds = List.of(0, 10, 15, 20);
 
-        try {
-            JsonNode data = new ObjectMapper().readTree(result);
-            List<String> videoIdList = new ArrayList<>();
-            /// JsonNode -> stream으로 변경하기 위해서 StreamSupport.stream함수 사용, spliterator는 stream짤라주는 함수임
-            List<YoutubeChannelInfoDTO> videoList = StreamSupport.stream(data.get("items").spliterator(), false)
-                    .map(item -> {
-                        /// 시간 변환 "publishedAt": "2025-02-03T09:00:06Z"
-                        String dateStr = item.get("snippet").get("publishedAt").asText();
-                        videoIdList.add(item.get("id").asText());
-                        LocalDateTime localDateTime = LocalDateTime.parse(dateStr, DateTimeFormatter.ISO_DATE_TIME);
+        /// 각 카테고리 별로 데이터 가져오기
+        for(Integer categoryId : categoryIds) {
+            String result = webClientBuilder.baseUrl(apiUrl)
+                    .build()
+                    .get()
+                    .uri(uriBuilder -> uriBuilder
+                            .queryParam("key", apiKey)
+                            .queryParam("part", "snippet, statistics")
+                            .queryParam("chart", "mostPopular")
+                            .queryParam("maxResults", 2)
+                            .queryParam("videoCategoryId", categoryId)
+                            .queryParam("regionCode", "KR")
+                            .build())
+                    .retrieve()
+                    .bodyToMono(String.class)
+                    .block();
 
-                        return YoutubeChannelInfoDTO.builder()
-                                .id(item.get("id").asText())
-                                .channelTitle(item.get("snippet").get("channelTitle").asText())
-                                .title(item.get("snippet").get("title").asText())
-                                .description(item.get("snippet").get("description").asText())
-                                .thumbnails(item.get("snippet").get("thumbnails").get("standard").get("url").asText())
-                                .channelId(item.get("snippet").get("channelId").asText())
-                                /// tags는 배열로 되어 있어서 split 해줌
-                                .tags(item.get("snippet").has("tags") ?
-                                        StreamSupport.stream(item.get("snippet").get("tags").spliterator(), false)
-                                                .map(JsonNode::asText)
-                                                .collect(Collectors.joining(",")) : null)
-                                .categoryId(item.get("snippet").get("categoryId").asInt())
-                                .publishedAt(localDateTime)
-                                .build();
-                    })
-                    .toList();
-            /// 통계값 넣기
-            List<YoutubeVideoStatisticsDTO> statistics = StreamSupport.stream(data.get("items").spliterator(), false)
-                    .map(item ->{
-                        return YoutubeVideoStatisticsDTO.builder()
-                                .id(item.get("id").asText())
-                                .channelViewCount(item.get("statistics").get("viewCount").asLong())
-                                .channelFavoriteCount(item.get("statistics").get("favoriteCount").asInt())
-                                .channelCommentCount(item.get("statistics").get("commentCount").asInt())
-                                .channelLikeCount(item.get("statistics").get("likeCount").asInt())
-                                .build();
-                    }).toList();
+            try {
+                JsonNode data = new ObjectMapper().readTree(result);
+                List<String> videoIdList = new ArrayList<>();
+                /// JsonNode -> stream으로 변경하기 위해서 StreamSupport.stream함수 사용, spliterator는 stream짤라주는 함수임
+                List<YoutubeChannelInfoDTO> videoList = StreamSupport.stream(data.get("items").spliterator(), false)
+                        .map(item -> {
+                            /// 시간 변환 "publishedAt": "2025-02-03T09:00:06Z"
+                            String dateStr = item.get("snippet").get("publishedAt").asText();
+                            videoIdList.add(item.get("id").asText());
+                            LocalDateTime localDateTime = LocalDateTime.parse(dateStr, DateTimeFormatter.ISO_DATE_TIME);
 
-            /// forEach(video -> youtubeUserMapper.insertVideo(video)) 람다식표현
-            videoList.forEach(trendingMapper::insertVideo); // Video 데이터 넣기
-            statistics.forEach(trendingMapper::insertStatistics); // statistics 데이터 넣기
-            System.out.println(youtubeCommentService.searchComment(videoIdList)); // commentService불러와서 videoId값 별로 Comment값 가져오기
-            return data;
-        } catch (JsonProcessingException e){
-            return null;
-        } catch (DateTimeParseException e){
-            ///  데이터타입 파싱처리 오류
-            return null;
+                            return YoutubeChannelInfoDTO.builder()
+                                    .id(item.get("id").asText())
+                                    .channelTitle(item.get("snippet").get("channelTitle").asText())
+                                    .title(item.get("snippet").get("title").asText())
+                                    .description(item.get("snippet").get("description").asText())
+                                    .thumbnails(item.get("snippet").get("thumbnails").get("standard").get("url").asText())
+                                    .channelId(item.get("snippet").get("channelId").asText())
+                                    /// tags는 배열로 되어 있어서 split 해줌
+                                    .tags(item.get("snippet").has("tags") ?
+                                            StreamSupport.stream(item.get("snippet").get("tags").spliterator(), false)
+                                                    .map(JsonNode::asText)
+                                                    .collect(Collectors.joining(",")) : null)
+                                    .categoryId(item.get("snippet").get("categoryId").asInt())
+                                    .publishedAt(localDateTime)
+                                    .build();
+                        })
+                        .toList();
+                /// 통계값 넣기
+                List<YoutubeVideoStatisticsDTO> statistics = StreamSupport.stream(data.get("items").spliterator(), false)
+                        .map(item ->{
+                            return YoutubeVideoStatisticsDTO.builder()
+                                    .id(item.get("id").asText())
+                                    .channelViewCount(item.get("statistics").get("viewCount").asLong())
+                                    .channelFavoriteCount(item.get("statistics").get("favoriteCount").asInt())
+                                    .channelCommentCount(item.get("statistics").get("commentCount").asInt())
+                                    .channelLikeCount(item.get("statistics").get("likeCount").asInt())
+                                    .build();
+                        }).toList();
+
+                /// forEach(video -> youtubeUserMapper.insertVideo(video)) 람다식표현
+                videoList.forEach(trendingMapper::insertVideo); // Video 데이터 넣기
+                statistics.forEach(trendingMapper::insertStatistics); // statistics 데이터 넣기
+                System.out.println(youtubeCommentService.searchComment(videoIdList)); // commentService불러와서 videoId값 별로 Comment값 가져오기
+            }
+            catch (JsonProcessingException e){
+                return null;
+            } catch (DateTimeParseException e){
+                ///  데이터타입 파싱처리 오류
+                return null;
+            }
         }
+        return "success";
     }
-
 }

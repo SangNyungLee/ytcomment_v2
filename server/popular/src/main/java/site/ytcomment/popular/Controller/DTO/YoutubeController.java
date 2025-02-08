@@ -13,7 +13,7 @@ public class YoutubeController {
     private final YoutubeTrendingService youtubeTrendingService;
 
     @GetMapping("/getVideos")
-    public JsonNode getVideos() {
+    public String getVideos() {
         return youtubeTrendingService.searchVideos();
     }
 }
