@@ -83,7 +83,7 @@ public class YoutubeTrendingService implements TrendingMapper {
                                     .tags(item.get("snippet").has("tags") ?
                                             StreamSupport.stream(item.get("snippet").get("tags").spliterator(), false)
                                                     .map(JsonNode::asText)
-                                                    .collect(Collectors.joining(",")) : null)
+                                                    .collect(Collectors.joining(",")) : " ")
                                     .categoryId(item.get("snippet").get("categoryId").asInt())
                                     .publishedAt(localDateTime)
                                     .build();

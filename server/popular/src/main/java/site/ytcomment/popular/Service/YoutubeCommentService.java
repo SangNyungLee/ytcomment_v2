@@ -61,7 +61,7 @@ public class YoutubeCommentService implements CommentMapper {
                     // Youtube 영상 중에서 Topic은 댓글 접근이 불가능해서 요청을 보내면 403 return을 해주는데
                     // 이거 어떻게 처리해야할지 잘 모르겠어서 그냥 error메시지 날라오면 continue해버리게 바꿔버렸음
                     if(data.get("items") == null || data.get("items").isEmpty() || data.has("error")){
-                        log.warn("댓글이 없는 영상 : {}", videoId);
+                        log.error("댓글이 없는 영상 : {}", videoId);
                         continue;
                     }
                     List<YoutubeVideoCommentDTO> commentList = StreamSupport.stream(data.get("items").spliterator(), false)
