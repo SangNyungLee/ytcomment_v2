@@ -1,13 +1,16 @@
 package site.ytcomment.popular.Controller.DTO;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import site.ytcomment.popular.Service.YoutubeTrendingService;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api")
 public class YoutubeController {
 
     private final YoutubeTrendingService youtubeTrendingService;
@@ -16,4 +19,7 @@ public class YoutubeController {
     public String getVideos() {
         return youtubeTrendingService.searchVideos();
     }
+
+    @PostMapping("/trending")
+    public ResponseEntity<>
 }
