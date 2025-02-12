@@ -6,8 +6,8 @@ import lombok.Getter;
 @Getter
 @Builder
 // 카드에 들어가는 값들 담고있는 DTO
-public class ControllerTrendingResponseDTO {
-    private int id;
+public class CardResponseControllerDTO {
+    private String id;
     private String thumbnails;
     private String channelTitle;
     private String title;

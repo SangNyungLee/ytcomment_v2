@@ -5,12 +5,12 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Builder
 @Getter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class YoutubeMainTrendingServiceResponseDTO {
-    private int id;
+public class CardResponseServiceDTO {
+    private String id; // 이거 나중에 String으로 바꿔야됨
     private String thumbnails;
     private String channelTitle;
     private String title;
