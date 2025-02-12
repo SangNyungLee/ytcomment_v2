@@ -1,15 +1,12 @@
-package site.ytcomment.popular.Service.DTO;
+package site.ytcomment.popular.Controller.DTO;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
-@Builder
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
-public class YoutubeMainTrendingServiceResponseDTO {
+@Builder
+// 카드에 들어가는 값들 담고있는 DTO
+public class ControllerTrendingResponseDTO {
     private int id;
     private String thumbnails;
     private String channelTitle;

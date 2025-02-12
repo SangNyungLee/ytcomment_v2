@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import site.ytcomment.popular.DTO.YoutubeChannelInfoDTO;
 import site.ytcomment.popular.DTO.YoutubeVideoStatisticsDTO;
-import site.ytcomment.popular.mapper.TrendingMapper;
+import site.ytcomment.popular.mapper.GetVideoMapper;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -24,10 +24,10 @@ import java.util.stream.StreamSupport;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class YoutubeTrendingService implements TrendingMapper {
+public class YoutubeGetVideoService implements GetVideoMapper {
 
     private final WebClient.Builder webClientBuilder;
-    private final TrendingMapper trendingMapper;
+    private final GetVideoMapper getVideoMapper;
     private final YoutubeCommentService youtubeCommentService;
     @Value("${youtube.api.key}")
     private String apiKey;
@@ -104,8 +104,8 @@ public class YoutubeTrendingService implements TrendingMapper {
                         }).toList();
 
                 /// forEach(video -> youtubeUserMapper.insertVideo(video)) 람다식표현
-                videoList.forEach(trendingMapper::insertVideo); // Video 데이터 넣기
-                statistics.forEach(trendingMapper::insertStatistics); // statistics 데이터 넣기
+                videoList.forEach(getVideoMapper::insertVideo); // Video 데이터 넣기
+                statistics.forEach(getVideoMapper::insertStatistics); // statistics 데이터 넣기
                 System.out.println(youtubeCommentService.searchComment(videoIdList)); // commentService불러와서 videoId값 별로 Comment값 가져오기
             }
             catch (JsonProcessingException e){

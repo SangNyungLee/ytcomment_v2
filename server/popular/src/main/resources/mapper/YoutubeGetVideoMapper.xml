@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="site.ytcomment.popular.mapper.TrendingMapper">
+<mapper namespace="site.ytcomment.popular.mapper.GetVideoMapper">
     <insert id="insertVideo">
         <!-- INSERT IGNORE : 중복된 값이 있으면 아무것도 안 하고 넘어가기-->
         INSERT IGNORE INTO channelInfo (id, channelTitle, title, description, thumbnails, channelId, tags, categoryId, publishedAt)
