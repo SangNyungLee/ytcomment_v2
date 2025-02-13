@@ -31,6 +31,7 @@ public class TrendingService {
         List<CardResponseServiceDTO> serviceResults = trendingMapper.getTrendingVideos(cardRequestServiceDTO);
 
         return serviceResults.stream()
+                // .map(result -> convertToControllerDTO(result)); 이거 줄인거임
                 .map(this::convertToControllerDTO)
                 .collect(Collectors.toList());
 
