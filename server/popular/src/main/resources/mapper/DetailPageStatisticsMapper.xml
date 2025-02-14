@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="site.ytcomment.popular.mapper.PageStatisticsMapper">
+    <select id="selectDetailPageStatistics" resultType="site.ytcomment.popular.Service.DTO.DetailPageStatisticsResServiceDTO">
+        select a.*, b.publishedAt from statistics as a join channelinfo as b on a.id = b.id where b.id = #{id};
+    </select>
+</mapper>

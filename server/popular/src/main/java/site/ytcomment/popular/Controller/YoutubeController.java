@@ -3,10 +3,7 @@ package site.ytcomment.popular.Controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import site.ytcomment.popular.Controller.DTO.*;
-import site.ytcomment.popular.Service.DetailPageCommentService;
-import site.ytcomment.popular.Service.GetTotalPageService;
-import site.ytcomment.popular.Service.TrendingService;
-import site.ytcomment.popular.Service.YoutubeGetVideoService;
+import site.ytcomment.popular.Service.*;
 
 import java.util.List;
 
@@ -19,7 +16,7 @@ public class YoutubeController {
     private final TrendingService trendingService;
     private final GetTotalPageService getTotalPageService;
     private final DetailPageCommentService detailPageCommentService;
-
+    private final DetailPageStatisticsService detailPageStatisticsService;
     @GetMapping("/getVideos")
     public String getVideos() {
         return youtubeGetvideoService.searchVideos();
@@ -40,5 +37,10 @@ public class YoutubeController {
     @PostMapping("/getPageComment")
     public List<DetailPageResponseControllerDTO> getDetailPageComment(@RequestBody DetailPageRequestControllerDTO detailPageRequestControllerDTO) {
         return detailPageCommentService.detailPageComment(detailPageRequestControllerDTO);
+    }
+
+    @PostMapping("/getPageStatistics")
+    public DetailPageStatisticsResControllerDTO getPageStatistics(@RequestBody DetailPageStatisticsReqControllerDTO reqDTO) {
+        return detailPageStatisticsService.getPageStatistics(reqDTO);
     }
 }
