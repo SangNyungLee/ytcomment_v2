@@ -19,15 +19,16 @@ export default function Page() {
   const [show, setShow] = useState(false);
   const [channelCommentCount, setChannelCommentCount] = useState(0);
   const [channelViewCount, setChannelViewCount] = useState(0);
+  const [publishedDate, setPublishedDate] = useState(0);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const location = useLocation();
   const recData = location.state.data;
-  console.log("받은데이터", recData);
+  console.log(recData);
   const [comment, setComment] = useState([]);
 
   let tagsArray = [];
-  if (Array.isArray(recData.tags)) {
+  if (recData.tags) {
     tagsArray = recData.tags;
   } else if (typeof recData.tags === "string") {
     tagsArray = recData.tags
@@ -56,22 +57,17 @@ export default function Page() {
   };
 
   useEffect(() => {
-    let channelCommentCount;
-    let channelViewCount;
     try {
       axios
-        .post("http://localhost:8000/api/getCount", { id: recData.id })
+        .post("http://localhost:8080/api/getPageStatistics", {id : recData.id})
         .then((res) => {
-          console.log("res값!!!!", res.data[0]);
-          channelCommentCount = res.data[0].channelCommentCount;
-          channelViewCount = res.data[0].channelViewCount;
-          setChannelCommentCount(channelCommentCount);
-          setChannelViewCount(channelViewCount);
+          setChannelCommentCount(res.data.channelCommentCount);
+          setChannelViewCount(res.data.channelViewCount);
+          setPublishedDate(res.data.publishedAt);
         });
       axios
-        .post("http://localhost:8000/api/getComments", { id: recData.id })
+        .post("http://localhost:8080/api/getPageComment", {id : recData.id})
         .then((res) => {
-          console.log("받아온 값은?", res);
           const newComments = res.data.map((ment) => {
             return {
               authorName: ment.authorName,
@@ -106,7 +102,7 @@ export default function Page() {
             조회수 : {formatNumber(channelViewCount)}{" "}
           </span>
           <span className="channelUploadDate">
-            {formatPublishedAt(recData.publishedAt)}
+            {formatPublishedAt(publishedDate)}
           </span>
         </div>
       </section>

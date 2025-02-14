@@ -25,7 +25,7 @@ export default function Main() {
   const fetchVideos = async (page, newCategory) => {
     setLoading(true);
     try {
-      const res = await axios.post("http://localhost:8000/api/trending", {
+      const res = await axios.post("http://localhost:8080/api/trending", {
         page,
         newCategory,
       });
@@ -41,8 +41,8 @@ export default function Main() {
   };
   // 전체 페이지 개수 가져오는거
   useEffect(() => {
-    axios.get("http://localhost:8000/api/totalPage").then((res) => {
-      setTotalItems(res.data.totalNumber);
+    axios.get("http://localhost:8080/api/totalPage").then((res) => {
+      setTotalItems(res.data.totalPage);
     });
   }, []);
 
