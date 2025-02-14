@@ -14,5 +14,6 @@ public class CardResponseControllerDTO {
     private String description;
     private String videoId;
     private String textOriginal;
+    private String channelId;
     private int likeCount;
 }

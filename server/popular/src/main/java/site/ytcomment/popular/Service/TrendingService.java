@@ -46,6 +46,7 @@ public class TrendingService {
                 .description(cardResponseServiceDTO.getDescription())
                 .videoId(cardResponseServiceDTO.getVideoId())
                 .textOriginal(cardResponseServiceDTO.getTextOriginal())
+                .channelId(cardResponseServiceDTO.getChannelId())
                 .likeCount(cardResponseServiceDTO.getLikeCount())
                 .build();
     }
