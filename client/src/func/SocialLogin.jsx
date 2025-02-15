@@ -4,7 +4,8 @@ import axios from "axios";
 import { getCookie } from "./GetApi";
 import "../css/KakaoButton.css";
 const SocialKaKao = () => {
-  const kakaoClientId = process.env.REACT_APP_KAKAO_JAVASCRIPT_KEY;
+  // 기존 React 환경변수는 process.env로 시작했는데 vite에서는 import.meta.로 시작하면 됨
+  const kakaoClientId = import.meta.REACT_APP_KAKAO_JAVASCRIPT_KEY;
   const kakaoOnSuccess = async (data) => {
     console.log(data);
     const idToken = data.response.access_token; // 엑세스 토큰 백엔드로 전달

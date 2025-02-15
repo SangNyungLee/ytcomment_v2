@@ -1,13 +1,9 @@
-import React, { useState } from "react";
-import "./css/Signup.css";
 import axios from "axios";
-import {
-  GithubLoginButton,
-  GoogleLoginButton,
-} from "react-social-login-buttons";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import SocialKaKao from "./func/SocialLogin";
+import "./css/Signup.css";
 import { getCookie } from "./func/GetApi";
+import SocialKaKao from "./func/SocialLogin";
 
 function Signup() {
   const [userId, setUserId] = useState("");
