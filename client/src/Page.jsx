@@ -15,6 +15,7 @@ import Modal from "react-bootstrap/Modal";
 import ClipIcons from "./ClipIcons";
 import axios from "axios";
 export default function Page() {
+  
   //모달부분
   const [show, setShow] = useState(false);
   const [channelCommentCount, setChannelCommentCount] = useState(0);
@@ -25,8 +26,8 @@ export default function Page() {
   const location = useLocation();
   const recData = location.state.data;
   const [comment, setComment] = useState([]);
-  console.log(recData);
   let tagsArray = [];
+
   if (recData.tags) {
     tagsArray = recData.tags;
   } else if (typeof recData.tags === "string") {
@@ -148,8 +149,8 @@ export default function Page() {
         <br />
         <div className="hashTags">
           {recData.tags
-            ? tagsArray.map((res) => (
-                <span className="tags btn" key={idx}>
+            ? tagsArray.map((res, index) => (
+                <span className="tags btn" key={index}>
                   #{res}
                 </span>
               ))
@@ -175,8 +176,8 @@ export default function Page() {
             </select>
           </div>
           <div className="commentList">
-            {comment.map((res) => (
-              <div className="commentDiv">
+            {comment.map((res, index) => (
+              <div className="commentDiv" key={index}>
                 <img src={`${res.imgUrl}`} className="commentImg" />
                 <div>
                   <span>{res.authorName}</span> <span>{res.time}</span>

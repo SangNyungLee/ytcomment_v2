@@ -31,7 +31,6 @@ export default function Main() {
         newCategory,
       });
       const newVideos = res.data;
-      console.log("trending video에서 받아온 데이터(res) : ", res);
       setVideos([...newVideos]);
     } catch (error) {
       if (error) {
