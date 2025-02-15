@@ -1,20 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "./css/App.css";
-import NavBar from "./NavBar";
-import Lside from "./LSide";
-import Sidebar from "./SideBar";
 import "@fontsource/open-sans"; // Defaults to weight 400
-import "@fontsource/open-sans"; // Defaults to weight 400
-import "@fontsource/open-sans/400.css"; // Specify weight
 import "@fontsource/open-sans/400-italic.css"; // Specify weight and style
+import "@fontsource/open-sans/400.css"; // Specify weight
+import React, { useEffect, useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./css/App.css";
+import Lside from "./LSide";
 import Main from "./Main";
-import Search from "./Search";
+import NavBar from "./NavBar";
 import Page from "./Page";
+import Search from "./Search";
+import SearchPage from "./SearchPage";
+import Sidebar from "./SideBar";
 import Signup from "./Signup";
 import SignupForm from "./SignupForm";
-import SearchPage from "./SearchPage";
-import Test from "./test";
 function App() {
   // 초기 상태를 window.innerWidth로 설정
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -49,7 +47,6 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/signupForm" element={<SignupForm />} />
             <Route path="/searchPage" element={<SearchPage />} />
-            <Route path="/testPage" element={<Test/>}/>
           </Routes>
         </div>
       </BrowserRouter>
