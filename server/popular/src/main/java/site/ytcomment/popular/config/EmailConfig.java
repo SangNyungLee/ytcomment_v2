@@ -30,9 +30,8 @@ public class EmailConfig {
         javaMailProperties.put("mail.smtp.auth", "true");
         javaMailProperties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         javaMailProperties.put("mail.smtp.starttls.enable", "true");
-        javaMailProperties.put("mail.debug", "true");
         javaMailProperties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
-        javaMailProperties.put("mail.smtp.ssl.protocols", "TLSv1.3"); //TLS v1.3사용
+        javaMailProperties.put("mail.smtp.ssl.protocols", "TLSv1.3");
 
         mailSender.setJavaMailProperties(javaMailProperties);
         return mailSender;

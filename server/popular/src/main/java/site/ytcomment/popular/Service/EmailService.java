@@ -8,6 +8,7 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import site.ytcomment.popular.Service.DTO.EmailCheckReqServiceDTO;
 import site.ytcomment.popular.common.BaseResponse;
 import site.ytcomment.popular.config.RedisConfig;
 
@@ -38,14 +39,14 @@ public class EmailService {
     }
 
     // 이메일 전송
-    public void mailSend(String setForm, String toMail, String title, String content){
+    public void mailSend(EmailCheckReqServiceDTO emailCheckReqServiceDTO){
         MimeMessage message = javaMailSender.createMimeMessage();
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
-            helper.setFrom(setForm); // 서비스 이름
-            helper.setTo(toMail); // Client 이메일 주소
-            helper.setSubject(title); // 이메일 제목
-            helper.setText(content, true); // content, html : true
+            helper.setFrom(emailCheckReqServiceDTO.getSetForm()); // 서비스 이름
+            helper.setTo(emailCheckReqServiceDTO.getToMail()); // Client 이메일 주소
+            helper.setSubject(emailCheckReqServiceDTO.getTitle()); // 이메일 제목
+            helper.setText(emailCheckReqServiceDTO.getContent(), true); // content, html : true
             javaMailSender.send(message);
         } catch (MessagingException e) {
             e.printStackTrace(); // 에러 출력
@@ -53,20 +54,23 @@ public class EmailService {
 
         // Redis에 3분 동안 이메일과 인증 코드 저장
         ValueOperations<String, String> valueOperations = redisConfig.redisTemplate().opsForValue();
-        valueOperations.set(toMail, Integer.toString(authNumber), 180, TimeUnit.SECONDS);
+        valueOperations.set(emailCheckReqServiceDTO.getToMail(), Integer.toString(authNumber), 180, TimeUnit.SECONDS);
     }
 
     // 이메일 작성
     public String joinEmail(String email){
         makeRandomNum();
-        String customerMail = email;
-        String title = "회원 가입을 위한 이메일 입니다.";
-        String content = "이메일을 인증하기 위한 절차 입니다." +
-                "<br><br>" +
-                "인증 번호는 " + authNumber + "입니다." +
-                "<br>" +
-                "회원 가입 폼에 해당하는 번호를 입력해주세요.";
-        mailSend(serviceName, customerMail, title, content);
+        EmailCheckReqServiceDTO emailCheckReqServiceDTO = EmailCheckReqServiceDTO.builder()
+                .setForm(serviceName)
+                .toMail(email)
+                .title("회원 가입을 위한 이메일 입니다.")
+                .content("이메일을 인증하기 위한 절차 입니다." +
+                        "<br><br>" +
+                        "인증 번호는 " + authNumber + "입니다." +
+                        "<br>" +
+                        "회원 가입 폼에 해당하는 번호를 입력해주세요.")
+                .build();
+        mailSend(emailCheckReqServiceDTO);
         return Integer.toString(authNumber);
     }
 
