@@ -28,6 +28,8 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.4")
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
+	//spring mail
+	implementation ("org.springframework.boot:spring-boot-starter-mail")
 	testImplementation("io.projectreactor:reactor-test")
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
