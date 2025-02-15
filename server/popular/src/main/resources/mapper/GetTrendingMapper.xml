@@ -6,8 +6,8 @@
 
     <select id="getTrendingVideos" parameterType="site.ytcomment.popular.Service.DTO.CardRequestServiceDTO" resultType="site.ytcomment.popular.Service.DTO.CardResponseServiceDTO">
         SELECT T1.*, T2.* FROM channelinfo AS T1 LEFT JOIN (
-        SELECT *, ROW_NUMBER() OVER (PARTITION BY videoId ORDER BY likeCount DESC) AS row_num
-        FROM comment) AS T2 ON T1.id = T2.videoId AND (T2.row_num = 1 OR T2.row_num IS NULL)
+        SELECT *, ROW_NUMBER() OVER (PARTITION BY id ORDER BY likeCount DESC) AS row_num
+        FROM comment) AS T2 ON T1.id = T2.id AND (T2.row_num = 1 OR T2.row_num IS NULL)
         <where>
             <if test="newCategory != null and newCategory != 0">
                 AND T1.categoryId = #{newCategory}
