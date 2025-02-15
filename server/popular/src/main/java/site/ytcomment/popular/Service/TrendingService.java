@@ -39,12 +39,12 @@ public class TrendingService {
 
     private CardResponseControllerDTO convertToControllerDTO(CardResponseServiceDTO cardResponseServiceDTO) {
         return CardResponseControllerDTO.builder()
+                .idx(cardResponseServiceDTO.getIdx())
                 .id(cardResponseServiceDTO.getId())
                 .thumbnails(cardResponseServiceDTO.getThumbnails())
                 .channelTitle(cardResponseServiceDTO.getChannelTitle())
                 .title(cardResponseServiceDTO.getTitle())
                 .description(cardResponseServiceDTO.getDescription())
-                .videoId(cardResponseServiceDTO.getVideoId())
                 .textOriginal(cardResponseServiceDTO.getTextOriginal())
                 .channelId(cardResponseServiceDTO.getChannelId())
                 .likeCount(cardResponseServiceDTO.getLikeCount())

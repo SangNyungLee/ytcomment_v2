@@ -33,8 +33,8 @@ public class DetailPageCommentService {
         // 이거 LocalDateTime형식 그대로 보내면 toList되는 과정에서 PublishedAt이 배열로 와버림;
         String formattedDate = detailPageResponseServiceDTO.getPublishedAt().toString();
         return DetailPageResponseControllerDTO.builder()
-                .id(detailPageResponseServiceDTO.getId()) // 이거 나중에 지우고 videoId = id로 변경하기
-                .videoId(detailPageResponseServiceDTO.getVideoId())
+                .idx(detailPageResponseServiceDTO.getIdx())
+                .id(detailPageResponseServiceDTO.getId())
                 .likeCount(detailPageResponseServiceDTO.getLikeCount())
                 .textOriginal(detailPageResponseServiceDTO.getTextOriginal())
                 .authorDisplayName(detailPageResponseServiceDTO.getAuthorDisplayName())

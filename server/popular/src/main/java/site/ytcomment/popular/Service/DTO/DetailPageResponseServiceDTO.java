@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 @Getter
 @Builder
 public class DetailPageResponseServiceDTO {
-    private int id;
-    private String videoId; // 나중에 id로 바껴야댐
+    private int idx;
+    private String id;
     private int likeCount;
     private String textOriginal;
     private String authorDisplayName;

@@ -4,6 +4,6 @@
 
 <mapper namespace="site.ytcomment.popular.mapper.PageCommentMapper">
     <select id="selectComment" resultType="site.ytcomment.popular.Service.DTO.DetailPageResponseServiceDTO">
-        select * from comment where videoId = #{id};
+        select * from comment where id = #{id};
     </select>
 </mapper>
