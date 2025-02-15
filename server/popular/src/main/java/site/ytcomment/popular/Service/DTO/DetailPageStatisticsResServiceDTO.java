@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @Getter
 @Builder
 public class DetailPageStatisticsResServiceDTO {
+    private int idx;
     private String id;
     private int channelViewCount;
     private int channelFavoriteCount;

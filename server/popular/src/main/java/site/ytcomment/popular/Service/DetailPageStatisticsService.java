@@ -21,6 +21,7 @@ public class DetailPageStatisticsService {
         DetailPageStatisticsResServiceDTO resServiceDTO = pageStatisticsMapper.selectDetailPageStatistics(reqServiceDTO);
 
         return DetailPageStatisticsResControllerDTO.builder()
+                .idx(resServiceDTO.getIdx())
                 .id(resServiceDTO.getId())
                 .channelViewCount(resServiceDTO.getChannelViewCount())
                 .channelFavoriteCount(resServiceDTO.getChannelFavoriteCount())

@@ -54,7 +54,7 @@ public class YoutubeGetVideoService implements GetVideoMapper {
                             .queryParam("key", apiKey)
                             .queryParam("part", "snippet, statistics")
                             .queryParam("chart", "mostPopular")
-                            .queryParam("maxResults", 2)
+                            .queryParam("maxResults", 50)
                             .queryParam("videoCategoryId", categoryId)
                             .queryParam("regionCode", "KR")
                             .build())

@@ -6,6 +6,7 @@ import lombok.Getter;
 @Getter
 @Builder
 public class DetailPageStatisticsResControllerDTO {
+    private int idx;
     private String id;
     private int channelViewCount;
     private int channelFavoriteCount;
