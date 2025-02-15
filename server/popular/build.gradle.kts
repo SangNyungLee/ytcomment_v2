@@ -30,6 +30,8 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
 	//spring mail
 	implementation ("org.springframework.boot:spring-boot-starter-mail")
+	//redis
+	implementation ("org.springframework.boot:spring-boot-starter-data-redis")
 	testImplementation("io.projectreactor:reactor-test")
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
