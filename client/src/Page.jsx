@@ -24,9 +24,8 @@ export default function Page() {
   const handleShow = () => setShow(true);
   const location = useLocation();
   const recData = location.state.data;
-  console.log(recData);
   const [comment, setComment] = useState([]);
-
+  console.log(recData);
   let tagsArray = [];
   if (recData.tags) {
     tagsArray = recData.tags;
@@ -52,8 +51,7 @@ export default function Page() {
     }).format(number);
   }
   //클립 버튼 눌렀을 때 복사되는거
-  const getUrl = (e) => {
-    console.log("링크는", e);
+  const getUrl = () => {
   };
 
   useEffect(() => {
@@ -138,12 +136,12 @@ export default function Page() {
         </div>
         <ClipIcons />
         <div className="youtubeDescription">
-          {recData.description.split("\\n").map((line) => {
+          {recData.description.split("\\n").map((line, index) => {
             return (
-              <>
+              <React.Fragment key={index}>
                 {line}
                 <br />
-              </>
+              </React.Fragment>
             );
           })}
         </div>
@@ -151,7 +149,7 @@ export default function Page() {
         <div className="hashTags">
           {recData.tags
             ? tagsArray.map((res) => (
-                <span className="tags btn" id={res}>
+                <span className="tags btn" key={idx}>
                   #{res}
                 </span>
               ))

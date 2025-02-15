@@ -22,6 +22,7 @@ export default function Main() {
   const handlePageChange = (page) => {
     setPage(page);
   };
+
   const fetchVideos = async (page, newCategory) => {
     setLoading(true);
     try {
@@ -39,40 +40,20 @@ export default function Main() {
     }
     setLoading(false);
   };
-  // 전체 페이지 개수 가져오는거
+
   useEffect(() => {
     axios.get("http://localhost:8080/api/totalPage").then((res) => {
       setTotalItems(res.data.totalPage);
     });
   }, []);
 
-  // 페이지 네이션에서 페이지 변경시
   useEffect(() => {
-    window.scrollTo(0, 0); // 페이지 이동시 스크롤 위치 제일 위로 초기화
+    window.scrollTo(0, 0);
     fetchVideos(page, newCategory);
   }, [newCategory, page]);
-  // video 목록 받은거 업데이트 하는 부분
-  // useEffect(() => {
-  //   console.log("업데이트된 목록!!", videos);
-  //   console.log("카테고리 번호", newCategory);
-  // }, [videos, newCategory]);
 
-  // 스크롤 이벤트
-  // window.onscroll = () => {
-  //   if (
-  //     window.innerHeight + document.documentElement.scrollTop >=
-  //     document.documentElement.offsetHeight - 1
-  //   ) {
-  //     if (!loading && pageToken) {
-  //       fetchVideos(pageToken);
-  //     }
-  //   }
-  // };
-
-  ////////
   return (
     <div className="text-center">
-      {/* <h1>인기동영상</h1> */}
       <Row className="justify-content-center" style={{ width: "100%" }}>
         {videos.map((video) => (
           <Col xs={7} sm={7} md={5} lg={4} xl={3} xxl={2} key={video.id}>
@@ -88,68 +69,61 @@ export default function Main() {
                   title="YouTube Video"
                 />
               ) : (
-                <>
-                  <Card.Img
-                    variant="top"
-                    src={video.thumbnails}
-                    onClick={() => setSelectedVideo(video.id)}
-                  />
-                </>
+                <Card.Img
+                  variant="top"
+                  src={video.thumbnails}
+                  onClick={() => setSelectedVideo(video.id)}
+                />
               )}
-              <Link to="/page" state={{ data: video }} className="erText">
-                <Card.Body>
-                  <Card.Title>{video.channelTitle}</Card.Title>
-                  <Card.Text className="cardText">{video.title}</Card.Text>
-                  <div
-                    style={{
-                      color: "gray",
-                      marginBottom: "10px",
-                      whiteSpace: "pre-line",
-                    }}
-                  >
-                    {truncateText(video.description)
-                      .split("\\n")
-                      .map((line) => {
-                        return (
-                          <>
-                            {line}
-                            <br />
-                          </>
-                        );
-                      })}
-                  </div>
+              <Card.Body>
+                <Card.Title>{video.channelTitle}</Card.Title>
+                <Card.Text className="cardText">{video.title}</Card.Text>
+                <div
+                  style={{
+                    color: "gray",
+                    marginBottom: "10px",
+                    whiteSpace: "pre-line",
+                  }}
+                >
+                  {truncateText(video.description)
+                    .split("\\n")
+                    .map((line, index) => (
+                      <React.Fragment key={index}>
+                        {line}
+                        <br />
+                      </React.Fragment>
+                    ))}
+                </div>
+                <div>
                   <div>
-                    <div>
-                      <div key={video.videoId}>
-                        {video.textOriginal && (
-                          <div className="commentStyle">
-                            <div style={{ marginBottom: "5px" }}>
-                              <span style={{ marginRight: "3px" }}>👍</span>
-                              {video.likeCount}
-                            </div>{" "}
-                            {truncateText(video.textOriginal)}
+                    <div key={video.idx}>
+                      {video.textOriginal && (
+                        <div className="commentStyle">
+                          <div style={{ marginBottom: "5px" }}>
+                            <span style={{ marginRight: "3px" }}>👍</span>
+                            {video.likeCount}
                           </div>
-                        )}
-                      </div>
-
-                      <button className="btn moreBtn">
+                          {truncateText(video.textOriginal)}
+                        </div>
+                      )}
+                    </div>
+                    <div className="button-container">
+                      <Link
+                        to="/page"
+                        state={{ data: video }}
+                        className="btn moreBtn"
+                      >
                         <BsYoutube className="btnIcon" />
-                        <Link
-                          to="/page"
-                          state={{ data: video }}
-                          className="linkColor"
-                        >
-                          더보기
-                        </Link>
-                      </button>
+                        더보기
+                      </Link>
                       <button className="btn clipBtn">
                         <BsFillPinFill className="btnIcon" />
                         스크랩
                       </button>
                     </div>
                   </div>
-                </Card.Body>
-              </Link>
+                </div>
+              </Card.Body>
             </Card>
           </Col>
         ))}
@@ -157,13 +131,13 @@ export default function Main() {
 
       {loading && <Spinner animation="border" />}
       <Pagination
-        activePage={page} // 현재 페이지
-        itemsCountPerPage={12} // 한 페이지랑 보여줄 아이템 갯수
-        totalItemsCount={totalItems} // 총 아이템 갯수
-        pageRangeDisplayed={10} // paginator의 페이지 범위
-        prevPageText={"‹"} // "이전"을 나타낼 텍스트
-        nextPageText={"›"} // "다음"을 나타낼 텍스트
-        onChange={handlePageChange} // 페이지 변경을 핸들링하는 함수
+        activePage={page}
+        itemsCountPerPage={12}
+        totalItemsCount={totalItems}
+        pageRangeDisplayed={10}
+        prevPageText={"‹"}
+        nextPageText={"›"}
+        onChange={handlePageChange}
       />
     </div>
   );
