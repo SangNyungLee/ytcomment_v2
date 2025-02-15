@@ -29,6 +29,7 @@ public class YoutubeGetVideoService implements GetVideoMapper {
     private final WebClient.Builder webClientBuilder;
     private final GetVideoMapper getVideoMapper;
     private final YoutubeCommentService youtubeCommentService;
+
     @Value("${youtube.api.key}")
     private String apiKey;
     @Value("${youtube.video.api.url}")

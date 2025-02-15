@@ -17,6 +17,7 @@ public class YoutubeController {
     private final GetTotalPageService getTotalPageService;
     private final DetailPageCommentService detailPageCommentService;
     private final DetailPageStatisticsService detailPageStatisticsService;
+
     @GetMapping("/getVideos")
     public String getVideos() {
         return youtubeGetvideoService.searchVideos();
