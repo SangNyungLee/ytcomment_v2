@@ -15,14 +15,12 @@ import java.util.stream.Collectors;
 public class YoutubeController {
 
     private final YoutubeGetVideoService youtubeGetvideoService;
-    private final TrendingService trendingService;
     private final GetTotalPageService getTotalPageService;
     private final DetailPageCommentService detailPageCommentService;
     private final DetailPageStatisticsService detailPageStatisticsService;
-    //Test
     private final CardTrendingService cardTrendingService;
-    // test부분
-    @PostMapping("/testTrending")
+
+    @PostMapping("/trending")
     public List<CardControllerDTO.Out> getTrendings(@RequestBody CardControllerDTO.In cardControllerDTOIn){
         // TODO 2025.02.17 sanglee 서비스 메서드명 수정하기
         List<CardServiceDTO.Out> controllerResult = cardTrendingService.getTrendingService(cardControllerDTOIn.to());
@@ -31,15 +29,10 @@ public class YoutubeController {
                 .map(CardControllerDTO.Out::from)
                 .collect(Collectors.toList());
     }
-    /// ////////
+
     @GetMapping("/getVideos")
     public String getVideos() {
         return youtubeGetvideoService.searchVideos();
-    }
-
-    @PostMapping("/trending")
-    public List<CardResponseControllerDTO> getTrending(@RequestBody CardRequestControllerDTO CardRequestControllerDTO) {
-        return trendingService.getTrendingService(CardRequestControllerDTO);
     }
 
     // 모든 영상 개수를 가져오는 api
