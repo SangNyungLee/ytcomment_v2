@@ -1,7 +1,6 @@
 package site.ytcomment.popular.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
-import site.ytcomment.popular.Controller.DTO.DetailPageRequestControllerDTO;
 import site.ytcomment.popular.Service.DTO.DetailPageRequestServiceDTO;
 import site.ytcomment.popular.Service.DTO.DetailPageResponseServiceDTO;
 

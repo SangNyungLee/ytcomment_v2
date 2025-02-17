@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="site.ytcomment.popular.mapper.CardTrendingMapper">
+
+    <select id="getTrendingVideos" parameterType="site.ytcomment.popular.mapper.DTO.CardDbDTO$In" resultType="site.ytcomment.popular.mapper.DTO.CardDbDTO$Out">
+        SELECT T1.*, T2.* FROM channelinfo AS T1 LEFT JOIN (
+        SELECT *, ROW_NUMBER() OVER (PARTITION BY id ORDER BY likeCount DESC) AS row_num
+        FROM comment) AS T2 ON T1.id = T2.id AND (T2.row_num = 1 OR T2.row_num IS NULL)
+        <where>
+            <if test="newCategory != null and newCategory != 0">
+                AND T1.categoryId = #{newCategory}
+            </if>
+        </where>
+        LIMIT #{startIndex}, 12
+    </select>
+
+</mapper>

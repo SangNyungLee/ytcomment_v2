@@ -45,4 +45,5 @@ public class EmailController {
     public BaseResponse checkEmail(@RequestBody EmailCheckReqControllerDTO req) {
         return emailAuthCodeService.verifyAuthCode(req.getEmail(), req.getAuthNum());
     }
+
 }
