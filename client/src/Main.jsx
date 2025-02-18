@@ -17,18 +17,19 @@ export default function Main() {
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [page, setPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
-  const newCategory = useSelector((state) => state.category.category);
+  const categoryId = useSelector((state) => state.category.category);
+  const newPage = useSelector((s) => s.category.newPage);
 
   const handlePageChange = (page) => {
     setPage(page);
   };
 
-  const fetchVideos = async (page, newCategory) => {
+  const fetchVideos = async (page, categoryId) => {
     setLoading(true);
     try {
       const res = await axios.post("http://localhost:8080/api/trending", {
         page,
-        newCategory,
+        categoryId,
       });
       const newVideos = res.data;
       setVideos([...newVideos]);
@@ -41,15 +42,16 @@ export default function Main() {
   };
 
   useEffect(() => {
-    axios.get("http://localhost:8080/api/totalPage").then((res) => {
+    axios.post("http://localhost:8080/api/totalPage", {categoryId}).then((res) => {
       setTotalItems(res.data.totalPage);
+      setPage(1);
     });
-  }, []);
-
+  }, [categoryId]);
+  
   useEffect(() => {
     window.scrollTo(0, 0);
-    fetchVideos(page, newCategory);
-  }, [newCategory, page]);
+    fetchVideos(page, categoryId);
+  }, [categoryId, page]);
 
   return (
     <div className="text-center">
