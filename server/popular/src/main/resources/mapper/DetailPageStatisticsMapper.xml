@@ -2,8 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="site.ytcomment.popular.mapper.PageStatisticsMapper">
-    <select id="selectDetailPageStatistics" resultType="site.ytcomment.popular.Service.DTO.DetailPageStatisticsResServiceDTO">
+<mapper namespace="site.ytcomment.popular.mapper.DetailPageStatisticsMapper">
+    <select id="selectDetailPageStatistics" parameterType="site.ytcomment.popular.mapper.DTO.DetailPageStatisticsDbDTO$In"
+            resultType="site.ytcomment.popular.mapper.DTO.DetailPageStatisticsDbDTO$Out">
         select a.*, b.publishedAt from statistics as a join channelinfo as b on a.id = b.id where b.id = #{id};
     </select>
 </mapper>

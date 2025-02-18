@@ -6,6 +6,7 @@ import site.ytcomment.popular.Controller.DTO.*;
 import site.ytcomment.popular.Service.*;
 import site.ytcomment.popular.Service.DTO.CardServiceDTO;
 import site.ytcomment.popular.Service.DTO.DetailPageCommentServiceDTO;
+import site.ytcomment.popular.Service.DTO.DetailPageStatisticsServiceDTO;
 import site.ytcomment.popular.Service.DTO.TotalPageServiceDTO;
 
 import java.util.List;
@@ -50,6 +51,13 @@ public class YoutubeController {
         return TotalPageControllerDTO.Out.from(totalPage);
     }
 
+    // 영상을 눌렀을 때 나오는 상세페이지의 통계값을 가져오는 api
+    @PostMapping("/getPageStatistics")
+    public DetailPageStatisticsControllerDTO.Out getPageStatistics(@RequestBody DetailPageStatisticsControllerDTO.In in) {
+        DetailPageStatisticsServiceDTO.Out pageStatistics = detailPageStatisticsService.getPageStatistics(in.to());
+        return DetailPageStatisticsControllerDTO.Out.from(pageStatistics);
+    }
+
     @GetMapping("/getVideos")
     public String getVideos() {
         return youtubeGetvideoService.searchVideos();
@@ -57,8 +65,4 @@ public class YoutubeController {
 
 
 
-    @PostMapping("/getPageStatistics")
-    public DetailPageStatisticsResControllerDTO getPageStatistics(@RequestBody DetailPageStatisticsReqControllerDTO reqDTO) {
-        return detailPageStatisticsService.getPageStatistics(reqDTO);
-    }
 }

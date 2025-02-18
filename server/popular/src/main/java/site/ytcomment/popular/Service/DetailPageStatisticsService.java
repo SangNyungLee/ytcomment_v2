@@ -2,32 +2,18 @@ package site.ytcomment.popular.Service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import site.ytcomment.popular.Controller.DTO.DetailPageStatisticsReqControllerDTO;
-import site.ytcomment.popular.Controller.DTO.DetailPageStatisticsResControllerDTO;
-import site.ytcomment.popular.Service.DTO.DetailPageStatisticsReqServiceDTO;
-import site.ytcomment.popular.Service.DTO.DetailPageStatisticsResServiceDTO;
-import site.ytcomment.popular.mapper.PageStatisticsMapper;
+import site.ytcomment.popular.Service.DTO.DetailPageStatisticsServiceDTO;
+import site.ytcomment.popular.mapper.DTO.DetailPageStatisticsDbDTO;
+import site.ytcomment.popular.mapper.DetailPageStatisticsMapper;
 
 @Service
 @RequiredArgsConstructor
 public class DetailPageStatisticsService {
 
-    private final PageStatisticsMapper pageStatisticsMapper;
+    private final DetailPageStatisticsMapper detailPageStatisticsMapper;
 
-    public DetailPageStatisticsResControllerDTO getPageStatistics(DetailPageStatisticsReqControllerDTO reqDTO) {
-        DetailPageStatisticsReqServiceDTO reqServiceDTO = DetailPageStatisticsReqServiceDTO.builder()
-                .id(reqDTO.getId())
-                .build();
-        DetailPageStatisticsResServiceDTO resServiceDTO = pageStatisticsMapper.selectDetailPageStatistics(reqServiceDTO);
-
-        return DetailPageStatisticsResControllerDTO.builder()
-                .idx(resServiceDTO.getIdx())
-                .id(resServiceDTO.getId())
-                .channelViewCount(resServiceDTO.getChannelViewCount())
-                .channelFavoriteCount(resServiceDTO.getChannelFavoriteCount())
-                .channelCommentCount(resServiceDTO.getChannelCommentCount())
-                .channelLikeCount(resServiceDTO.getChannelLikeCount())
-                .publishedAt(resServiceDTO.getPublishedAt().toString())
-                .build();
+    public DetailPageStatisticsServiceDTO.Out getPageStatistics(DetailPageStatisticsServiceDTO.In in) {
+        DetailPageStatisticsDbDTO.Out serviceResult = detailPageStatisticsMapper.selectDetailPageStatistics(in.to());
+        return DetailPageStatisticsServiceDTO.Out.from(serviceResult);
     }
 }
