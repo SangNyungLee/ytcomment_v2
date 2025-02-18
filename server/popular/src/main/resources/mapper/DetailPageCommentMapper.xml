@@ -2,8 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="site.ytcomment.popular.mapper.PageCommentMapper">
-    <select id="selectComment" resultType="site.ytcomment.popular.Service.DTO.DetailPageResponseServiceDTO">
+<mapper namespace="site.ytcomment.popular.mapper.DetailPageCommentMapper">
+    <select id="selectDetailPageComment" parameterType="site.ytcomment.popular.mapper.DTO.DetailPageCommentDbDTO$In"
+            resultType="site.ytcomment.popular.mapper.DTO.DetailPageCommentDbDTO$Out">
         select * from comment where id = #{id};
     </select>
 </mapper>

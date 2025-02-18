@@ -24,7 +24,7 @@ import java.util.stream.StreamSupport;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class YoutubeGetVideoService implements GetVideoMapper {
+public class YoutubeGetVideoService{
 
     private final WebClient.Builder webClientBuilder;
     private final GetVideoMapper getVideoMapper;
@@ -35,12 +35,6 @@ public class YoutubeGetVideoService implements GetVideoMapper {
     @Value("${youtube.video.api.url}")
     private String apiUrl;
 
-    @Override
-    public void insertVideo(YoutubeChannelInfoDTO youtubeChannelInfoDTO) {
-    }
-    @Override
-    public void insertStatistics(YoutubeVideoStatisticsDTO youtubeVideoStatisticsDTO) {
-    }
 
     public String searchVideos() {
         List<Integer> categoryIds = List.of(0, 10, 15, 20);
@@ -63,6 +57,7 @@ public class YoutubeGetVideoService implements GetVideoMapper {
                     .block();
 
             try {
+                // TODO 2025.02.18 sanglee JsonNode 말고 ObjectMapper를 DTO로 받을 수 있는 방법 있음(아마도) 추후수정할 것
                 JsonNode data = new ObjectMapper().readTree(result);
                 List<String> videoIdList = new ArrayList<>();
                 /// JsonNode -> stream으로 변경하기 위해서 StreamSupport.stream함수 사용, spliterator는 stream짤라주는 함수임
