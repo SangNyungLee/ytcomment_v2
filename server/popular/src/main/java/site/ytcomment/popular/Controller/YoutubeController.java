@@ -6,6 +6,7 @@ import site.ytcomment.popular.Controller.DTO.*;
 import site.ytcomment.popular.Service.*;
 import site.ytcomment.popular.Service.DTO.CardServiceDTO;
 import site.ytcomment.popular.Service.DTO.DetailPageCommentServiceDTO;
+import site.ytcomment.popular.Service.DTO.TotalPageServiceDTO;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,10 +17,10 @@ import java.util.stream.Collectors;
 public class YoutubeController {
 
     private final YoutubeGetVideoService youtubeGetvideoService;
-    private final GetTotalPageService getTotalPageService;
     private final DetailPageCommentService detailPageCommentService;
     private final DetailPageStatisticsService detailPageStatisticsService;
     private final CardTrendingService cardTrendingService;
+    private final TotalPageService totalPageService;
 
     @PostMapping("/trending")
     public List<CardControllerDTO.Out> getTrendings(@RequestBody CardControllerDTO.In cardControllerDTOIn){
@@ -40,16 +41,20 @@ public class YoutubeController {
                 .collect(Collectors.toList());
     }
 
+    // 카테고리 별로 모든 영상 개수를 가져오는 api, 이 값을 가져와서 페이지네이션에 사용함
+    // categoryId가 0인 경우에는 Main화면에서 불러오는 경우 나머지는 카테고리(1, 10, 15, 20)를 눌러서 값을 가져와야됨
+    @PostMapping("/totalPage")
+    public TotalPageControllerDTO.Out getTotalPage(@RequestBody TotalPageControllerDTO.In totalPageDTOIn) {
+
+        TotalPageServiceDTO.Out totalPage = totalPageService.getTotalPage(totalPageDTOIn.to());
+        return TotalPageControllerDTO.Out.from(totalPage);
+    }
+
     @GetMapping("/getVideos")
     public String getVideos() {
         return youtubeGetvideoService.searchVideos();
     }
 
-    // 모든 영상 개수를 가져오는 api
-    @GetMapping("/totalPage")
-    public TotalPageResponseControllerDTO getTotalPage() {
-        return getTotalPageService.getTotalPage();
-    }
 
 
     @PostMapping("/getPageStatistics")

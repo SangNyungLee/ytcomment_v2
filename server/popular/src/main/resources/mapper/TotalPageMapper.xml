@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="site.ytcomment.popular.mapper.TotalPageMapper">
+    <select id="totalPage" parameterType="site.ytcomment.popular.mapper.DTO.TotalPageDbDTO$In"
+            resultType="site.ytcomment.popular.mapper.DTO.TotalPageDbDTO$Out">
+        SELECT COUNT(*) as totalPage FROM channelinfo
+         <where>
+             <if test="categoryId != 0">
+            categoryId=#{categoryId};
+             </if>
+         </where>
+    </select>
+</mapper>

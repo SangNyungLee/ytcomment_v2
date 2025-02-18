@@ -1,6 +1,9 @@
 package site.ytcomment.popular.Controller.DTO;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import site.ytcomment.popular.Service.DTO.CardServiceDTO;
 
 public class CardControllerDTO {
@@ -46,8 +49,8 @@ public class CardControllerDTO {
         private final int likeCount;
 
         // from 메서드를 사용해서 CardServiceDTO.Out을 CardControllerDTO.Out으로 바꾸는 from 메서드
-        public static Out from(CardServiceDTO.Out cardServiceDTO){
-            return Out.builder()
+        public static CardControllerDTO.Out from(CardServiceDTO.Out cardServiceDTO){
+            return CardControllerDTO.Out.builder()
                     .idx(cardServiceDTO.getIdx())
                     .id(cardServiceDTO.getId())
                     .thumbnails(cardServiceDTO.getThumbnails())
