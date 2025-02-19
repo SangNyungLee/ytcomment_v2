@@ -23,6 +23,10 @@ public class YoutubeController {
     private final CardTrendingService cardTrendingService;
     private final TotalPageService totalPageService;
 
+    /*
+    TODO 2025.02.19 sanglee GetMapping, PostMapping을 구분해서 사용해야 하는데 지금은 무분별하게 PostMapping을 남발하고 있음
+     이렇게 된다면 RESTful하지 못한 코드다. 추후 수정할 것
+    * */
     @PostMapping("/trending")
     public List<CardControllerDTO.Out> getTrendings(@RequestBody CardControllerDTO.In cardControllerDTOIn){
         // TODO 2025.02.17 sanglee 서비스 메서드명 수정하기

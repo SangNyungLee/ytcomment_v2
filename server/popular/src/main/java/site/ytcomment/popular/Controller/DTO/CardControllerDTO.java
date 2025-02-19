@@ -1,9 +1,6 @@
 package site.ytcomment.popular.Controller.DTO;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import site.ytcomment.popular.Service.DTO.CardServiceDTO;
 
 public class CardControllerDTO {
@@ -20,14 +17,14 @@ public class CardControllerDTO {
     @RequiredArgsConstructor
     public static class In{
         private final int page;
-        private final int newCategory;
+        private final int categoryId;
 
         // CardController.In을 CardService.In으로 바꿔주는 to 메서드
         public CardServiceDTO.In to(){
             return CardServiceDTO.In
                     .builder()
                     .page(this.page)
-                    .newCategory(this.newCategory)
+                    .categoryId(this.categoryId)
                     // 한 페이지당 12개씩 가져올거임, 근데 이거 여기에 써도 되나?
                     .startIndex((this.page - 1) * 12)
                     .build();

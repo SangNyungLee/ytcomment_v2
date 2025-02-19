@@ -11,13 +11,13 @@ public class CardServiceDTO {
     public static class In{
 
         private final int page;
-        private final int newCategory;
+        private final int categoryId;
         private final int startIndex;
 
         public CardDbDTO.In to(){
             return CardDbDTO.In.builder()
                     .page(this.page)
-                    .newCategory(this.newCategory)
+                    .categoryId(this.categoryId)
                     .startIndex(this.startIndex)
                     .build();
         }

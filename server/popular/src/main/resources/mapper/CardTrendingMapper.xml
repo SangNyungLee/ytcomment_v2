@@ -9,8 +9,8 @@
         SELECT *, ROW_NUMBER() OVER (PARTITION BY id ORDER BY likeCount DESC) AS row_num
         FROM comment) AS T2 ON T1.id = T2.id AND (T2.row_num = 1 OR T2.row_num IS NULL)
         <where>
-            <if test="newCategory != null and newCategory != 0">
-                AND T1.categoryId = #{newCategory}
+            <if test="categoryId != null and categoryId != 0">
+                AND T1.categoryId = #{categoryId}
             </if>
         </where>
         LIMIT #{startIndex}, 12

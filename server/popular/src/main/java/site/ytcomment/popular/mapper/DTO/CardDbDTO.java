@@ -11,7 +11,7 @@ public class CardDbDTO {
     @RequiredArgsConstructor
     public static class In{
         private final int page;
-        private final int newCategory;
+        private final int categoryId;
         private final int startIndex;
     }
 
