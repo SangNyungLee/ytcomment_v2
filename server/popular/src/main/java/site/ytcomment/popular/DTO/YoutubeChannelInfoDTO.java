@@ -2,11 +2,12 @@ package site.ytcomment.popular.DTO;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Builder
-@Data
+@Getter
 public class YoutubeChannelInfoDTO {
     private String id;
     private String channelTitle;
