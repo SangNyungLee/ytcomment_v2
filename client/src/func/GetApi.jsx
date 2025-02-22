@@ -6,7 +6,7 @@ const fetchComments = async (videoId, commentNumber, token) => {
       "https://www.googleapis.com/youtube/v3/commentThreads",
       {
         params: {
-          key: process.env.REACT_APP_APIKEY,
+          key: import.meta.env.process.VITE_APIKEY,
           part: "snippet",
           videoId: videoId,
           maxResults: commentNumber,
@@ -29,7 +29,7 @@ const getStatistics = async (videoId) => {
       "https://www.googleapis.com/youtube/v3/videos",
       {
         params: {
-          key: process.env.REACT_APP_APIKEY,
+          key: import.meta.env.process.VITE_APIKEY,
           part: "statistics",
           id: videoId,
         },
@@ -50,7 +50,7 @@ const searchYoutubeVideos = async (query, pageToken) => {
       "https://www.googleapis.com/youtube/v3/search",
       {
         params: {
-          key: process.env.REACT_APP_APIKEY,
+          key: import.meta.env.process.VITE_APIKEY,
           type: "video",
           part: "snippet",
           q: query, //query가 검색부분임

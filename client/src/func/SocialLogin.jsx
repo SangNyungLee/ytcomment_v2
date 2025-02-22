@@ -5,11 +5,11 @@ import { getCookie } from "./GetApi";
 import "../css/KakaoButton.css";
 const SocialKaKao = () => {
   // 기존 React 환경변수는 process.env로 시작했는데 vite에서는 import.meta.로 시작하면 됨
-  const kakaoClientId = import.meta.REACT_APP_KAKAO_JAVASCRIPT_KEY;
+  const kakaoClientId = import.meta.env.VITE_KAKAO_JAVASCRIPT_KEY;
   const kakaoOnSuccess = async (data) => {
-    console.log(data);
+    console.log("데이터 받아온 값 : ", data);
     const idToken = data.response.access_token; // 엑세스 토큰 백엔드로 전달
-    const result = await axios.post("http://localhost:8000/api/auth/kakao", {
+    const result = await axios.post("http://localhost:8080/auth/kakao", {
       Token: idToken,
     });
     getCookie("token", result.data.token);
