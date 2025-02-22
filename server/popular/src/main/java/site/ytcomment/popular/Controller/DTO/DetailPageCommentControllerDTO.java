@@ -37,14 +37,13 @@ public class DetailPageCommentControllerDTO {
 
         public static Out from(DetailPageCommentServiceDTO.Out detailPageCommentServiceDTO){
             return Out.builder()
-                    .idx(detailPageCommentServiceDTO.getIdx())
-                    .id(detailPageCommentServiceDTO.getId())
-                    .likeCount(detailPageCommentServiceDTO.getLikeCount())
-                    .textOriginal(detailPageCommentServiceDTO.getTextOriginal())
-                    .authorDisplayName(detailPageCommentServiceDTO.getAuthorDisplayName())
-                    .authorProfileImageUrl(detailPageCommentServiceDTO.getAuthorProfileImageUrl())
-                    .authorDisplayName(detailPageCommentServiceDTO.getAuthorDisplayName())
-                    .publishedAt(detailPageCommentServiceDTO.getPublishedAt())
+                    .idx(detailPageCommentServiceDTO.idx())
+                    .id(detailPageCommentServiceDTO.id())
+                    .likeCount(detailPageCommentServiceDTO.likeCount())
+                    .textOriginal(detailPageCommentServiceDTO.textOriginal())
+                    .authorDisplayName(detailPageCommentServiceDTO.authorDisplayName())
+                    .authorProfileImageUrl(detailPageCommentServiceDTO.authorProfileImageUrl())
+                    .publishedAt(detailPageCommentServiceDTO.publishedAt())
                     .build();
         }
 

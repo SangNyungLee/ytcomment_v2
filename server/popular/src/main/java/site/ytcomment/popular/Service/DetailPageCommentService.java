@@ -17,7 +17,7 @@ public class DetailPageCommentService {
     private final DetailPageCommentMapper detailPageCommentMapper;
 
     public List<DetailPageCommentServiceDTO.Out> detailPageComment(DetailPageCommentServiceDTO.In detailPageCommentServiceDTOIn) {
-        List<DetailPageCommentDbDTO.Out> serviceResult = detailPageCommentMapper.selectDetailPageComment(detailPageCommentServiceDTOIn.to());
+        List<DetailPageCommentDbDTO.Out> serviceResult = detailPageCommentMapper.selectDetailPageComment(detailPageCommentServiceDTOIn.to(detailPageCommentServiceDTOIn.id()));
 
         return serviceResult.stream()
                 .map(DetailPageCommentServiceDTO.Out::from)

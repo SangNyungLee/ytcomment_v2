@@ -7,32 +7,19 @@ import site.ytcomment.popular.mapper.DTO.DetailPageCommentDbDTO;
 
 public class DetailPageCommentServiceDTO {
 
-    @Getter
     @Builder
-    @RequiredArgsConstructor
-    public static class In{
+    public record In(String id){
 
-        private final String id;
-
-        public DetailPageCommentDbDTO.In to(){
+        public DetailPageCommentDbDTO.In to(String id){
             return DetailPageCommentDbDTO.In.builder()
-                    .id(this.id)
+                    .id(id)
                     .build();
         }
     }
-
-    @Getter
+    
     @Builder
-    @RequiredArgsConstructor
-    public static class Out{
-
-        private final int idx;
-        private final String id;
-        private final int likeCount;
-        private final String textOriginal;
-        private final String authorDisplayName;
-        private final String authorProfileImageUrl;
-        private final String publishedAt;
+    public record Out(int idx, String id, int likeCount, String textOriginal, String authorDisplayName,
+                             String authorProfileImageUrl, String publishedAt){
 
         // DbDTO -> Service로 변환하는 메서드
         public static Out from(DetailPageCommentDbDTO.Out detailPageDbDTOOut){
