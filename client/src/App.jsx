@@ -13,6 +13,7 @@ import SearchPage from "./SearchPage";
 import Sidebar from "./SideBar";
 import Signup from "./Signup";
 import SignupForm from "./SignupForm";
+import KakaoRedirectHandler from "./func/KakaoRedirectHandler";
 function App() {
   // 초기 상태를 window.innerWidth로 설정
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -47,6 +48,7 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/signupForm" element={<SignupForm />} />
             <Route path="/searchPage" element={<SearchPage />} />
+            <Route path="/redirectPage" element={<KakaoRedirectHandler/>}/>
           </Routes>
         </div>
       </BrowserRouter>
