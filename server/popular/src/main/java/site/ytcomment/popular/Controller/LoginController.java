@@ -2,8 +2,8 @@ package site.ytcomment.popular.Controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import site.ytcomment.popular.Controller.DTO.KakaoLoginTestDTO;
-import site.ytcomment.popular.Service.DTO.KakaoTokenResponseServiceDTO;
+import site.ytcomment.popular.Controller.DTO.KakaoGetTokenControllerDTO;
+import site.ytcomment.popular.Service.DTO.KakaoGetTokenServiceDTO;
 import site.ytcomment.popular.Service.KakaoGetTokenService;
 import site.ytcomment.popular.Service.KakaoLoginService;
 
@@ -15,12 +15,12 @@ public class LoginController {
     private final KakaoLoginService kakaoLoginService;
     private final KakaoGetTokenService kakaoGetTokenService;
     @PostMapping("/kakao")
-    public String kakaoLogin(@RequestBody KakaoLoginTestDTO kakaoLoginTestDTO) {
-        System.out.println("받아온 토큰 값 : " + kakaoLoginTestDTO.getCode());
-        KakaoTokenResponseServiceDTO result = kakaoGetTokenService.GetToken(kakaoLoginTestDTO.getCode());
+    public String kakaoLogin(@RequestBody KakaoGetTokenControllerDTO.In in) {
+        KakaoGetTokenServiceDTO.Out result = kakaoGetTokenService.getToken(in.to());
         System.out.println("token : " + result.getAccess_token());
         System.out.println("refresh_token : " + result.getRefresh_token());
         System.out.println("id_token : " + result.getId_token());
+        // GetTokenControllerDTO 써야 되는데 어디다 쓰지 ?
         return "success";
     }
 

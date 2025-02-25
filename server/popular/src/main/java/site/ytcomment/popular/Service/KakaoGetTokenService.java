@@ -7,11 +7,10 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.reactive.function.BodyInserter;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
-import site.ytcomment.popular.Service.DTO.KakaoTokenResponseServiceDTO;
+import site.ytcomment.popular.Service.DTO.KakaoGetTokenServiceDTO;
 
 @Service
 @RequiredArgsConstructor
@@ -25,13 +24,12 @@ public class KakaoGetTokenService {
     @Value("${kakao.redirect.url}")
     private String redirect_uri;
 
-    public KakaoTokenResponseServiceDTO GetToken(String code) {
-        System.out.println(code);
+    public KakaoGetTokenServiceDTO.Out getToken(KakaoGetTokenServiceDTO.In in) {
         MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
         formData.add("grant_type", "authorization_code");
         formData.add("client_id", client_id);
         formData.add("redirect_uri", redirect_uri);
-        formData.add("code", code);
+        formData.add("code", in.getCode());
 
         //"Content-Type", "application/x-www-form-urlencoded;charset=utf-8"
         try {
@@ -42,7 +40,7 @@ public class KakaoGetTokenService {
                     .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                     .body(BodyInserters.fromFormData(formData))
                     .retrieve()
-                    .bodyToMono(KakaoTokenResponseServiceDTO.class)
+                    .bodyToMono(KakaoGetTokenServiceDTO.Out.class)
                     .block();
         } catch (WebClientResponseException e){
             log.error("카카오 토큰 요청 실패. status: {}, Response : {} ", e.getStatusCode(), e.getResponseBodyAsString());

@@ -1,6 +1,9 @@
 package site.ytcomment.popular.Controller.DTO;
 
 import lombok.Builder;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import site.ytcomment.popular.Service.DTO.KakaoLoginServiceDTO;
 
 public record KakaoLoginControllerDTO(String token) {
 //    private final String token;
@@ -17,9 +20,26 @@ public record KakaoLoginControllerDTO(String token) {
 //    }
     @Builder
     public record In(String token){
-        public KakaoLoginControllerDTO.In to(String token){
+        public KakaoLoginControllerDTO.In to(String code){
             return In.builder()
-                    .token(token)
+                    .token(code)
+                    .build();
+        }
+    }
+
+    @Getter
+    @Builder
+    @RequiredArgsConstructor
+    public static class Out{
+        private final String access_token;
+        private final String refresh_token;
+        private final String id_token;
+
+        public static KakaoLoginControllerDTO.Out from(KakaoLoginServiceDTO.Out kakaoLoginServiceDTOOut){
+            return Out.builder()
+                    .access_token(kakaoLoginServiceDTOOut.getAccess_token())
+                    .refresh_token(kakaoLoginServiceDTOOut.getRefresh_token())
+                    .id_token(kakaoLoginServiceDTOOut.getId_token())
                     .build();
         }
     }
