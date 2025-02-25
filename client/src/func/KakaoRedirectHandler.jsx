@@ -13,7 +13,7 @@ const KakaoRedirectHandler = () => {
             try {
                 const urlParams = new URLSearchParams(window.location.search);
                 const code = urlParams.get("code");
-                console.log("code : ", code);
+                console.log("코드값:",code);
                 if (!code)
                     throw new Error("인가 코드가 없습니다.");
                 
@@ -37,7 +37,7 @@ const KakaoRedirectHandler = () => {
             }
         }
         handleKakaoLogin(); // 비동기로 실행
-    }, [navigate])
+    }, [])
 
     return <p>로그인 중 ...</p>;
 }
