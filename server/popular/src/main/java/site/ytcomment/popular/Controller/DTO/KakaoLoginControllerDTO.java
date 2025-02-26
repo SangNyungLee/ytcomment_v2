@@ -18,6 +18,7 @@ public record KakaoLoginControllerDTO(String token) {
 //    public KakaoLoginControllerDTO(@JsonProperty("Token") String token) {
 //        this.token = token;
 //    }
+
     @Builder
     public record In(String token){
         public KakaoLoginControllerDTO.In to(String code){
