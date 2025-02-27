@@ -28,14 +28,14 @@ public class KakaoGetTokenControllerDTO {
     @RequiredArgsConstructor
     public static class Out{
 
-        private final String token;
+        private final String access_token;
         private final String refresh_token;
         private final String id_token;
 
         public static KakaoGetTokenControllerDTO.Out from(KakaoGetTokenServiceDTO.Out kakaoGetTokenServiceDTOOut){
             return KakaoGetTokenControllerDTO.Out
                     .builder()
-                    .id_token(kakaoGetTokenServiceDTOOut.getId_token())
+                    .access_token(kakaoGetTokenServiceDTOOut.getAccess_token())
                     .refresh_token(kakaoGetTokenServiceDTOOut.getRefresh_token())
                     .id_token(kakaoGetTokenServiceDTOOut.getId_token())
                     .build();
