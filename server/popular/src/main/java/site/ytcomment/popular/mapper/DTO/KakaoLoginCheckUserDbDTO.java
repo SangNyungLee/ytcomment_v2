@@ -10,7 +10,18 @@ public class KakaoLoginCheckUserDbDTO {
     @Builder
     @RequiredArgsConstructor
     public static class In{
-        private final String KakaoId;
-        private final String KakaoNickname;
+        private final String kakaoId;
+        private final String kakaoNickname;
+    }
+
+    @Getter
+    @Builder
+    @RequiredArgsConstructor
+    public static class Out{
+        private final String idx;
+        private final String id;
+        private final String userName;
+        private final String userPw;
+        private final String social;
     }
 }

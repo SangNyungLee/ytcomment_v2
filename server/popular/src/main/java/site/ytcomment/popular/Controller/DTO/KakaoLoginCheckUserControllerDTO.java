@@ -12,13 +12,13 @@ public class KakaoLoginCheckUserControllerDTO {
     @RequiredArgsConstructor
     public static class In{
 
-        private final String KakaoId;
-        private final String KakaoNickname;
+        private final String kakaoId;
+        private final String kakaoNickname;
 
         public KakaoLoginCheckUserServiceDTO.In to(){
             return KakaoLoginCheckUserServiceDTO.In.builder()
-                    .KakaoId(this.KakaoId)
-                    .KakaoNickname(this.KakaoNickname)
+                    .kakaoId(this.kakaoId)
+                    .kakaoNickname(this.kakaoNickname)
                     .build();
         }
     }

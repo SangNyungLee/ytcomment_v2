@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="site.ytcomment.popular.mapper.KakaoLoginCheckUserMapper">
+
+    <select id="findByKakaoUser" parameterType="site.ytcomment.popular.mapper.DTO.KakaoLoginCheckUserDbDTO$In" resultType="site.ytcomment.popular.mapper.DTO.KakaoLoginCheckUserDbDTO$Out">
+        SELECT * from userinfo where id = #{kakaoId}
+    </select>
+
+    <insert id="insertKakaoUser" parameterType="site.ytcomment.popular.mapper.DTO.KakaoLoginCheckUserDbDTO$In">
+        INSERT INTO userinfo (id, userName, social) values (#{kakaoId}, #{kakaoNickname}, "kakao");
+    </insert>
+</mapper>
