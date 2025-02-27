@@ -3,14 +3,13 @@ package site.ytcomment.popular.Controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import site.ytcomment.popular.Controller.DTO.EmailVerifyAuthControllerDTO;
+import org.springframework.web.bind.annotation.*;
+import site.ytcomment.popular.Controller.DTO.EmailDupControllerDTO;
 import site.ytcomment.popular.Controller.DTO.EmailSendControllerDTO;
+import site.ytcomment.popular.Controller.DTO.EmailVerifyAuthControllerDTO;
 import site.ytcomment.popular.Service.EmailAuthCodeService;
 import site.ytcomment.popular.Service.EmailAuthService;
+import site.ytcomment.popular.Service.EmailDupCheckService;
 import site.ytcomment.popular.common.BaseResponse;
 
 @RestController
@@ -21,6 +20,15 @@ public class EmailController {
 
     private final EmailAuthService emailAuthService;
     private final EmailAuthCodeService emailAuthCodeService;
+    private final EmailDupCheckService emailDupCheckService;
+
+    // 이메일 중복확인
+    @GetMapping("/check-email")
+    public String EmailDupCheck(@RequestParam(name = "email") EmailDupControllerDTO.In in){
+        String result = emailDupCheckService.checkEmailDup(in.to());
+        System.out.println("이메일 중복확인 결과 : " + result);
+        return result;
+    }
 
     @PostMapping("/send")
     @Operation(summary = "이메일 전송")
