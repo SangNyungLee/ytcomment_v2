@@ -1,8 +1,9 @@
-package site.ytcomment.popular.Service.DTO;
+package site.ytcomment.popular.Controller.DTO;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import site.ytcomment.popular.Service.DTO.KakaoLoginCheckUserServiceDTO;
 
 public class KakaoLoginCheckUserControllerDTO {
 
