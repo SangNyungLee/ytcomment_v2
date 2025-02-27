@@ -39,7 +39,6 @@ public class LoginController {
                 .kakaoNickname(userInfoResult.getKakaoNickname())
                 .build();
         String checkUserResult = kakaoLoginCheckUserService.findByUser(userInfo.to());
-        System.out.println("결과 값 : " + checkUserResult);
         return "success";
     }
 

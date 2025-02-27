@@ -24,7 +24,6 @@ public class KakaoLoginGetUserInfoService {
                 .retrieve()
                 .bodyToMono(String.class)
                 .block();
-        System.out.println("사용자 정보 받아온 값 : " + result);
         try {
             JsonNode data = new ObjectMapper().readTree(result);
             return KakaoLoginGetUserInfoServiceDTO.Out
