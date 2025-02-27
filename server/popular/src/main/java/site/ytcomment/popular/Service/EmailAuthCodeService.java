@@ -3,6 +3,7 @@ package site.ytcomment.popular.Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
+import site.ytcomment.popular.Service.DTO.EmailVerifyAuthServiceDTO;
 import site.ytcomment.popular.common.BaseResponse;
 import site.ytcomment.popular.config.RedisConfig;
 
@@ -20,6 +21,7 @@ public class EmailAuthCodeService {
     // 랜덤 인증번호 생성
     public String generateAuthCode() {
         StringBuilder sb = new StringBuilder();
+        // 랜덤한 6자리의 값으로 인증코드 생성
         for(int i = 0 ; i < 6 ; i++){
             sb.append(random.nextInt(10));
         }
@@ -33,10 +35,10 @@ public class EmailAuthCodeService {
     }
 
     // 인증 코드 검증
-    public BaseResponse verifyAuthCode(String email, String authCode) {
+    public BaseResponse verifyAuthCode(EmailVerifyAuthServiceDTO.In in) {
         ValueOperations<String, String> valueOperations = redisConfig.redisTemplate().opsForValue();
-        String storedCode = valueOperations.get(email);
-        if (Objects.equals(storedCode, authCode)) {
+        String storedCode = valueOperations.get(in.getEmail());
+        if (Objects.equals(storedCode, in.getAuthNum())) {
             return BaseResponse.success("인증 성공");
         }else {
             return BaseResponse.fail(400,"인증 실패");

@@ -7,12 +7,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import site.ytcomment.popular.Controller.DTO.EmailCheckReqControllerDTO;
-import site.ytcomment.popular.Controller.DTO.EmailSendReqControllerDTO;
+import site.ytcomment.popular.Controller.DTO.EmailVerifyAuthControllerDTO;
+import site.ytcomment.popular.Controller.DTO.EmailSendControllerDTO;
 import site.ytcomment.popular.Service.EmailAuthCodeService;
 import site.ytcomment.popular.Service.EmailAuthService;
-import site.ytcomment.popular.Service.EmailSenderService;
-import site.ytcomment.popular.Service.EmailService;
 import site.ytcomment.popular.common.BaseResponse;
 
 @RestController
@@ -21,29 +19,20 @@ import site.ytcomment.popular.common.BaseResponse;
 @Tag(name = "이메일", description = "이메일 API")
 public class EmailController {
 
-    private final EmailService emailService;
     private final EmailAuthService emailAuthService;
     private final EmailAuthCodeService emailAuthCodeService;
-    private final EmailSenderService emailSenderService;
 
     @PostMapping("/send")
     @Operation(summary = "이메일 전송")
-//    public BaseResponse sendEmail(@RequestBody EmailSendReqControllerDTO request) {
-//        emailService.joinEmail(request.getEmail());
-//        return BaseResponse.success("이메일 전송 성공");
-//    }
-    public BaseResponse sendEmail(@RequestBody EmailSendReqControllerDTO req) {
-        emailAuthService.requestEmailAuth(req.getEmail());
+    public BaseResponse sendEmail(@RequestBody EmailSendControllerDTO.In req) {
+        emailAuthService.requestEmailAuth(req.to());
         return BaseResponse.success("이메일 전송 성공");
     }
 
     @PostMapping("/check")
     @Operation(summary = "이메일 인증")
-//    public BaseResponse checkEmail(@RequestBody EmailCheckReqControllerDTO request) {
-//        return emailService.checkAuthNumber(request.getEmail(), request.getAuthNum());
-//    }
-    public BaseResponse checkEmail(@RequestBody EmailCheckReqControllerDTO req) {
-        return emailAuthCodeService.verifyAuthCode(req.getEmail(), req.getAuthNum());
+    public BaseResponse checkEmail(@RequestBody EmailVerifyAuthControllerDTO.In in) {
+        return emailAuthCodeService.verifyAuthCode(in.to());
     }
 
 }

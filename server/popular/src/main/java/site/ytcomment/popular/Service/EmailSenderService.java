@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-import site.ytcomment.popular.Service.DTO.EmailCheckReqServiceDTO;
+import site.ytcomment.popular.Service.DTO.EmailCheckServiceDTO;
 
 @Service
 @RequiredArgsConstructor
@@ -19,14 +19,14 @@ public class EmailSenderService {
     private String serviceName;
 
     // 이메일 전송기능
-    public void sendEmail(EmailCheckReqServiceDTO emailCheckReqServiceDTO) {
+    public void sendEmail(EmailCheckServiceDTO.In in) {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         try{
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
             helper.setFrom(serviceName);
-            helper.setTo(emailCheckReqServiceDTO.getToMail());
-            helper.setSubject(emailCheckReqServiceDTO.getTitle());
-            helper.setText(emailCheckReqServiceDTO.getContent(), true);
+            helper.setTo(in.getToMail());
+            helper.setSubject(in.getTitle());
+            helper.setText(in.getContent(), true);
             javaMailSender.send(mimeMessage);
         } catch(MessagingException e){
             e.printStackTrace(); // 로깅 추가하면 좋음

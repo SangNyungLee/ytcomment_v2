@@ -8,7 +8,7 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-import site.ytcomment.popular.Service.DTO.EmailCheckReqServiceDTO;
+import site.ytcomment.popular.Service.DTO.EmailCheckServiceDTO;
 import site.ytcomment.popular.common.BaseResponse;
 import site.ytcomment.popular.config.RedisConfig;
 
@@ -39,14 +39,14 @@ public class EmailService {
     }
 
     // 이메일 전송
-    public void mailSend(EmailCheckReqServiceDTO emailCheckReqServiceDTO){
+    public void mailSend(EmailCheckServiceDTO.In emailCheckServiceDTO){
         MimeMessage message = javaMailSender.createMimeMessage();
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
-            helper.setFrom(emailCheckReqServiceDTO.getSetForm()); // 서비스 이름
-            helper.setTo(emailCheckReqServiceDTO.getToMail()); // Client 이메일 주소
-            helper.setSubject(emailCheckReqServiceDTO.getTitle()); // 이메일 제목
-            helper.setText(emailCheckReqServiceDTO.getContent(), true); // content, html : true
+            helper.setFrom(emailCheckServiceDTO.getSetForm()); // 서비스 이름
+            helper.setTo(emailCheckServiceDTO.getToMail()); // Client 이메일 주소
+            helper.setSubject(emailCheckServiceDTO.getTitle()); // 이메일 제목
+            helper.setText(emailCheckServiceDTO.getContent(), true); // content, html : true
             javaMailSender.send(message);
         } catch (MessagingException e) {
             e.printStackTrace(); // 에러 출력
@@ -54,13 +54,13 @@ public class EmailService {
 
         // Redis에 3분 동안 이메일과 인증 코드 저장
         ValueOperations<String, String> valueOperations = redisConfig.redisTemplate().opsForValue();
-        valueOperations.set(emailCheckReqServiceDTO.getToMail(), Integer.toString(authNumber), 180, TimeUnit.SECONDS);
+        valueOperations.set(emailCheckServiceDTO.getToMail(), Integer.toString(authNumber), 180, TimeUnit.SECONDS);
     }
 
     // 이메일 작성
     public String joinEmail(String email){
         makeRandomNum();
-        EmailCheckReqServiceDTO emailCheckReqServiceDTO = EmailCheckReqServiceDTO.builder()
+        EmailCheckServiceDTO.In emailCheckServiceDTO = EmailCheckServiceDTO.In.builder()
                 .setForm(serviceName)
                 .toMail(email)
                 .title("회원 가입을 위한 이메일 입니다.")
@@ -70,7 +70,7 @@ public class EmailService {
                         "<br>" +
                         "회원 가입 폼에 해당하는 번호를 입력해주세요.")
                 .build();
-        mailSend(emailCheckReqServiceDTO);
+        mailSend(emailCheckServiceDTO);
         return Integer.toString(authNumber);
     }
 
