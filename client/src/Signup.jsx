@@ -9,7 +9,7 @@ function Signup() {
   const [userId, setUserId] = useState("");
   const [userPw, setUserPw] = useState("");
   const getLogin = async () => {
-    const result = await axios.post("http://localhost:8000/api/login", {
+    const result = await axios.post("http://localhost:8080/api/auth/login", {
       userId,
       userPw,
     });
