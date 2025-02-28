@@ -24,7 +24,6 @@ repositories {
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.4")
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
@@ -34,7 +33,9 @@ dependencies {
 	implementation ("org.springframework.boot:spring-boot-starter-data-redis")
 	//swagger
 	implementation ("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
+	implementation("org.springframework.boot:spring-boot-starter-security")
 	testImplementation("io.projectreactor:reactor-test")
+	testImplementation("org.springframework.security:spring-security-test")
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
@@ -47,6 +48,9 @@ dependencies {
 	testImplementation ("org.mockito:mockito-core:4.5.1")
 	testImplementation ("org.mockito:mockito-junit-jupiter:4.5.1")
 	testImplementation ("org.assertj:assertj-core:3.22.0")
+	// validation 오류
+	implementation ("org.springframework.boot:spring-boot-starter-validation")
+
 
 }
 

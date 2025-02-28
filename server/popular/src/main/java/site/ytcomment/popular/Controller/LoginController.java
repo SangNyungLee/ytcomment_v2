@@ -12,7 +12,7 @@ import site.ytcomment.popular.Service.KakaoLoginService;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 public class LoginController {
 
     private final KakaoLoginService kakaoLoginService;

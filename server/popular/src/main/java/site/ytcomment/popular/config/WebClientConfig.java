@@ -17,13 +17,14 @@ public class WebClientConfig implements WebMvcConfigurer {
         return WebClient.builder();
     }
 
-    // CORS 설정
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedOrigins("http://localhost:5173")
-                .allowedHeaders("*")
-                .allowCredentials(true)
-                .maxAge(3600);
-    }
+    // CORS 설정 -> spring Security에서 설정해서 지워줘도 됨
+    // 만약에 spring security없으면 이거 설정해줘야되고
+//    @Override
+//    public void addCorsMappings(CorsRegistry registry) {
+//        registry.addMapping("/**")
+//                .allowedOrigins("http://localhost:5173")
+//                .allowedHeaders("*")
+//                .allowCredentials(true)
+//                .maxAge(3600);
+//    }
 }
