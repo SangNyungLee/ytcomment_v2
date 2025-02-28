@@ -18,7 +18,7 @@ const KakaoRedirectHandler = () => {
                     throw new Error("인가 코드가 없습니다.");
                 
                 if(!isProcessed){
-                    const response = await axios.post("http://localhost:8080/auth/kakao", {code});
+                    const response = await axios.post("http://localhost:8080/api/auth/kakao", {code});
                     console.log("여기까지 들어옴?")
                     if (response == "success")
                         console.log("로그인 성공");

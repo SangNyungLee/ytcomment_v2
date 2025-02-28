@@ -4,11 +4,11 @@ import "./css/SignupForm.css";
 function SignupForm() {
   const [userEmail, setUserEmail] = useState("");
   const [userEmailCheck, setUserEmailCheck] = useState(false);
+  const [userId, setUserId] = useState("");
   const [userPw, setUserPw] = useState("");
   const [userPwCheck, setUserPwCheck] = useState("");
   const [userName, setUserName] = useState("");
   const [isPasswordMatch, setIsPasswordMatch] = useState(false);
-
   const PasswordCheck = (e) => {
     const { value } = e.target;
     setUserPwCheck(value);
@@ -18,18 +18,19 @@ function SignupForm() {
   const checkUserEmail = async () => {
     try {
       const response = await axios
-        .post("http://localhost:8000/api/checkUserEmail", {
-          userEmail: userEmail,
-        })
+        .get("http://localhost:8080/api/email/check-email",
+          {params : {email : userEmail}}
+        )
         .then((res) => {
-          if (res.data == "success") {
+          if (res.data === "success") {
             // 가입가능한 이메일이면
             alert("가입가능한 이메일입니다.");
             setUserEmailCheck(true);
           } else {
             alert("중복된 이메일 입니다.");
             setUserEmailCheck(false);
-            setUserEmail(""); // 중복된 이메일이면 input창 비워주기
+            // 중복된 이메일이면 input창 비워주기
+            setUserEmail(""); 
           }
         });
     } catch (error) {
@@ -40,14 +41,17 @@ function SignupForm() {
     if (isPasswordMatch) {
       try {
         const response = await axios.post(
-          "http://localhost:8000/api/userSignup",
+          "http://localhost:8080/api/email/email-signup",
           {
+            userId,
             userEmail,
             userPw,
             userName,
+            social : "Email",
           }
         );
-        if (response.data == "success") {
+        console.log("결과", response);
+        if (response.data === "success") {
           alert("회원가입이 완료되었습니다.!!");
           window.location.href = "/";
         } else {
@@ -96,6 +100,10 @@ function SignupForm() {
             {userEmailCheck ? (
               <span className="userEmailTag">가입가능한 이메일입니다.</span>
             ) : null}
+            <input type="text" className="userId" value={userId} onChange={(e) => setUserId(e.target.value)} 
+              placeholder="아이디"
+            />
+
             <input
               type="password"
               className="userPw"

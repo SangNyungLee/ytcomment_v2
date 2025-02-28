@@ -24,7 +24,7 @@ const SocialKaKao = () => {
 
   const initiateKakaoLogin = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/auth/kakaoReq");
+      const response = await axios.get("http://localhost:8080/api/auth/kakaoReq");
       console.log("response 값", response);
       // TODO 2025.02.23 sanglee 새로운 창말고 팝업창으로 띄우기
       window.location.href = response.data;
