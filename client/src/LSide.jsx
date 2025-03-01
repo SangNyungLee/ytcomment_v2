@@ -20,7 +20,7 @@ export default function Lside() {
   };
   //로그인 하는 함수
   const getLogin = async () => {
-    const result = await axios.post("http://localhost:8000/api/login", {
+    const result = await axios.post("http://localhost:8080/api/auth/login", {
       userId,
       userPw,
     });
