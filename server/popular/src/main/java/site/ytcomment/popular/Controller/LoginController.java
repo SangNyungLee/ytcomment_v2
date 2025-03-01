@@ -8,7 +8,7 @@ import site.ytcomment.popular.Controller.DTO.KakaoLoginGetUserInfoControllerDTO;
 import site.ytcomment.popular.Controller.DTO.KakaoGetTokenControllerDTO;
 import site.ytcomment.popular.Controller.DTO.LoginAuthControllerDTO;
 import site.ytcomment.popular.Service.*;
-import site.ytcomment.popular.Service.DTO.LoginAuthServiceDTO;
+import site.ytcomment.popular.common.Enum.ResponseCode;
 
 @RestController
 @RequiredArgsConstructor
