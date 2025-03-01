@@ -40,8 +40,7 @@ public class LoginController {
                 .kakaoId(userInfoResult.getKakaoId())
                 .kakaoNickname(userInfoResult.getKakaoNickname())
                 .build();
-        String checkUserResult = kakaoLoginCheckUserService.findByUser(userInfo.to());
-        return "success";
+        return kakaoLoginCheckUserService.findByUser(userInfo.to());
     }
 
     // 카카오에 인가코드 요청받는 uri 반환하는 controller
@@ -54,6 +53,7 @@ public class LoginController {
     public ResponseEntity<String> login(@RequestBody LoginAuthControllerDTO.In in){
         ResponseEntity<String> result = loginAuthService.getUserPw(in.to());
         System.out.println("결과값" + result);
+        // 로그인이 성공하면 서버 자체 토큰 발급해서 로그인 유지하는 로직 작성해야될듯
         return result;
     }
 
