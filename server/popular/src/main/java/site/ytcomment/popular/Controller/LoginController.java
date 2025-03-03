@@ -3,12 +3,11 @@ package site.ytcomment.popular.Controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import site.ytcomment.popular.Controller.DTO.KakaoGetTokenControllerDTO;
 import site.ytcomment.popular.Controller.DTO.KakaoLoginCheckUserControllerDTO;
 import site.ytcomment.popular.Controller.DTO.KakaoLoginGetUserInfoControllerDTO;
-import site.ytcomment.popular.Controller.DTO.KakaoGetTokenControllerDTO;
 import site.ytcomment.popular.Controller.DTO.LoginAuthControllerDTO;
 import site.ytcomment.popular.Service.*;
-import site.ytcomment.popular.common.Enum.ResponseCode;
 
 @RestController
 @RequiredArgsConstructor
@@ -16,7 +15,7 @@ import site.ytcomment.popular.common.Enum.ResponseCode;
 public class LoginController {
 
     private final KakaoLoginService kakaoLoginService;
-    private final KakaoGetTokenService kakaoGetTokenService;
+    private final TokenService tokenService;
     private final KakaoLoginGetUserInfoService kakaoLoginGetUserInfoService;
     private final KakaoLoginCheckUserService kakaoLoginCheckUserService;
     private final LoginAuthService loginAuthService;
@@ -24,7 +23,7 @@ public class LoginController {
     @PostMapping("/kakao")
     public String kakaoLogin(@RequestBody KakaoGetTokenControllerDTO.In in) {
         // 카카오에서 쿼리스트링에 준 인가코드로 토큰, 리프레쉬 토큰 요청 받는 controller
-        KakaoGetTokenControllerDTO.Out result = KakaoGetTokenControllerDTO.Out.from(kakaoGetTokenService.getToken(in.to()));
+        KakaoGetTokenControllerDTO.Out result = KakaoGetTokenControllerDTO.Out.from(tokenService.getToken(in.to()));
 
         // 받아온 access_token으로 사용자의 정보를 받아옴
         KakaoLoginGetUserInfoControllerDTO.In loginToken = KakaoLoginGetUserInfoControllerDTO.In.builder()

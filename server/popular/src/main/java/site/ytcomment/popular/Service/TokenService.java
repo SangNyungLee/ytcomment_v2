@@ -15,7 +15,7 @@ import site.ytcomment.popular.Service.DTO.KakaoGetTokenServiceDTO;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class KakaoGetTokenService {
+public class TokenService {
 
     private final WebClient.Builder webclientBuilder;
 
