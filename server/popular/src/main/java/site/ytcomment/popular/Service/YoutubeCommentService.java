@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import site.ytcomment.popular.DTO.YoutubeVideoCommentDTO;
+import site.ytcomment.popular.common.Enum.ResponseCode;
 import site.ytcomment.popular.mapper.CommentMapper;
 
 import java.time.LocalDateTime;
@@ -89,7 +90,7 @@ public class YoutubeCommentService implements CommentMapper {
         } catch (Exception e){
             log.warn(e.getMessage());
         }
-        return "success";
+        return ResponseCode.성공.getCode();
     }
 
 }

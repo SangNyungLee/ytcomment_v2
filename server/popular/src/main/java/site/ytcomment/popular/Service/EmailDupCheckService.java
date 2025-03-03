@@ -3,6 +3,7 @@ package site.ytcomment.popular.Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import site.ytcomment.popular.Service.DTO.EmailDupServiceDTO;
+import site.ytcomment.popular.common.Enum.ResponseCode;
 import site.ytcomment.popular.mapper.EmailDupCheckMapper;
 
 @Service
@@ -17,10 +18,10 @@ public class EmailDupCheckService {
         Integer result = emailDupCheckMapper.findByEmail(in.to());
         // count로 이메일 개수 세서 중복확인을 했는데 이게 좋은 방법인지는 잘 모르겠음
         if (result.equals(1)) {
-            return "fail";
+            return ResponseCode.실패.getCode();
         }
         else{
-            return "success";
+            return ResponseCode.성공.getCode();
         }
     }
 }

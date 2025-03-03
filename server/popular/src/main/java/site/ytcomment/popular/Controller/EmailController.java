@@ -27,15 +27,15 @@ public class EmailController {
     private final EmailSignUpService emailSignUpService;
     // 이메일 중복확인
     @GetMapping("/check-email")
-    public String EmailDupCheck(@RequestParam(name = "email") EmailDupControllerDTO.In in){
-        return emailDupCheckService.checkEmailDup(in.to());
+    public ResponseEntity<String> EmailDupCheck(@RequestParam(name = "email") EmailDupControllerDTO.In in){
+        String result = emailDupCheckService.checkEmailDup(in.to());
+        return ResponseEntity.ok(result);
     }
     // 이메일 중복확인 후 가입
     @PostMapping("/email-signup")
     public ResponseEntity<String> EmailSignUp(@RequestBody EmailSignUpControllerDTO.In in){
         String result = emailSignUpService.SignUpUser(in.to());
-        System.out.println("가입결과? " + result);
-        return ResponseEntity.ok("success");
+        return ResponseEntity.ok(result);
     }
 
     @PostMapping("/send")

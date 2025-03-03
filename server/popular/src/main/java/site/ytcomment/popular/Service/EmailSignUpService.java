@@ -2,9 +2,9 @@ package site.ytcomment.popular.Service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import site.ytcomment.popular.Enum.SocialEnum;
 import site.ytcomment.popular.Service.DTO.EmailSignUpServiceDTO;
 import site.ytcomment.popular.Util.BcryptUtil;
+import site.ytcomment.popular.common.Enum.ResponseCode;
 import site.ytcomment.popular.mapper.EmailSignUpMapper;
 
 @Service
@@ -29,6 +29,6 @@ public class EmailSignUpService {
 //                    case 카카오 -> "";
 //                    default -> "";
 //                };
-        return "success";
+        return ResponseCode.성공.getCode();
     }
 }
