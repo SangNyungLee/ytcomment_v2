@@ -50,6 +50,10 @@ dependencies {
 	testImplementation ("org.assertj:assertj-core:3.22.0")
 	// validation 오류
 	implementation ("org.springframework.boot:spring-boot-starter-validation")
+	//jwt 의존성
+	implementation ("io.jsonwebtoken:jjwt-api:0.11.5") // JWT 생성을 위한 기본 api
+	runtimeOnly ("io.jsonwebtoken:jjwt-impl:0.11.5") // jwt 처리에 필요한 구현체
+	runtimeOnly ("io.jsonwebtoken:jjwt-jackson:0.11.5") // JSON 처리 라이브러리
 
 
 }
