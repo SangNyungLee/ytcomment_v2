@@ -14,6 +14,9 @@ import Sidebar from "./SideBar";
 import Signup from "./Signup";
 import SignupForm from "./SignupForm";
 import KakaoRedirectHandler from "./func/KakaoRedirectHandler";
+import ChannelScrapingPage from "./scrap/ChannelScrapingPage";
+import VideoScrapingPage from "./scrap/VideoScrapingPage";
+
 function App() {
   // 초기 상태를 window.innerWidth로 설정
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -49,6 +52,8 @@ function App() {
             <Route path="/signupForm" element={<SignupForm />} />
             <Route path="/searchPage" element={<SearchPage />} />
             <Route path="/redirectPage" element={<KakaoRedirectHandler/>}/>
+            <Route path="/scrapChannel" element={<ChannelScrapingPage/>}/>
+            <Route path="/scrapVideo" element={<VideoScrapingPage/>}/>
           </Routes>
         </div>
       </BrowserRouter>

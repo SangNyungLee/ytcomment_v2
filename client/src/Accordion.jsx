@@ -3,7 +3,10 @@ import Accordion from "react-bootstrap/Accordion";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/Accordion.css";
 import { BsStar, BsSearch, BsChatRight, BsTrophy } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
+
 function AccordionFlush() {
+  const navigate = useNavigate();
   return (
     <Accordion className="accordion">
       <Accordion.Item eventKey="0">
@@ -12,8 +15,8 @@ function AccordionFlush() {
           유튜브 스크랩
         </Accordion.Header>
         <Accordion.Body>
-          <li>MY 채널 스크랩</li>
-          <li>MY 영상 스크랩</li>
+          <li onClick={() => navigate("/scrapChannel")}>MY 채널 스크랩</li>
+          <li onClick={() => navigate("/scrapVideo")}>MY 영상 스크랩</li>
         </Accordion.Body>
       </Accordion.Item>
       {/* 
