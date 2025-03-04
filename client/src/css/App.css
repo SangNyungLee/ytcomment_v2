@@ -34,6 +34,10 @@ body {
 .autoSign {
   color: white;
 }
+.text-center{
+  padding-top: 60px;
+  padding-left: 20px;
+}
 @media (max-width: 991px) {
   .myContainer {
     /* margin: 0% 3% 0% 3%; */
