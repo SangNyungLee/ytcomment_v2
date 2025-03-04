@@ -52,8 +52,8 @@ function App() {
             <Route path="/signupForm" element={<SignupForm />} />
             <Route path="/searchPage" element={<SearchPage />} />
             <Route path="/redirectPage" element={<KakaoRedirectHandler/>}/>
-            <Route path="/scrapChannel" element={<ChannelScrapingPage/>}/>
-            <Route path="/scrapVideo" element={<VideoScrapingPage/>}/>
+            <Route path="/scrapChannel" element={<ChannelScrapingPage scrapId ="myChannel"/>}/>
+            <Route path="/scrapVideo" element={<VideoScrapingPage scrapId = "myVideo" />}/>
           </Routes>
         </div>
       </BrowserRouter>
