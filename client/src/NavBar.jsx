@@ -20,25 +20,29 @@ function NavBar() {
     if (e.key === "Enter") {
       searchYoutubeVideos(youtubeSearch, " ");
       navigate("/search", { state: { data: youtubeSearch } });
-      SetYoutubeSearch("");
+      setYoutubeSearch("");
     }
   };
-  const NEW = () => {
-    dispatch(changeCategory.recent());
+  // const NEW = () => {
+  //   dispatch(changeCategory.recent());
+  //   navigate("/");
+  // };
+  // const MUSIC = () => {
+  //   dispatch(changeCategory.music());
+  //   navigate("/");
+  // };
+  // const GAME = () => {
+  //   dispatch(changeCategory.game());
+  //   navigate("/");
+  // };
+  // const ANIMAL = () => {
+  //   dispatch(changeCategory.animal());
+  //   navigate("/");
+  // };
+  const navigateToCategory = (category) => {
+    dispatch(changeCategory[category]());
     navigate("/");
-  };
-  const MUSIC = () => {
-    dispatch(changeCategory.music());
-    navigate("/");
-  };
-  const GAME = () => {
-    dispatch(changeCategory.game());
-    navigate("/");
-  };
-  const ANIMAL = () => {
-    dispatch(changeCategory.animal());
-    navigate("/");
-  };
+  }
 
   return (
     <div>
@@ -52,16 +56,16 @@ function NavBar() {
         ></Navbar.Toggle>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto navFlex">
-            <Nav.Link onClick={NEW} className="navborder">
+            <Nav.Link onClick={() => navigateToCategory("recent")} className="navborder">
               최신
             </Nav.Link>
-            <Nav.Link onClick={MUSIC} className="navborder">
+            <Nav.Link onClick={() => navigateToCategory("music")} className="navborder">
               음악
             </Nav.Link>
-            <Nav.Link onClick={GAME} className="navborder">
+            <Nav.Link onClick={() => navigateToCategory("game")} className="navborder">
               게임
             </Nav.Link>
-            <Nav.Link onClick={ANIMAL} className="navborder">
+            <Nav.Link onClick={() => navigateToCategory("animal")} className="navborder">
               동물
             </Nav.Link>
           </Nav>
@@ -86,6 +90,7 @@ function NavBar() {
           </Nav> */}
           <Nav className="mr-auto">
             <input
+              className="searchInput"
               type="text"
               placeholder={`검색어입력`}
               value={youtubeSearch}

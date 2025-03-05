@@ -1,0 +1,117 @@
+.scrap-content {
+    padding: 20px;
+  }
+  
+  .scrap-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .scrap-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+  }
+  
+  .scrap-card {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .scrap-card:hover {
+    transform: scale(1.02);
+  }
+  
+  /* Skeleton UI 스타일 */
+  .skeleton {
+    background: linear-gradient(90deg, #e0e0e0 25%, #f5f5f5 50%, #e0e0e0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    border-radius: 6px;
+  }
+  
+  .skeleton-thumbnail {
+    width: 100%;
+    height: 150px;
+  }
+  
+  .skeleton-text {
+    height: 14px;
+    width: 80%;
+    margin: 10px;
+  }
+  
+  .skeleton-text.short {
+    width: 60%;
+  }
+  
+  .skeleton-icon {
+    width: 24px;
+    height: 24px;
+    margin: 8px;
+  }
+  
+  /* Skeleton UI 애니메이션 */
+  @keyframes loading {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+  
+  /* 카드 컨텐츠 스타일 */
+  .scrap-thumbnail {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+  }
+  
+  .scrap-info {
+    padding: 10px;
+  }
+  
+  .scrap-category {
+    font-size: 12px;
+    color: #007bff;
+    margin-bottom: 5px;
+  }
+  
+  .scrap-meta {
+    font-size: 12px;
+    color: gray;
+  }
+  
+  /* 아이콘 버튼 스타일 */
+  .scrap-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+  }
+  
+  .icon-btn {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .icon-btn .icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+  }
+  
+  .icon-btn:hover {
+    color: #007bff;
+  }
+  
