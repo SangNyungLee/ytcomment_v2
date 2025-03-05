@@ -1,22 +1,26 @@
 .bg-light {
   background-color: white !important;
 }
+
 .navbar-brand {
   margin-left: 10px;
 }
+
 .navbar-collapse {
-  /* display: flex; */
   text-align: center;
   justify-content: space-evenly;
 }
+
 .navUnderline {
   border: 1px solid rgb(223, 223, 223);
   margin-bottom: 10px;
 }
+
 .navbar-toggler {
   border: 0px;
   color: white;
 }
+
 .mainNavBar {
   position: fixed;
   width: 100%;
@@ -27,43 +31,115 @@
 .navFlex {
   justify-content: space-between;
 }
-/* 줄어들었을 때 할거 */
-/* 991보다 작아졌을 때 반응형임 */
+
+/*  검색창 스타일 개선 */
+.searchContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/*  검색창 박스 */
+.searchBox {
+  display: flex;
+  align-items: center;
+  background: #f1f1f1;
+  border-radius: 18px;
+  padding: 5px 12px;
+  position: relative;
+  width: 240px;
+}
+
+/*  입력창 스타일 */
+.searchInput {
+  width: 100%;
+  height: 20px;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+  padding: 5px 12px;
+}
+
+/*  검색 아이콘 */
+.searchIcons {
+  position: absolute;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  padding-bottom: 26px;
+  padding-right: 20px;
+  color: gray;
+  cursor: pointer;
+}
+
+.searchIcons:hover {
+  color: black;
+}
+
+/*  유저 아이콘 */
+.userIcon {
+  width: 24px;
+  height: 24px;
+  color: gray;
+  cursor: pointer;
+}
+
+.userIcon:hover {
+  color: black;
+}
+
+.navborder {
+  font-size: 15px; /* 기존보다 살짝 줄여서 깔끔하게 */
+  font-weight: 600; /* 텍스트 굵기 조정 */
+  color: #333; /* 기본 색상 */
+  padding: 8px 12px; /* 클릭하기 편하도록 패딩 추가 */
+  border-radius: 4px; /* 부드러운 디자인 */
+  transition: all 0.3s ease-in-out; /* 부드러운 애니메이션 */
+}
+
+.navborder:hover {
+  color: #007bff; /* 파란색 강조 */
+  /* background-color: rgba(0, 123, 255, 0.1); 연한 파란 배경 추가 */
+  transform: scale(1.05); /* 약간 확대 효과 */
+}
+
+/* 반응형 디자인 */
 @media (max-width: 991px) {
   .navborder {
     border-bottom: 1px solid rgb(223, 223, 223);
   }
+  
   .goHome {
     margin-left: 30px;
   }
+
   .mainNavBar {
     position: fixed;
     width: 100%;
     z-index: 98;
     border-bottom: 1px solid rgb(224, 224, 224);
   }
+
   .mr-auto {
     display: none;
   }
+
+  /* 작은 화면에서 검색창 크기 조정 */
+  .searchBox {
+    width: 100%;
+    max-width: 250px;
+  }
 }
+
 .ml-auto > a {
   margin-left: 30px;
 }
+
 .mr-auto {
   margin-right: 60px;
 }
+
 .navFlex .nav-item .nav-link.active {
   color: red; /* 원하는 색상으로 변경하세요 */
-  /* 다른 스타일도 여기에 추가할 수 있습니다 */
-}
-.searchIcons {
-  margin-top: 4px;
-  margin-left: 10px;
-  margin-bottom: 6px;
-  font-size: 20px;
-}
-
-.searchInput{
-  margin-top: 8px;
-  height: 30px;
 }

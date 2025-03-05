@@ -1,21 +1,17 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { data, Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { User, Search, House } from "lucide-react";
 import "./css/NavBar.css";
 import { changeCategory } from "./store";
 import { searchYoutubeVideos } from "./func/GetApi";
-import {
-  BsFillHouseDoorFill,
-  BsFillPersonFill,
-  BsSearch,
-} from "react-icons/bs";
 
 function NavBar() {
   const [youtubeSearch, setYoutubeSearch] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const handleKeyDown = async (e) => {
     if (e.key === "Enter") {
       searchYoutubeVideos(youtubeSearch, " ");
@@ -23,37 +19,19 @@ function NavBar() {
       setYoutubeSearch("");
     }
   };
-  // const NEW = () => {
-  //   dispatch(changeCategory.recent());
-  //   navigate("/");
-  // };
-  // const MUSIC = () => {
-  //   dispatch(changeCategory.music());
-  //   navigate("/");
-  // };
-  // const GAME = () => {
-  //   dispatch(changeCategory.game());
-  //   navigate("/");
-  // };
-  // const ANIMAL = () => {
-  //   dispatch(changeCategory.animal());
-  //   navigate("/");
-  // };
+
   const navigateToCategory = (category) => {
     dispatch(changeCategory[category]());
     navigate("/");
-  }
+  };
 
   return (
     <div>
       <Navbar bg="light" expand="lg" className="mainNavBar">
         <Navbar.Brand href="/">
-          <BsFillHouseDoorFill className="goHome" />
+          <House className="goHome" />
         </Navbar.Brand>
-        <Navbar.Toggle
-          aria-controls="basic-navbar-nav"
-          className="order-0"
-        ></Navbar.Toggle>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" className="order-0" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto navFlex">
             <Nav.Link onClick={() => navigateToCategory("recent")} className="navborder">
@@ -69,43 +47,24 @@ function NavBar() {
               동물
             </Nav.Link>
           </Nav>
-          {/* <Nav className="mr-auto">
-            <Nav.Link>
+
+          {/*  검색창 디자인 개선 */}
+          <Nav className="mr-auto searchContainer">
+            <div className="searchBox">
               <input
+                className="searchInput"
                 type="text"
-                placeholder={`검색어입력`}
+                placeholder="검색어 입력"
                 value={youtubeSearch}
                 onChange={(e) => setYoutubeSearch(e.target.value)}
                 onKeyDown={handleKeyDown}
               />
-              <span>
-                <Link to={"/search"} state={{ data: youtubeSearch }}>
-                  <BsSearch className="searchIcons" />
-                </Link>
-              </span>
-            </Nav.Link>
+              <Link to={"/search"} state={{ data: youtubeSearch }} className="searchIcons">
+                <Search size={20}/>
+              </Link>
+            </div>
             <Nav.Link>
-              <BsFillPersonFill style={{ fontSize: "30px" }} />
-            </Nav.Link>
-          </Nav> */}
-          <Nav className="mr-auto">
-            <input
-              className="searchInput"
-              type="text"
-              placeholder={`검색어입력`}
-              value={youtubeSearch}
-              onChange={(e) => setYoutubeSearch(e.target.value)}
-              onKeyDown={handleKeyDown}
-            />
-            <Link
-              to={"/search"}
-              state={{ data: youtubeSearch }}
-              className="nav-link"
-            >
-              <BsSearch className="searchIcons" />
-            </Link>
-            <Nav.Link>
-              <BsFillPersonFill style={{ fontSize: "30px" }} />
+              <User className="userIcon" />
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

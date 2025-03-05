@@ -60,7 +60,7 @@ export default function VideoScrapingPage ({scrapId}) {
 					  </p>
 					</div>
 	
-					{/* ✅ 좋아요, 댓글, 공유, 스크랩 아이콘 추가 */}
+					{/* 좋아요, 댓글, 공유, 스크랩 아이콘*/}
 					<div className="scrap-footer">
 					  <button className="icon-btn">
 						<ThumbsUp className="icon" />
