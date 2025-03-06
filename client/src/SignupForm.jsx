@@ -3,6 +3,7 @@ import axios from "axios";
 import "./css/SignupForm.css";
 function SignupForm() {
   const [userEmail, setUserEmail] = useState("");
+  const [userIdCheck, setUserIdCheck] = useState(false);
   const [userEmailCheck, setUserEmailCheck] = useState(false);
   const [userId, setUserId] = useState("");
   const [userPw, setUserPw] = useState("");
@@ -22,7 +23,7 @@ function SignupForm() {
           {params : {email : userEmail}}
         )
         .then((res) => {
-          if (res.data === "success") {
+          if (res.data === 0) {
             // 가입가능한 이메일이면
             alert("가입가능한 이메일입니다.");
             setUserEmailCheck(true);
@@ -37,6 +38,20 @@ function SignupForm() {
       console.error("에러", error);
     }
   };
+
+  const checkUserId = async () => {
+    try {
+      const result = await axios.get("http://localhost:8080/api/email/check-id", {params : {id : userId}})
+      if (result.data === 0){
+        alert("가입 가능한 아이디 입니다.");
+        setUserIdCheck(true);
+      }
+      else
+        alert("중복된 아이디 입니다.");
+    } catch (error) {
+      console.error("에러", error);
+    }
+  }
   const handleSignup = async () => {
     if (isPasswordMatch) {
       try {
@@ -51,7 +66,7 @@ function SignupForm() {
           }
         );
         console.log("결과", response);
-        if (response.data === "success") {
+        if (response.data === 0) {
           alert("회원가입이 완료되었습니다.!!");
           window.location.href = "/";
         } else {
@@ -94,16 +109,25 @@ function SignupForm() {
                 }}
                 onClick={checkUserEmail}
               >
-                중복확인
+                이메일 중복확인
               </button>
-            </div>
+            </div >
             {userEmailCheck ? (
-              <span className="userEmailTag">가입가능한 이메일입니다.</span>
+              <span className="userEmailTag">가입 가능한 이메일 입니다.</span>
             ) : null}
+            <div style={{ marginBottom: userIdCheck ? "0px" : "10px" }}>
             <input type="text" className="userId" value={userId} onChange={(e) => setUserId(e.target.value)} 
               placeholder="아이디"
             />
-
+                <button type="button" className="btn" 
+                style={{ color: "white", backgroundColor: "#d53535", marginLeft: "0.5rem",}}
+                onClick={checkUserId}>
+                아이디 중복확인
+              </button>
+            </div>
+            {userIdCheck ? (
+              <span className="userEmailTag">가입 가능한 아이디 입니다.</span>
+            ) : null}
             <input
               type="password"
               className="userPw"
