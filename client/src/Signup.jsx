@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./css/Signup.css";
 import { getCookie } from "./func/GetApi";
 import SocialKaKao from "./func/SocialLogin";
@@ -13,15 +13,20 @@ function Signup() {
       userId,
       userPw,
     });
-    if (result.data === "fail") {
+    if (result.data === 1) {
       alert("아이디와 비밀번호를 확인해주세요");
       setUserId("");
       setUserPw("");
-    } else {
+    } else if (result.data === 2){
+      alert("이메일 인증 후 사용가능합니다.");
+      useNavigate("/emailAuthPage");
+    }
+    else {
       getCookie("token", result.data.token);
       sessionStorage.setItem("userName", result.data.user.username);
       alert("로그인에 성공하셨습니다.!");
     }
+    
   };
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {

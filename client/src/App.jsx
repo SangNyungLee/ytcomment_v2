@@ -16,6 +16,7 @@ import SignupForm from "./SignupForm";
 import KakaoRedirectHandler from "./func/KakaoRedirectHandler";
 import ChannelScrapingPage from "./scrap/ChannelScrapingPage";
 import VideoScrapingPage from "./scrap/VideoScrapingPage";
+import EmailAuthForm from "./EmailAuthForm";
 
 function App() {
   // 초기 상태를 window.innerWidth로 설정
@@ -54,6 +55,7 @@ function App() {
             <Route path="/redirectPage" element={<KakaoRedirectHandler/>}/>
             <Route path="/scrapChannel" element={<ChannelScrapingPage scrapId ="myChannel"/>}/>
             <Route path="/scrapVideo" element={<VideoScrapingPage scrapId = "myVideo" />}/>
+            <Route path="/emailAuthPage" element ={<EmailAuthForm />}/>
           </Routes>
         </div>
       </BrowserRouter>
