@@ -9,6 +9,6 @@
     </select>
 
     <insert id="insertKakaoUser" parameterType="site.ytcomment.popular.mapper.DTO.KakaoLoginCheckUserDbDTO$In">
-        INSERT INTO userinfo (id, userName, social) values (#{kakaoId}, #{kakaoNickname}, "kakao");
+        INSERT INTO userinfo (id, userName, social, auth) values (#{kakaoId}, #{kakaoNickname}, "kakao", 1);
     </insert>
 </mapper>

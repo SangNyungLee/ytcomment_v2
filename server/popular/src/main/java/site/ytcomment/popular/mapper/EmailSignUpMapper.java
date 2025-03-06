@@ -1,5 +1,6 @@
 package site.ytcomment.popular.mapper;
 
+import jakarta.validation.constraints.Email;
 import org.apache.ibatis.annotations.Mapper;
 import site.ytcomment.popular.mapper.DTO.EmailSignUpDbDTO;
 

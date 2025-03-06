@@ -16,6 +16,7 @@ public class EmailDupCheckService {
     // 이러한 이유 때문에 재사용을 못해서 서비스를 또 새로 만들었음
     public String checkEmailDup(EmailDupServiceDTO.In in) {
         Integer result = emailDupCheckMapper.findByEmail(in.to());
+        System.out.println("이메일 중복확인값 " + result);
         // count로 이메일 개수 세서 중복확인을 했는데 이게 좋은 방법인지는 잘 모르겠음
         if (result.equals(1)) {
             return ResponseCode.실패.getCode();

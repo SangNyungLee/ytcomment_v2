@@ -18,5 +18,6 @@ public class LoginAuthDbDTO {
     @RequiredArgsConstructor
     public static class Out{
         private final String userPw;
+        private final String userAuth;
     }
 }
