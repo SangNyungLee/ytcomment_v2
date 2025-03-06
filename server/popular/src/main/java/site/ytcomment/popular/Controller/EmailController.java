@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import site.ytcomment.popular.Controller.DTO.*;
 import site.ytcomment.popular.Service.*;
+import site.ytcomment.popular.Service.DTO.ChangeEmailAuthServiceDTO;
 import site.ytcomment.popular.common.BaseResponse;
 import site.ytcomment.popular.common.Enum.ResponseCode;
 
@@ -21,6 +22,7 @@ public class EmailController {
     private final EmailDupCheckService emailDupCheckService;
     private final EmailSignUpService emailSignUpService;
     private final EmailIdDupCheckService emailIdDupCheckService;
+    private final CheckEmailAuthService checkEmailAuthService;
     // 이메일 중복확인
     @GetMapping("/check-email")
     public ResponseEntity<String> EmailDupCheck(@RequestParam(name = "email") EmailDupControllerDTO.In in){
@@ -56,7 +58,15 @@ public class EmailController {
     @Operation(summary = "이메일 인증")
     public BaseResponse checkEmail(@RequestBody EmailVerifyAuthControllerDTO.In in) {
         BaseResponse result = emailAuthCodeService.verifyAuthCode(in.to());
-        System.out.println(result);
+        System.out.println("!!" + result.getStatusCode());
+        // 0 : 성공, 1 : 실패
+        if (result.getMessage().equals(0)){
+            //성공햇을 때 그 아이디의 auth를 true로 바꾸기
+            ChangeEmailAuthControllerDTO.In authDTO = ChangeEmailAuthControllerDTO.In.builder()
+                    .email(in.getEmail()).build();
+            checkEmailAuthService.updateUserAuth(authDTO.to());
+        }
+        System.out.println("?? " + result.getMessage());
         return result;
     }
 
