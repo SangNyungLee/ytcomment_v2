@@ -5,6 +5,7 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import site.ytcomment.popular.Service.DTO.EmailVerifyAuthServiceDTO;
 import site.ytcomment.popular.common.BaseResponse;
+import site.ytcomment.popular.common.Enum.ResponseCode;
 import site.ytcomment.popular.config.RedisConfig;
 
 import java.util.Objects;
@@ -39,9 +40,9 @@ public class EmailAuthCodeService {
         ValueOperations<String, String> valueOperations = redisConfig.redisTemplate().opsForValue();
         String storedCode = valueOperations.get(in.getEmail());
         if (Objects.equals(storedCode, in.getAuthNum())) {
-            return BaseResponse.success("인증 성공");
+            return BaseResponse.success(ResponseCode.성공.getCode());
         }else {
-            return BaseResponse.fail(400,"인증 실패");
+            return BaseResponse.fail(400,ResponseCode.실패.getCode());
         }
     }
 }

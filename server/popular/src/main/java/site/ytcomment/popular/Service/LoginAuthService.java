@@ -23,10 +23,10 @@ public class LoginAuthService {
         boolean matchesResult = BcryptUtil.matchesPassword(in.getUserPw(), dbResult.getUserPw());
         System.out.println("비밀번호 비교 결과값 " + matchesResult);
         System.out.println("이메일 인증되었나? " + dbResult.getUserAuth());
-        if (matchesResult){
-            return ResponseCode.실패.getCode();
+        if (matchesResult && dbResult.getUserAuth().equals(0)){
+            return ResponseCode.인증없음.getCode();
         }else{
-            return ResponseCode.성공.getCode();
+            return ResponseCode.실패.getCode();
         }
     }
 }

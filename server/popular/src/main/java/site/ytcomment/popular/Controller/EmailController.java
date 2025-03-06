@@ -48,13 +48,16 @@ public class EmailController {
     @Operation(summary = "이메일 전송")
     public BaseResponse sendEmail(@RequestBody EmailSendControllerDTO.In req) {
         String result = emailAuthService.requestEmailAuth(req.to());
+        System.out.println("이메일 보내기");
         return BaseResponse.success("이메일 전송 성공");
     }
 
     @PostMapping("/check")
     @Operation(summary = "이메일 인증")
     public BaseResponse checkEmail(@RequestBody EmailVerifyAuthControllerDTO.In in) {
-        return emailAuthCodeService.verifyAuthCode(in.to());
+        BaseResponse result = emailAuthCodeService.verifyAuthCode(in.to());
+        System.out.println(result);
+        return result;
     }
 
 }

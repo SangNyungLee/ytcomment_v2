@@ -7,7 +7,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum ResponseCode {
     성공("0"),
-    실패("1");
+    실패("1"),
+    인증없음("2");
 
     private final String code;
 }

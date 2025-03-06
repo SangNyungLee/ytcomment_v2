@@ -8,6 +8,7 @@ import site.ytcomment.popular.Controller.DTO.KakaoLoginCheckUserControllerDTO;
 import site.ytcomment.popular.Controller.DTO.KakaoLoginGetUserInfoControllerDTO;
 import site.ytcomment.popular.Controller.DTO.LoginAuthControllerDTO;
 import site.ytcomment.popular.Service.*;
+import site.ytcomment.popular.common.Enum.ResponseCode;
 
 @RestController
 @RequiredArgsConstructor
@@ -53,8 +54,13 @@ public class LoginController {
     public ResponseEntity<String> login(@RequestBody LoginAuthControllerDTO.In in){
         String result = loginAuthService.getUserPw(in.to());
         System.out.println("결과값" + result);
+        if (result.equals(ResponseCode.인증없음.getCode()))
+            return ResponseEntity.ok(ResponseCode.인증없음.getCode());
         // 로그인이 성공하면 서버 자체 토큰 발급해서 로그인 유지하는 로직 작성해야될듯
-        return ResponseEntity.ok(result);
+        else if (result.equals(ResponseCode.실패.getCode()))
+            return ResponseEntity.ok(ResponseCode.실패.getCode());
+        else
+            return ResponseEntity.ok(ResponseCode.성공.getCode());
     }
 
 }

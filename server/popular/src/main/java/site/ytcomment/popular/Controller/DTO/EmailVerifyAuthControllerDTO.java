@@ -2,6 +2,7 @@ package site.ytcomment.popular.Controller.DTO;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import site.ytcomment.popular.Service.DTO.EmailVerifyAuthServiceDTO;
 
@@ -9,6 +10,7 @@ public class EmailVerifyAuthControllerDTO {
 
     @Getter
     @Builder
+    @NoArgsConstructor(force = true)
     @RequiredArgsConstructor
     public static class In {
         private final String email;
