@@ -20,7 +20,7 @@ public class LoginController {
     private final KakaoLoginGetUserInfoService kakaoLoginGetUserInfoService;
     private final KakaoLoginCheckUserService kakaoLoginCheckUserService;
     private final LoginAuthService loginAuthService;
-
+    
     @PostMapping("/kakao")
     public ResponseEntity<String> kakaoLogin(@RequestBody KakaoGetTokenControllerDTO.In in) {
         // 카카오에서 쿼리스트링에 준 인가코드로 토큰, 리프레쉬 토큰 요청 받는 controller
