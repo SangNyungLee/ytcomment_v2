@@ -88,7 +88,7 @@ export default function Page() {
       <header>
         <h3 className="headTitle">
           {/* <span>[{recData.categoryId}]</span> */}
-          <span className="chaennelTitle">{recData.title}</span>
+          <div className="chaennelTitle">{recData.title}</div>
         </h3>
       </header>
       <section>
