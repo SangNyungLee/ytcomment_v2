@@ -1,7 +1,6 @@
 package site.ytcomment.popular.Service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import site.ytcomment.popular.Service.DTO.LoginAuthServiceDTO;
 import site.ytcomment.popular.Util.BcryptUtil;
@@ -20,13 +19,23 @@ public class LoginAuthService {
         1. 클라이언트 비밀번호 암호화 후 서버에 있는 비밀번호 가져와서 서로 비교
          */
         LoginAuthDbDTO.Out dbResult = loginAuthMapper.selectUserPw(in.to());
+        if (dbResult == null){
+            return ResponseCode.실패.getCode();
+        }
         boolean matchesResult = BcryptUtil.matchesPassword(in.getUserPw(), dbResult.getUserPw());
-        System.out.println("비밀번호 비교 결과값 " + matchesResult);
-        System.out.println("이메일 인증되었나? " + dbResult.getUserAuth());
-        if (matchesResult && dbResult.getUserAuth().equals(0)){
-            return ResponseCode.인증없음.getCode();
-        }else{
+
+        if (matchesResult){
+            if (dbResult.getUserAuth().equals(0)){
+                return ResponseCode.인증없음.getCode();
+            } else {
+                return ResponseCode.성공.getCode();
+            }
+        } else {
             return ResponseCode.실패.getCode();
         }
     }
+        // 이메일로 사용자 ID 가져오기
+        public String getUserEmailById(String userId){
+            return loginAuthMapper.selectUserEmailById(userId);
+        }
 }

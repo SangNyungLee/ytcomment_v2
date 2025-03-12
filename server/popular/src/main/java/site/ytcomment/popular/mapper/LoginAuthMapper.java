@@ -6,4 +6,5 @@ import site.ytcomment.popular.mapper.DTO.LoginAuthDbDTO;
 @Mapper
 public interface LoginAuthMapper {
      LoginAuthDbDTO.Out selectUserPw(LoginAuthDbDTO.In in);
+     String selectUserEmailById(String userId);
 }

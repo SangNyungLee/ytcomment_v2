@@ -8,4 +8,8 @@
             resultType="site.ytcomment.popular.mapper.DTO.LoginAuthDbDTO$Out">
             SELECT userPw, auth from userinfo where id = #{userId}
     </select>
+
+    <select id="selectUserEmailById" parameterType="String" resultType="String">
+        SELECT userEmail FROM userinfo WHERE id = #{userId}
+    </select>
 </mapper>
