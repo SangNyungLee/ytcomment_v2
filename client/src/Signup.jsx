@@ -15,9 +15,10 @@ function Signup() {
         userPw,
       });
       if(result.status === 200) {
-        getCookie("token", result.data.token);
-        sessionStorage.setItem("userName", result.data.user.username);
+        console.log(result);
         alert("로그인에 성공하셨습니다.!");
+        sessionStorage.setItem("userName", result.data.userId);
+        getCookie("token", result.data.token);
       }
     } catch (error) {
       if (error.status == 401) {
