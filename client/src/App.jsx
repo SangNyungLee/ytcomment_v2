@@ -17,6 +17,7 @@ import KakaoRedirectHandler from "./func/KakaoRedirectHandler";
 import ChannelScrapingPage from "./scrap/ChannelScrapingPage";
 import VideoScrapingPage from "./scrap/VideoScrapingPage";
 import EmailAuthForm from "./EmailAuthForm";
+import ScrollToTop from "./func/ScrollToTop";
 
 function App() {
   // 초기 상태를 window.innerWidth로 설정
@@ -38,6 +39,7 @@ function App() {
   return (
     <div className="myContainer">
       <BrowserRouter>
+      <ScrollToTop/>
         <div>
           {windowWidth > 991 && <Lside />}
           {windowWidth <= 991 && <Sidebar />}
