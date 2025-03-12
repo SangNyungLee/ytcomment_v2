@@ -9,24 +9,26 @@ function Signup() {
   const [userId, setUserId] = useState("");
   const [userPw, setUserPw] = useState("");
   const getLogin = async () => {
-    const result = await axios.post("http://localhost:8080/api/auth/login", {
-      userId,
-      userPw,
-    });
-    if (result.data === 1) {
-      alert("아이디와 비밀번호를 확인해주세요");
-      setUserId("");
-      setUserPw("");
-    } else if (result.data === 2){
-      alert("이메일 인증 후 사용가능합니다.");
-      useNavigate("/emailAuthPage");
+    try {
+      const result = await axios.post("http://localhost:8080/api/auth/login", {
+        userId,
+        userPw,
+      });
+      if(result.status === 200) {
+        getCookie("token", result.data.token);
+        sessionStorage.setItem("userName", result.data.user.username);
+        alert("로그인에 성공하셨습니다.!");
+      }
+    } catch (error) {
+      if (error.status == 401) {
+        alert("아이디와 비밀번호를 확인해주세요");
+        setUserId("");
+        setUserPw("");
+      } else if (error.status === 403){
+        alert("이메일 인증 후 사용가능합니다.");
+        useNavigate("/emailAuthPage");
+      }
     }
-    else {
-      getCookie("token", result.data.token);
-      sessionStorage.setItem("userName", result.data.user.username);
-      alert("로그인에 성공하셨습니다.!");
-    }
-    
   };
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
