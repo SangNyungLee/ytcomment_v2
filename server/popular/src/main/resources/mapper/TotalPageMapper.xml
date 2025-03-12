@@ -5,7 +5,7 @@
 <mapper namespace="site.ytcomment.popular.mapper.TotalPageMapper">
     <select id="totalPage" parameterType="site.ytcomment.popular.mapper.DTO.TotalPageDbDTO$In"
             resultType="site.ytcomment.popular.mapper.DTO.TotalPageDbDTO$Out">
-        SELECT COUNT(*) as totalPage FROM channelinfo
+        SELECT COUNT(*) as totalPage FROM channelInfo
          <where>
              <if test="categoryId != 0">
             categoryId=#{categoryId};
