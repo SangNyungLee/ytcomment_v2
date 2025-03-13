@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 const PrivateRoute = () => {
     const token = Cookies.get("token");
-    const [isAuthenticated, setIsAuthenticated] = useState(!!token);
+    const [isAuthenticated, setIsAuthenticated] = useState(!!token); //느낌표 2개 쓰면 boolean값으로 변경
 
     useEffect(() => {
         if (!token){
