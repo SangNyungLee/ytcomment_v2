@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { ThumbsUp, MessageSquare, Share2, Bookmark } from "lucide-react";
 import '../css/ScrapContent.css';
-
+import axios from "axios";
+import Cookies from "js-cookie";
 export default function VideoScrapingPage ({scrapId}) {
 	const [loading, setLoading] = useState(true);
 	const [items, setItems] = useState([]);
@@ -23,10 +24,22 @@ export default function VideoScrapingPage ({scrapId}) {
 		}, 800);
 	  }, [scrapId]);
 
+	//   const authTest = async () => {
+	// 	const token = Cookies.get("token");
+
+	// 	const response = await axios.get("http://localhost:8080/test/mypage",{
+	// 			headers : { "Authorization": `Bearer ${token}` },
+	// 		}
+	// 	);
+	// 	console.log("응답 후 결과값 : ",response);
+	//   }
 
 	  return (
 		<div className="scrap-content">
 		  <h1 className="scrap-title">{scrapId === "my-channel" ? "MY 채널 스크랩" : "MY 영상 스크랩"}</h1>
+		  <div>
+			<button>테스트용 버튼</button>
+		  </div>
 		  <div className="scrap-list">
 			{loading
 			  ? Array.from({ length: 6 }).map((_, i) => (

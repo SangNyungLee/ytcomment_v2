@@ -10,6 +10,7 @@ import { BsYoutube, BsFillPinFill } from "react-icons/bs";
 import { truncateText } from "./func/GetApi";
 import "./css/Pagination.css";
 import Pagination from "react-js-pagination";
+import UserVideoLike from "./scrap/UserLike";
 
 export default function Main() {
   const [videos, setVideos] = useState([]);
@@ -117,7 +118,7 @@ export default function Main() {
                         <BsYoutube className="btnIcon" />
                         더보기
                       </Link>
-                      <button className="btn clipBtn">
+                      <button className="btn clipBtn" onClick={() => UserVideoLike(video)}>
                         <BsFillPinFill className="btnIcon" />
                         스크랩
                       </button>
