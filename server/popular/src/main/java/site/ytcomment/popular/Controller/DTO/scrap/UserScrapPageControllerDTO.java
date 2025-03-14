@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import site.ytcomment.popular.Service.DTO.scrap.UserScrapPageServiceDTO;
+import site.ytcomment.popular.common.Enum.YoutubeCategory;
 
 public class UserScrapPageControllerDTO {
 
@@ -31,7 +32,7 @@ public class UserScrapPageControllerDTO {
         private final String channelTitle;
         private final String thumbnails;
         //        private final LocalDateTime publishedAt;
-        private final int categoryId;
+        private final String categoryId;
         private final int channelViewCount;
         private final int channelLikeCount;
         private final int channelCommentCount;
@@ -42,7 +43,8 @@ public class UserScrapPageControllerDTO {
                     .title(out.getTitle())
                     .channelTitle(out.getChannelTitle())
                     .thumbnails(out.getThumbnails())
-                    .categoryId(out.getCategoryId())
+                    // 카테고리ID(int) -> 카테고리 name(String)
+                    .categoryId(YoutubeCategory.fromId(out.getCategoryId()).getName())
                     .channelViewCount(out.getChannelViewCount())
                     .channelLikeCount(out.getChannelLikeCount())
                     .channelCommentCount(out.getChannelCommentCount())
