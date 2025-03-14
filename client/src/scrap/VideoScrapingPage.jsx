@@ -3,6 +3,7 @@ import { ThumbsUp, MessageSquare, Share2, Bookmark } from "lucide-react";
 import '../css/ScrapContent.css';
 import userScrapData from "./UserScrapData";
 import formatNumber from "../func/FormatNumber";
+import formatPublishedAt from "../func/FormatPublishedAt";
 
 export default function VideoScrapingPage ({scrapId}) {
 	const [loading, setLoading] = useState(true);
@@ -56,7 +57,7 @@ export default function VideoScrapingPage ({scrapId}) {
 					  <p className="scrap-category">{item.categoryId}</p>
 					  <h3 className="scrap-title">{item.title}</h3>
 					  <p className="scrap-meta">
-						{item.channelTitle} • {formatNumber(item.channelViewCount)}회 • {item.date}
+						{item.channelTitle} • {formatNumber(item.channelViewCount)}회 • {formatPublishedAt(item.publishedAt)}
 					  </p>
 					</div>
 	

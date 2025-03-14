@@ -14,6 +14,8 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import ClipIcons from "./ClipIcons";
 import axios from "axios";
+import formatNumber from "./func/FormatNumber";
+import formatPublishedAt from "./func/FormatPublishedAt";
 export default function Page() {
   
   //모달부분
@@ -36,21 +38,14 @@ export default function Page() {
       .map((tag) => tag.replace(/"/g, ""));
   }
   //원래 시간으로 돌려주는 함수
-  function formatPublishedAt(publishedAt) {
-    const date = new Date(publishedAt);
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, "0");
-    const day = date.getDate().toString().padStart(2, "0");
-    return `${year}-${month}-${day}`;
-  }
+  // function formatPublishedAt(publishedAt) {
+  //   const date = new Date(publishedAt);
+  //   const year = date.getFullYear();
+  //   const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  //   const day = date.getDate().toString().padStart(2, "0");
+  //   return `${year}-${month}-${day}`;
+  // }
 
-  //조회수 변경해주는 방법
-  function formatNumber(number) {
-    return new Intl.NumberFormat("ko-KR", {
-      notation: "compact",
-      maximumFractionDigits: 1,
-    }).format(number);
-  }
   //클립 버튼 눌렀을 때 복사되는거
   const getUrl = () => {
   };
