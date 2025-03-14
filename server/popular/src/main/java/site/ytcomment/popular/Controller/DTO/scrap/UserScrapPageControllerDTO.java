@@ -31,11 +31,11 @@ public class UserScrapPageControllerDTO {
         private final String title;
         private final String channelTitle;
         private final String thumbnails;
-        //        private final LocalDateTime publishedAt;
         private final String categoryId;
         private final int channelViewCount;
         private final int channelLikeCount;
         private final int channelCommentCount;
+        private final String publishedAt;
 
         public static UserScrapPageControllerDTO.Out from(UserScrapPageServiceDTO.Out out){
             return Out.builder()
@@ -48,6 +48,7 @@ public class UserScrapPageControllerDTO {
                     .channelViewCount(out.getChannelViewCount())
                     .channelLikeCount(out.getChannelLikeCount())
                     .channelCommentCount(out.getChannelCommentCount())
+                    .publishedAt(out.getPublishedAt())
                     .build();
         }
     }

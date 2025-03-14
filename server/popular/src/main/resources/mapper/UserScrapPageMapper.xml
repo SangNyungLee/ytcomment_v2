@@ -11,11 +11,11 @@
             c.title,
             c.channelTitle,
             c.thumbnails,
---             c.publishedAt,
             c.categoryId,
             s.channelViewCount,
             s.channelLikeCount,
-            s.channelCommentCount
+            s.channelCommentCount,
+            c.publishedAt
         FROM likes l
                  JOIN channelInfo c ON l.videoId = c.id
                  JOIN statistics s ON c.id = s.id
