@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { ThumbsUp, MessageSquare, Share2, Bookmark } from "lucide-react";
 import '../css/ScrapContent.css';
 import userScrapData from "./UserScrapData";
+import formatNumber from "../func/FormatNumber";
+
 export default function VideoScrapingPage ({scrapId}) {
 	const [loading, setLoading] = useState(true);
 	const [items, setItems] = useState([]);
@@ -54,7 +56,7 @@ export default function VideoScrapingPage ({scrapId}) {
 					  <p className="scrap-category">{item.categoryId}</p>
 					  <h3 className="scrap-title">{item.title}</h3>
 					  <p className="scrap-meta">
-						{item.channelTitle} • {item.channelViewCount}회 • {item.date}
+						{item.channelTitle} • {formatNumber(item.channelViewCount)}회 • {item.date}
 					  </p>
 					</div>
 	

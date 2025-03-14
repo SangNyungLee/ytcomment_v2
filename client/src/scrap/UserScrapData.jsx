@@ -9,7 +9,6 @@ const userScrapData = async () => {
             "http://localhost:8080/api/getUserLikeList", 
             {}, {headers : {Authorization : `Bearer ${token}`,}},
         )
-        console.log(response);
         return response.data;
     } catch (error) {
         console.error("데이터 받아오기 실패");
