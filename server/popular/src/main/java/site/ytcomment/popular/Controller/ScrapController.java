@@ -41,7 +41,6 @@ public class ScrapController {
         // 이미 좋아요를 했는지 확인
         FindVideoLikeControllerDTO.Out serviceResult = FindVideoLikeControllerDTO.Out
                 .from(findVideoLikeService.countVideoLike(in.to(userDetails.getUserId())));
-//        userVideoLikeService.userScrapVideo(serviceResult.to());
         return ResponseEntity.status(HttpStatus.OK)
                 .body(userVideoLikeService.userScrapVideo(serviceResult.to()));
     }
