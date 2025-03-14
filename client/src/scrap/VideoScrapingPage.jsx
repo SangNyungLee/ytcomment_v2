@@ -4,27 +4,36 @@ import '../css/ScrapContent.css';
 import userScrapData from "./UserScrapData";
 import formatNumber from "../func/FormatNumber";
 import formatPublishedAt from "../func/FormatPublishedAt";
+import UserVideoLike from "./UserLike";
 
 export default function VideoScrapingPage ({scrapId}) {
 	const [loading, setLoading] = useState(true);
 	const [items, setItems] = useState([]);
 
-	useEffect(() => {
+	const fetchData = async () => {
 		setLoading(true);
-		const fetchData = async () => {
-			try {
-				const data = await userScrapData();
-				console.log(data);
-				setItems(data);
-			} catch (error) {
-				console.error("데이터 로드 실패", error)
-			} finally {
-				setLoading(false);
-			}
-		};
+		try {
+			const data = await userScrapData();
+			console.log(data);
+			setItems(data);
+		} catch (error) {
+			console.error("데이터 로드 실패", error)
+		} finally {
+			setLoading(false);
+		}
+	};
+	
+	useEffect(() => {
 		fetchData();
 	  }, [scrapId]);
 
+	  const handleVideoLike = async (videoId) => {
+		console.log("핸들부분", videoId);
+		const result = await UserVideoLike(videoId);
+		if (result){
+			fetchData();
+		}
+	  };
 	  return (
 		<div className="scrap-content">
 		  <h1 className="scrap-title">{scrapId === "my-channel" ? "MY 채널 스크랩" : "MY 영상 스크랩"}</h1>
@@ -74,7 +83,7 @@ export default function VideoScrapingPage ({scrapId}) {
 					  <button className="icon-btn">
 						<Share2 className="icon" />
 					  </button>
-					  <button className="icon-btn">
+					  <button className="icon-btn" onClick={() => handleVideoLike(item.id)}>
 						<Bookmark className="icon" />
 					  </button>
 					</div>

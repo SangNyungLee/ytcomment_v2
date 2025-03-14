@@ -118,7 +118,7 @@ export default function Main() {
                         <BsYoutube className="btnIcon" />
                         더보기
                       </Link>
-                      <button className="btn clipBtn" onClick={() => UserVideoLike(video)}>
+                      <button className="btn clipBtn" onClick={() => UserVideoLike(video.id)}>
                         <BsFillPinFill className="btnIcon" />
                         스크랩
                       </button>

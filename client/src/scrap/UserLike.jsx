@@ -7,13 +7,12 @@ const UserVideoLike = async (video) => {
         alert("로그인 한 사용자만 사용 가능한 기능입니다.");
         return;
     }
-    const userName = sessionStorage.getItem("userName");
     try {
+        
         const response = await axios.post(
             "http://localhost:8080/api/addUserLike",
             {
-                userName: userName,
-                videoId: video.id,
+                videoId: video
             },
             {
                 headers: {
@@ -26,9 +25,11 @@ const UserVideoLike = async (video) => {
         } else{
             alert("영상 스크랩이 취소되었습니다.")
         }
+        return true;
     } catch (error) {
         console.error("스크랩 실패:", error);
         alert("스크랩 중 오류가 발생했습니다.");
+        return false;
     }
 };
 
