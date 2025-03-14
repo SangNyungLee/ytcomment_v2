@@ -1,4 +1,4 @@
-package site.ytcomment.popular.Service;
+package site.ytcomment.popular.Service.email;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.ValueOperations;

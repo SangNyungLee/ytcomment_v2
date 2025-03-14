@@ -4,11 +4,11 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
-import site.ytcomment.popular.Service.DTO.scrap.UserVideoLikeServiceDTO;
 import site.ytcomment.popular.mapper.DTO.scrap.FindVideoLikeDbDTO;
+import site.ytcomment.popular.mapper.DTO.scrap.UserScrapPageDbDTO;
 import site.ytcomment.popular.mapper.DTO.scrap.UserVideoLikeDbDTO;
 
-import java.util.Optional;
+import java.util.List;
 
 @Mapper
 public interface UserVideoLikeMapper {
@@ -20,4 +20,6 @@ public interface UserVideoLikeMapper {
 
     @Delete("DELETE FROM likes WHERE userId = #{userId} AND videoId = #{videoId}")
     void deleteUserVideoLike(UserVideoLikeDbDTO.In in);
+
+    List<UserScrapPageDbDTO.Out> selectUserScrapPage(UserScrapPageDbDTO.In in);
 }

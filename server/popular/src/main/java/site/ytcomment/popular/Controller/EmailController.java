@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import site.ytcomment.popular.Controller.DTO.*;
 import site.ytcomment.popular.Service.*;
-import site.ytcomment.popular.Service.DTO.ChangeEmailAuthServiceDTO;
+import site.ytcomment.popular.Service.email.*;
 import site.ytcomment.popular.common.BaseResponse;
 import site.ytcomment.popular.common.Enum.ResponseCode;
 

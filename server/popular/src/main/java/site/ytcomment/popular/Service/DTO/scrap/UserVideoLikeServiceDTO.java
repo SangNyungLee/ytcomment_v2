@@ -3,8 +3,6 @@ package site.ytcomment.popular.Service.DTO.scrap;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import site.ytcomment.popular.Controller.DTO.scrap.UserVideoLikeControllerDTO;
-import site.ytcomment.popular.Service.UserVideoLikeService;
 import site.ytcomment.popular.mapper.DTO.scrap.UserVideoLikeDbDTO;
 
 public class UserVideoLikeServiceDTO {

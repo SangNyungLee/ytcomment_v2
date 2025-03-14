@@ -1,4 +1,4 @@
-package site.ytcomment.popular.Service;
+package site.ytcomment.popular.Service.email;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;

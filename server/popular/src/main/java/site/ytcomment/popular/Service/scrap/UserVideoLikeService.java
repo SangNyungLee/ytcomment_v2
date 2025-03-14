@@ -1,8 +1,7 @@
-package site.ytcomment.popular.Service;
+package site.ytcomment.popular.Service.scrap;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import site.ytcomment.popular.Controller.DTO.scrap.UserVideoLikeControllerDTO;
 import site.ytcomment.popular.Service.DTO.scrap.UserVideoLikeServiceDTO;
 import site.ytcomment.popular.common.Enum.ResponseCode;
 import site.ytcomment.popular.mapper.UserVideoLikeMapper;

@@ -1,12 +1,10 @@
-package site.ytcomment.popular.Service;
+package site.ytcomment.popular.Service.scrap;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import site.ytcomment.popular.Service.DTO.scrap.FindVideoLikeServiceDTO;
 import site.ytcomment.popular.mapper.DTO.scrap.FindVideoLikeDbDTO;
 import site.ytcomment.popular.mapper.UserVideoLikeMapper;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

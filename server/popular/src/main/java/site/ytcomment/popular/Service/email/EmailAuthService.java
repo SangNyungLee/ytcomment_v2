@@ -1,10 +1,9 @@
-package site.ytcomment.popular.Service;
+package site.ytcomment.popular.Service.email;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import site.ytcomment.popular.Service.DTO.EmailCheckServiceDTO;
 import site.ytcomment.popular.Service.DTO.EmailSendServiceDTO;
-import site.ytcomment.popular.common.BaseResponse;
 
 @Service
 @RequiredArgsConstructor
