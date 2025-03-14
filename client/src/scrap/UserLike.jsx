@@ -21,7 +21,11 @@ const UserVideoLike = async (video) => {
                 },
             }
         );
-        alert("영상이 성공적으로 스크랩되었습니다.");
+        if (response.data.result === '0'){
+            alert("영상이 성공적으로 스크랩 되었습니다.")
+        } else{
+            alert("영상 스크랩이 취소되었습니다.")
+        }
     } catch (error) {
         console.error("스크랩 실패:", error);
         alert("스크랩 중 오류가 발생했습니다.");
