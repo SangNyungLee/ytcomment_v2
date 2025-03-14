@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -78,7 +79,12 @@ public class JwtTokenProvider {
     // 인증 정보 생성
     public Authentication getAuthentication(String token){
         String email = getEmailFromToken(token);
-        return new UsernamePasswordAuthenticationToken(email, null
-                , List.of(new SimpleGrantedAuthority("ROLE_USER")));
+        String userId = getUserIdFromToken(token);
+
+        UserDetails userDetails = new CustomUserDetails(email, userId, List.of(new SimpleGrantedAuthority("ROLE_USER")));
+
+        // email, userId 같이 가져오기 위해서 CustomUserDetails 객체를 생성했음
+        return new UsernamePasswordAuthenticationToken(userDetails, null
+                , userDetails.getAuthorities());
     }
 }
