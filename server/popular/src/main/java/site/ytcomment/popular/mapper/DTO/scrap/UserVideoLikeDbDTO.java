@@ -1,4 +1,4 @@
-package site.ytcomment.popular.mapper.DTO;
+package site.ytcomment.popular.mapper.DTO.scrap;
 
 import lombok.Builder;
 import lombok.Getter;

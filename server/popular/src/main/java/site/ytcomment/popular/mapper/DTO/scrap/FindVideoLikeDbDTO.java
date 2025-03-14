@@ -1,4 +1,24 @@
-package site.ytcomment.popular.mapper.DTO;
+package site.ytcomment.popular.mapper.DTO.scrap;
 
-public class findVideoLikeServiceDbDTO {
+import lombok.Builder;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+public class FindVideoLikeDbDTO {
+
+    @Getter
+    @Builder
+    @RequiredArgsConstructor
+    public static class In{
+        private final String userId;
+        private final String videoId;
+    }
+
+    @Getter
+    @Builder
+    @RequiredArgsConstructor
+    public static class Out{
+        private final int count;
+
+    }
 }

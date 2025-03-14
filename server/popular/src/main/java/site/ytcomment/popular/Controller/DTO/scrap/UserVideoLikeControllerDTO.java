@@ -1,16 +1,15 @@
-package site.ytcomment.popular.Controller.DTO;
+package site.ytcomment.popular.Controller.DTO.scrap;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import site.ytcomment.popular.Service.DTO.UserVideoLikeServiceDTO;
+import site.ytcomment.popular.Service.DTO.scrap.UserVideoLikeServiceDTO;
 
 public class UserVideoLikeControllerDTO {
 
     @Getter
     @Builder
-    @NoArgsConstructor(force = true)
     @RequiredArgsConstructor
     public static class In{
         private final String videoId;
@@ -21,5 +20,12 @@ public class UserVideoLikeControllerDTO {
                     .videoId(this.videoId)
                     .build();
         }
+    }
+
+    @Getter
+    @Builder
+    @RequiredArgsConstructor
+    public static class Out{
+        private final int result;
     }
 }
