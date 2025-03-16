@@ -98,10 +98,15 @@
   
   .scrap-meta {
     font-size: 14px;
+    height: 20px;
     color: gray;
     /* padding-top: 5px; */
   }
   
+  .scrap-font{
+    font-weight: 600;
+    color: black;
+  }
   /* 아이콘 버튼 스타일 */
   .scrap-footer {
     display: flex;

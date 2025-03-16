@@ -64,7 +64,12 @@ export default function VideoScrapingPage ({scrapId}) {
 					  <p className="scrap-category">{item.categoryId}</p>
 					  <h3 className="scrap-title">{item.title}</h3>
 					  <p className="scrap-meta">
-						{item.channelTitle} • {formatNumber(item.channelViewCount)}회 • {formatPublishedAt(item.publishedAt)}
+						<div className="scrap-font">
+						{item.channelTitle}
+						</div>
+						<div>
+						{formatNumber(item.channelViewCount)}회 • {formatPublishedAt(item.publishedAt)}
+						</div>
 					  </p>
 					</div>
 	
@@ -78,9 +83,9 @@ export default function VideoScrapingPage ({scrapId}) {
 						<MessageSquare className="icon" />
 						<span>{item.channelCommentCount}</span>
 					  </button>
-					  <button className="icon-btn">
+					  {/* <button className="icon-btn">
 						<Share2 className="icon" />
-					  </button>
+					  </button> */}
 					  <button className="icon-btn" onClick={() => handleVideoLike(item.id)}>
 						<Bookmark className="icon" />
 					  </button>
