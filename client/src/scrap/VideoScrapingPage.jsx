@@ -5,6 +5,7 @@ import userScrapData from "./UserScrapData";
 import formatNumber from "../func/FormatNumber";
 import formatPublishedAt from "../func/FormatPublishedAt";
 import UserVideoLike from "./UserLike";
+import { Link } from "react-router-dom";
 
 export default function VideoScrapingPage ({scrapId}) {
 	const [loading, setLoading] = useState(true);
@@ -55,11 +56,16 @@ export default function VideoScrapingPage ({scrapId}) {
 				))
 			  : items.map((item) => (
 				  <div key={item.id} className="scrap-card">
+					<Link
+						to="/page"
+						state={{ videoId : item.id }}
+					>
 					{item.thumbnails ? (
 					  <img src={item.thumbnails} alt={item.title} className="scrap-thumbnail" />
 					) : (
 					  <div className="skeleton skeleton-thumbnail"></div>
 					)}
+					</Link>
 					<div className="scrap-info">
 						<p className="scrap-category">{item.categoryId}</p>
 						<h3 className="scrap-title">{item.title}</h3>
@@ -79,9 +85,6 @@ export default function VideoScrapingPage ({scrapId}) {
 						<MessageSquare className="icon" />
 						<span>{item.channelCommentCount}</span>
 					  </button>
-					  {/* <button className="icon-btn">
-						<Share2 className="icon" />
-					  </button> */}
 					  <button className="icon-btn" onClick={() => handleVideoLike(item.id)}>
 						<Bookmark className="icon" />
 					  </button>

@@ -112,7 +112,7 @@ export default function Main() {
                     <div className="button-container">
                       <Link
                         to="/page"
-                        state={{ data: video }}
+                        state={{ videoId : video.id }}
                         className="btn moreBtn"
                       >
                         <BsYoutube className="btnIcon" />
