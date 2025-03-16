@@ -18,6 +18,7 @@ import formatPublishedAt from "./func/FormatPublishedAt";
 import UserVideoLike from "./scrap/UserLike";
 export default function Page() {
   
+  let tagsArray = [];
   //모달부분
   const [show, setShow] = useState(false);
   const [channelCommentCount, setChannelCommentCount] = useState(0);
@@ -28,7 +29,32 @@ export default function Page() {
   const location = useLocation();
   const recData = location.state.data;
   const [comment, setComment] = useState([]);
-  let tagsArray = [];
+  const [sortOption, setSortOption] = useState("like"); // 정렬 기본 값 : 좋아요 많은 순
+  
+  // 정렬처리함수
+  const handleSortChange = (e) => {
+    setSortOption(e.target.value);
+  }
+
+  // 댓글 정렬
+  const getSortedComments = () => {
+    if (sortOption === "relevance"){
+      // 관련성 순
+      return [...comment];
+    } else if (sortOption === "likes"){
+      // 좋아요 많은 순
+      return [...comment].sort((a,b) => b.like - a.like);
+    } else if (sortOption === "date"){
+      // 최신순
+      return [...comment].sort((a, b) => {
+      // 날짜 형식을 파싱해서 비교 (formatPublishedAt이 "~전" 형식이므로 원본 데이터에 접근해야 함)
+      const dateA = new Date(a.originalDate || Date.now());
+      const dateB = new Date(b.originalDate || Date.now());
+      return dateB - dateA; // 내림차순 (최신순)
+      });
+    }
+    return comment;
+  }
 
   if (recData.tags) {
     tagsArray = recData.tags;
@@ -54,15 +80,18 @@ export default function Page() {
       axios
         .post("http://localhost:8080/api/getPageComment", {id : recData.id})
         .then((res) => {
+          console.log(res);
           const newComments = res.data.map((ment) => {
             return {
-              authorName: ment.authorName,
+              authorDisplayName: ment.authorDisplayName,
               text: ment.textOriginal,
               like: ment.likeCount,
               time: formatPublishedAt(ment.publishedAt),
+              originalDate : ment.publishedAt,
               imgUrl: ment.authorProfileImageUrl,
             };
           });
+          console.log(newComments);
           setComment(newComments);
         });
     } catch (error) {
@@ -155,29 +184,28 @@ export default function Page() {
         </div>
         <div>
           <div>
-            <select style={{ marginBottom: "20px", marginTop: "20px" }}>
-              <option>관련성 순</option>
-              <option>좋아요 많은 순</option>
-              <option>최신순</option>
+            <select style={{ marginBottom: "20px", marginTop: "20px" }}
+            value={sortOption}
+            onChange={handleSortChange}>
+              <option value="relevance">관련성 순</option>
+              <option value="likes">좋아요 많은 순</option>
+              <option value="date">최신순</option>
             </select>
           </div>
           <div className="commentList">
-            {comment.map((res, index) => (
+            {getSortedComments().map((res, index) => (
               <div className="commentDiv" key={index}>
-                <img src={`${res.imgUrl}`} className="commentImg" />
-                <div>
-                  <span>{res.authorName}</span> <span>{res.time}</span>
-                  <br />
-                  <span>{res.text}</span>
-                  <br />
-                  <span>
-                    <BsHandThumbsUp style={{ fontWeight: "bold" }} />{" "}
-                    <span style={{ fontSize: "13px", fontWeight: "bold" }}>
-                      {res.like}
-                    </span>
-                  </span>
-                  <br />
-                  <br />
+                <img src={`${res.imgUrl}`} className="commentImg" alt="프로필" />
+                <div className="commentContent">
+                  <div className="commentHeader">
+                    <span className="commentAuthor">{res.authorDisplayName}</span>
+                    <span className="commentTime">{res.time}</span>
+                  </div>
+                  <div className="commentText">{res.text}</div>
+                  <div className="commentLikes">
+                    <BsHandThumbsUp />
+                    <span className="likeCount">{res.like}</span>
+                  </div>
                 </div>
               </div>
             ))}
