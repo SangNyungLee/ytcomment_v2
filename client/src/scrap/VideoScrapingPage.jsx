@@ -61,16 +61,12 @@ export default function VideoScrapingPage ({scrapId}) {
 					  <div className="skeleton skeleton-thumbnail"></div>
 					)}
 					<div className="scrap-info">
-					  <p className="scrap-category">{item.categoryId}</p>
-					  <h3 className="scrap-title">{item.title}</h3>
-					  <p className="scrap-meta">
-						<div className="scrap-font">
-						{item.channelTitle}
+						<p className="scrap-category">{item.categoryId}</p>
+						<h3 className="scrap-title">{item.title}</h3>
+						<div className="scrap-meta">
+							<span className="scrap-font">{item.channelTitle}</span>
+							<span className="scrap-font2">{formatNumber(item.channelViewCount)}회 • {formatPublishedAt(item.publishedAt)}</span>
 						</div>
-						<div>
-						{formatNumber(item.channelViewCount)}회 • {formatPublishedAt(item.publishedAt)}
-						</div>
-					  </p>
 					</div>
 	
 					{/* 좋아요, 댓글, 공유, 스크랩 아이콘*/}
