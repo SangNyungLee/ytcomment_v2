@@ -10,12 +10,12 @@ import {
 //클립보드 복사하기
 import { CopyToClipboard } from "react-copy-to-clipboard/src";
 import { useEffect, useState } from "react";
-import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import ClipIcons from "./ClipIcons";
 import axios from "axios";
 import formatNumber from "./func/FormatNumber";
 import formatPublishedAt from "./func/FormatPublishedAt";
+import UserVideoLike from "./scrap/UserLike";
 export default function Page() {
   
   //모달부분
@@ -37,16 +37,8 @@ export default function Page() {
       .match(/"([^"]*)"/g)
       .map((tag) => tag.replace(/"/g, ""));
   }
-  //원래 시간으로 돌려주는 함수
-  // function formatPublishedAt(publishedAt) {
-  //   const date = new Date(publishedAt);
-  //   const year = date.getFullYear();
-  //   const month = (date.getMonth() + 1).toString().padStart(2, "0");
-  //   const day = date.getDate().toString().padStart(2, "0");
-  //   return `${year}-${month}-${day}`;
-  // }
 
-  //클립 버튼 눌렀을 때 복사되는거
+  //클립 버튼 눌렀을 때 복사
   const getUrl = () => {
   };
 
@@ -82,7 +74,6 @@ export default function Page() {
     <>
       <header>
         <h3 className="headTitle">
-          {/* <span>[{recData.categoryId}]</span> */}
           <div className="chaennelTitle">{recData.title}</div>
         </h3>
       </header>
@@ -121,16 +112,16 @@ export default function Page() {
           >
             유튜브 채널 정보
           </a>
-          <Button
+          <button
             className="btn youtubeClip"
             variant="primary"
             onClick={handleShow}
           >
-            영상 스크랩
-          </Button>
-          <span className="btn youtubeChannelClip">채널 스크랩</span>
+            공유하기
+          </button>
+          <span className="btn youtubeChannelClip" onClick={() => UserVideoLike(recData.id)}>채널 스크랩</span>
         </div>
-        <ClipIcons />
+        {/* <ClipIcons /> */}
         <div className="youtubeDescription">
           {recData.description.split("\\n").map((line, index) => {
             return (
