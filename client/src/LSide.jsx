@@ -5,35 +5,20 @@ import AccordionFlush from "./Accordion";
 import { BsFillBarChartLineFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { deleteCookie } from "./func/GetApi";
-import axios from "axios";
-import { getCookie } from "./func/GetApi";
+import getLogin from "./func/Login";
 
 export default function Lside() {
   const [userId, setUserId] = useState("");
   const [userPw, setUserPw] = useState("");
   const cookieString = document.cookie;
   const userName = sessionStorage.getItem("userName");
+
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
-      getLogin();
+      getLogin({userId, userPw});
     }
   };
-  //로그인 하는 함수
-  const getLogin = async () => {
-    const result = await axios.post("http://localhost:8080/api/auth/login", {
-      userId,
-      userPw,
-    });
-    if (result.data === "fail") {
-      alert("아이디와 비밀번호를 확인해주세요");
-      setUserId("");
-      setUserPw("");
-    } else {
-      getCookie("token", result.data.token);
-      sessionStorage.setItem("userName", result.data.user.username);
-      alert("로그인에 성공하셨습니다.!");
-    }
-  };
+
   const logout = () => {
     deleteCookie();
     sessionStorage.removeItem("userName");
@@ -77,7 +62,7 @@ export default function Lside() {
             onChange={(e) => setUserPw(e.target.value)}
             onKeyDown={handleKeyPress}
           ></input>
-          <button className="btnLogin" onClick={getLogin}>
+          <button className="btnLogin" onClick={() => getLogin({userId, userPw})}>
             로그인
           </button>
           <br />

@@ -1,40 +1,18 @@
-import axios from "axios";
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./css/Signup.css";
-import { getCookie } from "./func/GetApi";
 import SocialKaKao from "./func/SocialLogin";
-
+import getLogin from "./func/Login";
 function Signup() {
   const [userId, setUserId] = useState("");
   const [userPw, setUserPw] = useState("");
-  const getLogin = async () => {
-    try {
-      const result = await axios.post("http://localhost:8080/api/auth/login", {
-        userId,
-        userPw,
-      });
-      if(result.status === 200) {
-        alert("로그인에 성공하셨습니다.!");
-        sessionStorage.setItem("userName", result.data.userId);
-        getCookie("token", result.data.token);
-      }
-    } catch (error) {
-      if (error.status == 401) {
-        alert("아이디와 비밀번호를 확인해주세요");
-        setUserId("");
-        setUserPw("");
-      } else if (error.status === 403){
-        alert("이메일 인증 후 사용가능합니다.");
-        useNavigate("/emailAuthPage");
-      }
-    }
-  };
+
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
-      getLogin();
+      getLogin({userId, userPw});
     }
   };
+
   return (
     <div className="mom">
       <div className="login">
@@ -59,7 +37,7 @@ function Signup() {
               }}
             />
             <input
-              type="text"
+              type="password"
               value={userPw}
               className={userPw}
               placeholder="비밀번호"
@@ -72,7 +50,7 @@ function Signup() {
               type="button"
               style={{ color: "white", backgroundColor: "#D32F2F" }}
               className="btn loginBtn"
-              onClick={getLogin}
+              onClick={() => getLogin({userId, userPw})}
             >
               로그인
             </button>
