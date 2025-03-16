@@ -49,7 +49,7 @@ public class LoginController {
         kakaoLoginCheckUserService.findByUser(userInfo.to());
 
         // email, name을 넣어서 token을 생성하는데 이거 여기서 할게 아니라 비즈니스계층에서 해야될듯 코드 너무 난잡함
-        String token = jwtTokenProvider.createToken(userInfo.getKakaoId(), userInfo.getKakaoNickname());
+        String token = jwtTokenProvider.createToken(userInfo.getKakaoNickname(), userInfo.getKakaoId());
         TokenResponseDTO tokenResponseDTO = new TokenResponseDTO(token, userInfo.getKakaoNickname());
         return ResponseEntity.ok()
                 .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
@@ -65,7 +65,6 @@ public class LoginController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginAuthControllerDTO.In in){
         String result = loginAuthService.getUserPw(in.to());
-        System.out.println("결과값은 : " + result);
         if (result.equals(ResponseCode.인증없음.getCode()))
             return ResponseEntity.status(HttpStatus.FORBIDDEN)
                     .body("인증이 되지 않았습니다.");

@@ -46,6 +46,9 @@ public class ScrapController {
     }
     @PostMapping("/getUserLikeList")
     public List<UserScrapPageControllerDTO.Out> userVideoLikeList(@AuthenticationPrincipal CustomUserDetails userDetails){
+        System.out.println("!!!!!!!!!!!!!" + userDetails);
+        System.out.println("!!!!!!!!!!!!!" + userDetails.getUserId());
+        System.out.println("!!!!!!!!!!!!!" + userDetails.getUsername());
         List<UserScrapPageServiceDTO.Out> serviceResult = userLikeListService.userLikeList(UserScrapPageControllerDTO.In.to(userDetails.getUserId()));
         return serviceResult.stream()
                 .map(UserScrapPageControllerDTO.Out::from)
