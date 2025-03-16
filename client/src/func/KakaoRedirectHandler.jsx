@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"
+import { getCookie } from "./GetApi";
 
 const KakaoRedirectHandler = () => {
     const navigate = useNavigate();
@@ -18,12 +19,17 @@ const KakaoRedirectHandler = () => {
                 
                 if(!isProcessed){
                     const response = await axios.post("http://localhost:8080/api/auth/kakao", {code});
-                    if (response == "success")
                     // URL에서 ?code=XXX 제거
                     window.history.replaceState({}, null, "/");
-    
-                    //로그인 후 메인 페이지로 이동하게 하기
-                    // navigate("/")
+
+                    // 성공하면 메인페이지로 보냄
+                    if (response.status == 200){
+                        sessionStorage.setItem("userName", response.data.userId);
+                        getCookie("token", response.data.token);
+                    } else{
+                        alert("로그인에 실패하였습니다.");
+                        navigate("/");
+                    }
                 }
                 setIsProcessed(true);
             } catch (error) {
