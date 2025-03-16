@@ -2,7 +2,6 @@ package site.ytcomment.popular.Service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import site.ytcomment.popular.Controller.DTO.CardControllerDTO;
 import site.ytcomment.popular.Service.DTO.CardServiceDTO;
 import site.ytcomment.popular.mapper.CardTrendingMapper;
 import site.ytcomment.popular.mapper.DTO.CardDbDTO;
