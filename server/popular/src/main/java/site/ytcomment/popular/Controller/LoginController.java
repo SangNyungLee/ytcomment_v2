@@ -27,7 +27,7 @@ public class LoginController {
     private final JwtTokenProvider jwtTokenProvider;
 
     @PostMapping("/kakao")
-    public ResponseEntity<String> kakaoLogin(@RequestBody KakaoGetTokenControllerDTO.In in) {
+    public ResponseEntity<?> kakaoLogin(@RequestBody KakaoGetTokenControllerDTO.In in) {
         // 카카오에서 쿼리스트링에 준 인가코드로 토큰, 리프레쉬 토큰 요청 받는 controller
         KakaoGetTokenControllerDTO.Out result = KakaoGetTokenControllerDTO.Out.from(tokenService.getToken(in.to()));
 
@@ -45,8 +45,15 @@ public class LoginController {
                 .kakaoId(userInfoResult.getKakaoId())
                 .kakaoNickname(userInfoResult.getKakaoNickname())
                 .build();
-        String responseResult = kakaoLoginCheckUserService.findByUser(userInfo.to());
-        return ResponseEntity.ok(responseResult);
+        // DB에 저장되어 있는지 확인하는 로직인데 이거 어떻게 사용할지 고민해보기
+        kakaoLoginCheckUserService.findByUser(userInfo.to());
+
+        // email, name을 넣어서 token을 생성하는데 이거 여기서 할게 아니라 비즈니스계층에서 해야될듯 코드 너무 난잡함
+        String token = jwtTokenProvider.createToken(userInfo.getKakaoId(), userInfo.getKakaoNickname());
+        TokenResponseDTO tokenResponseDTO = new TokenResponseDTO(token, userInfo.getKakaoNickname());
+        return ResponseEntity.ok()
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+                .body(tokenResponseDTO);
     }
 
     // 카카오에 인가코드 요청받는 uri 반환하는 controller
@@ -67,13 +74,9 @@ public class LoginController {
                     .body("잘못된 인증정보 입니다.");
         else{
             // 로그인 성공시 JWT 토큰 생성
-            String userId = in.getUserId();
-            String email = loginAuthService.getUserEmailById(userId);
-            System.out.println("Email : " + email);
-            System.out.println("UserId : " + userId);
-            String token = jwtTokenProvider.createToken(email, userId);
-            System.out.println("Token : " + token);
-            TokenResponseDTO tokenResponseDTO = new TokenResponseDTO(token, userId);
+            String email = loginAuthService.getUserEmailById(in.getUserId());
+            String token = jwtTokenProvider.createToken(email, in.getUserId());
+            TokenResponseDTO tokenResponseDTO = new TokenResponseDTO(token, in.getUserId());
 
             return ResponseEntity.ok()
                     .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
