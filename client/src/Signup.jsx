@@ -15,7 +15,6 @@ function Signup() {
         userPw,
       });
       if(result.status === 200) {
-        console.log(result);
         alert("로그인에 성공하셨습니다.!");
         sessionStorage.setItem("userName", result.data.userId);
         getCookie("token", result.data.token);

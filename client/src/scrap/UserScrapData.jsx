@@ -3,7 +3,6 @@ import Cookies from "js-cookie";
 
 const userScrapData = async () => {
     const token = Cookies.get("token");
-    console.log("버튼 누름")
     try {
         const response = await axios.post(
             "http://localhost:8080/api/getUserLikeList", 

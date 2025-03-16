@@ -61,7 +61,6 @@ export default function Search() {
       setCommentData(comments);
     }
     if (videos.length > 0) {
-      console.log("videos", videos);
       fetchCommentsForVideos();
     }
   }, [videos]);

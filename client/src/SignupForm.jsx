@@ -65,7 +65,6 @@ function SignupForm() {
             social : "Email",
           }
         );
-        console.log("결과", response);
         if (response.data === 0) {
           alert("회원가입이 완료되었습니다.!!");
           window.location.href = "/";

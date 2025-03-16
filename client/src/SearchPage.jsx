@@ -45,7 +45,6 @@ export default function SearchPage() {
   }
   //클립 버튼 눌렀을 때 복사되는거
   const getUrl = (e) => {
-    console.log("링크는", e);
   };
   useEffect(() => {
     // statistics받아옵시다
@@ -71,7 +70,7 @@ export default function SearchPage() {
         setComment(newComments);
       })
       .catch((error) => {
-        console.log("에러", error);
+        console.error("에러", error);
       });
   }, []);
 

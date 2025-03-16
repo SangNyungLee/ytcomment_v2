@@ -14,7 +14,6 @@ export default function VideoScrapingPage ({scrapId}) {
 		setLoading(true);
 		try {
 			const data = await userScrapData();
-			console.log(data);
 			setItems(data);
 		} catch (error) {
 			console.error("데이터 로드 실패", error)
@@ -28,7 +27,6 @@ export default function VideoScrapingPage ({scrapId}) {
 	  }, [scrapId]);
 
 	  const handleVideoLike = async (videoId) => {
-		console.log("핸들부분", videoId);
 		const result = await UserVideoLike(videoId);
 		if (result){
 			fetchData();

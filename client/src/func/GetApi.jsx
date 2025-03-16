@@ -17,7 +17,7 @@ const fetchComments = async (videoId, commentNumber, token) => {
     );
     return res.data;
   } catch (error) {
-    console.log("댓글오류");
+    console.error("댓글오류");
     return null;
   }
 };
@@ -36,7 +36,6 @@ const getStatistics = async (videoId) => {
       }
     );
     // 응답 처리
-    console.log(res.data);
     return res.data;
   } catch (error) {
     console.error(error);
@@ -59,10 +58,9 @@ const searchYoutubeVideos = async (query, pageToken) => {
         },
       }
     );
-    console.log("검색데이터 받아온 결과값", result.data);
     return result;
   } catch (error) {
-    console.log("검색에러", error);
+    console.error("검색에러", error);
   }
 };
 //댓글 가져오기

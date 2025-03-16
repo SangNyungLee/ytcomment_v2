@@ -13,17 +13,12 @@ const KakaoRedirectHandler = () => {
             try {
                 const urlParams = new URLSearchParams(window.location.search);
                 const code = urlParams.get("code");
-                console.log("코드값:",code);
                 if (!code)
                     throw new Error("인가 코드가 없습니다.");
                 
                 if(!isProcessed){
                     const response = await axios.post("http://localhost:8080/api/auth/kakao", {code});
-                    console.log("여기까지 들어옴?")
                     if (response == "success")
-                        console.log("로그인 성공");
-                    // 받은 토큰 저장하는 로직 작성
-                    
                     // URL에서 ?code=XXX 제거
                     window.history.replaceState({}, null, "/");
     

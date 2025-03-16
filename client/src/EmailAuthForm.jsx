@@ -13,7 +13,6 @@ export default function emailAuthPage () {
 
     const checkUserAuthCode = async () => {
       const result = await axios.post("http://localhost:8080/api/email/check", {email : userEmail, authNum : authCode});
-      console.log("checkAuth 결과 값", result);
       if (result.data.message === "0"){
         alert("인증에 성공했습니다.")
         // 인증 성공하고나서 cookie or session에 토큰 저장하는 로직 추가하면 될듯
