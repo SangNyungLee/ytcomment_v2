@@ -13,6 +13,11 @@ export default function Lside() {
   const cookieString = document.cookie;
   const userName = sessionStorage.getItem("userName");
 
+  const handleLogin = () => {
+    // 로그인 실패하면 input값들 초기화 하기 위해서 만듬
+    getLogin({userId, userPw, setUserId, setUserPw});
+  }
+
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
       getLogin({userId, userPw});
@@ -62,7 +67,7 @@ export default function Lside() {
             onChange={(e) => setUserPw(e.target.value)}
             onKeyDown={handleKeyPress}
           ></input>
-          <button className="btnLogin" onClick={() => getLogin({userId, userPw})}>
+          <button className="btnLogin" onClick={handleLogin}>
             로그인
           </button>
           <br />

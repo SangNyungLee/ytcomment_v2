@@ -13,6 +13,10 @@ function Signup() {
     }
   };
 
+  const handleLogin = () => {
+    // 로그인 실패하면 input값들 초기화 하기 위해서 만듬
+    getLogin({userId, userPw, setUserId, setUserPw});
+  }
   return (
     <div className="mom">
       <div className="login">
@@ -50,7 +54,7 @@ function Signup() {
               type="button"
               style={{ color: "white", backgroundColor: "#D32F2F" }}
               className="btn loginBtn"
-              onClick={() => getLogin({userId, userPw})}
+              onClick={handleLogin}
             >
               로그인
             </button>
@@ -78,8 +82,6 @@ function Signup() {
         <div className="socialLogin">
           <div className="loginSNS">SNS 계정으로 로그인</div>
           <SocialKaKao />
-          {/* <GoogleLoginButton /> */}
-          {/* <GithubLoginButton /> */}
         </div>
       </div>
     </div>

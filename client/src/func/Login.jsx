@@ -1,7 +1,7 @@
 import { getCookie } from "./GetApi";
 import axios from "axios";
 
-const getLogin = async ({userId, userPw}) => {
+const getLogin = async ({userId, userPw, setUserId, setUserPw}) => {
     try {
       const result = await axios.post("http://localhost:8080/api/auth/login", {
         userId,
