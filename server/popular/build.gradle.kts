@@ -41,12 +41,7 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.4")
 	runtimeOnly("com.mysql:mysql-connector-j")
-	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 	// Junit, Mockito 추가
-	testImplementation ("org.junit.jupiter:junit-jupiter-api:5.8.2")
-	testImplementation ("org.junit.jupiter:junit-jupiter-engine:5.8.2")
-	testImplementation ("org.mockito:mockito-core:4.5.1")
-	testImplementation ("org.mockito:mockito-junit-jupiter:4.5.1")
 	testImplementation ("org.assertj:assertj-core:3.22.0")
 	// validation 오류
 	implementation ("org.springframework.boot:spring-boot-starter-validation")
