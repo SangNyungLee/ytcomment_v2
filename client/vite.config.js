@@ -1,21 +1,21 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
+import tailwindcss from '@tailwindcss/vite'  // 기존 플러그인 유지
 
-// https://vite.dev/config/
+// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  server:{
+  server: {
+    host: '0.0.0.0',  // 모든 네트워크 인터페이스에서 접근 가능하도록 설정
     proxy: {
-      '/api':{
-        target : "http://localhost:8080",
+      '/api': {
+        target: process.env.VITE_API_URL || "http://localhost:8080",
         changeOrigin: true,
-        /**
-         * 정규식 표현을 써서 localhost:8000/api에서 
-         * api만 지우고 싶으면 위에 정규식을 사용해서 지워버리면 됨
-        */
-        // rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },
   },
+  build: {
+    outDir: 'dist',  // 빌드 출력 디렉토리 설정
+    emptyOutDir: true,  // 빌드 전 출력 디렉토리 비우기
+  }
 })
