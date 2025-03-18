@@ -4,8 +4,10 @@ import { useNavigate } from "react-router-dom"
 import { getCookie } from "./GetApi";
 
 const KakaoRedirectHandler = () => {
+    const API_BASE_URL = import.meta.env.VITE_API_URL;
     const navigate = useNavigate();
     const [isProcessed, setIsProcessed] = useState(false);
+    
     // 두 번씩 실행되는거 때문에 일단 해줬음, Restrict Mode를 해제하면 안 되긴하는데 개발환경에서만 두 번씩 실행되는거
     // 나중에 개발환경에서는 삭제하는게 좋을듯
 
@@ -18,7 +20,7 @@ const KakaoRedirectHandler = () => {
                     throw new Error("인가 코드가 없습니다.");
                 
                 if(!isProcessed){
-                    const response = await axios.post("http://localhost:8080/api/auth/kakao", {code});
+                    const response = await axios.post(`${API_BASE_URL}/api/auth/kakao`, {code});
                     // URL에서 ?code=XXX 제거
                     window.history.replaceState({}, null, "/");
 

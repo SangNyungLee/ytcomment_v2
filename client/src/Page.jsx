@@ -29,7 +29,7 @@ export default function Page() {
 
   const location = useLocation();
   const videoId = location.state.videoId; // Main에서 받은 videoId
-
+  const API_BASE_URL = import.meta.env.VITE_API_URL;
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -37,7 +37,7 @@ export default function Page() {
   const fetchData = async () => {
     try {
       // 영상 정보 불러오기
-      const videoInfo = await axios.post("http://localhost:8080/api/getTags", { videoId });
+      const videoInfo = await axios.post(`${API_BASE_URL}/api/getTags`, { videoId });
       setVideoData(videoInfo.data);
 
       // 태그 문자열을 쉼표 기준으로 나누기
@@ -51,13 +51,13 @@ export default function Page() {
 
 
       // 통계 데이터 불러오기
-      const resStats = await axios.post("http://localhost:8080/api/getPageStatistics", { id: videoId });
+      const resStats = await axios.post(`${API_BASE_URL}/api/getPageStatistics`, { id: videoId });
       setChannelCommentCount(resStats.data.channelCommentCount);
       setChannelViewCount(resStats.data.channelViewCount);
       setPublishedDate(resStats.data.publishedAt);
 
       // 댓글 데이터 불러오기
-      const resComments = await axios.post("http://localhost:8080/api/getPageComment", { id: videoId });
+      const resComments = await axios.post(`${API_BASE_URL}/api/getPageComment`, { id: videoId });
       const newComments = resComments.data.map(ment => ({
         authorDisplayName: ment.authorDisplayName,
         text: ment.textOriginal,

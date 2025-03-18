@@ -10,6 +10,7 @@ function SignupForm() {
   const [userPwCheck, setUserPwCheck] = useState("");
   const [userName, setUserName] = useState("");
   const [isPasswordMatch, setIsPasswordMatch] = useState(false);
+  const API_BASE_URL = import.meta.env.VITE_API_URL;
   const PasswordCheck = (e) => {
     const { value } = e.target;
     setUserPwCheck(value);
@@ -19,7 +20,7 @@ function SignupForm() {
   const checkUserEmail = async () => {
     try {
       const response = await axios
-        .get("http://localhost:8080/api/email/check-email",
+        .get(`${API_BASE_URL}/api/email/check-email`,
           {params : {email : userEmail}}
         )
         .then((res) => {
@@ -41,7 +42,7 @@ function SignupForm() {
 
   const checkUserId = async () => {
     try {
-      const result = await axios.get("http://localhost:8080/api/email/check-id", {params : {id : userId}})
+      const result = await axios.get(`${API_BASE_URL}/api/email/check-id`, {params : {id : userId}})
       if (result.data === 0){
         alert("가입 가능한 아이디 입니다.");
         setUserIdCheck(true);
@@ -56,7 +57,7 @@ function SignupForm() {
     if (isPasswordMatch) {
       try {
         const response = await axios.post(
-          "http://localhost:8080/api/email/email-signup",
+          `${API_BASE_URL}/api/email/email-signup`,
           {
             userId,
             userEmail,

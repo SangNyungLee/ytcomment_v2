@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 
 const UserVideoLike = async (video) => {
     const token = Cookies.get("token");
+    const API_BASE_URL = import.meta.env.VITE_API_URL;
     if (!token) {
         alert("로그인 한 사용자만 사용 가능한 기능입니다.");
         return;
@@ -10,7 +11,7 @@ const UserVideoLike = async (video) => {
     try {
         
         const response = await axios.post(
-            "http://localhost:8080/api/addUserLike",
+            `${API_BASE_URL}/api/addUserLike`,
             {
                 videoId: video
             },

@@ -21,10 +21,10 @@ import "../css/KakaoButton.css";
 //   }; 
 const SocialKaKao = () => {
   const kakaoClientId = import.meta.env.VITE_KAKAO_JAVASCRIPT_KEY;
-
+  const API_BASE_URL = import.meta.env.VITE_API_URL;
   const initiateKakaoLogin = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/auth/kakaoReq");
+      const response = await axios.get(`${API_BASE_URL}/api/auth/kakaoReq`);
       // TODO 2025.02.23 sanglee 새로운 창말고 팝업창으로 띄우기
       window.location.href = response.data;
     } catch (error) {

@@ -2,10 +2,11 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const userScrapData = async () => {
+    const API_BASE_URL = import.meta.env.VITE_API_URL;
     const token = Cookies.get("token");
     try {
         const response = await axios.post(
-            "http://localhost:8080/api/getUserLikeList", 
+            `${API_BASE_URL}/api/getUserLikeList`, 
             {}, {headers : {Authorization : `Bearer ${token}`,}},
         )
         return response.data;

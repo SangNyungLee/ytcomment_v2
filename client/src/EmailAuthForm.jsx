@@ -6,13 +6,14 @@ export default function emailAuthPage () {
     const [userEmail, setUserEmail] = useState("");
     const [authCode, setAuthCode] = useState("");
     const navigate = useNavigate();
+    const API_BASE_URL = import.meta.env.VITE_API_URL;
     const sendUserAuthCode = async () => {
       alert("인증코드가 전송되었습니다.");
-      const result = await axios.post("http://localhost:8080/api/email/send", {email : userEmail});
+      const result = await axios.post(`${API_BASE_URL}/api/email/send`, {email : userEmail});
     }
 
     const checkUserAuthCode = async () => {
-      const result = await axios.post("http://localhost:8080/api/email/check", {email : userEmail, authNum : authCode});
+      const result = await axios.post(`${API_BASE_URL}/api/email/check`, {email : userEmail, authNum : authCode});
       if (result.data.message === "0"){
         alert("인증에 성공했습니다.")
         // 인증 성공하고나서 cookie or session에 토큰 저장하는 로직 추가하면 될듯

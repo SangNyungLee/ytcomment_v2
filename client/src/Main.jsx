@@ -20,6 +20,7 @@ export default function Main() {
   const [totalItems, setTotalItems] = useState(0);
   const categoryId = useSelector((state) => state.category.category);
   const newPage = useSelector((s) => s.category.newPage);
+  const API_BASE_URL = import.meta.env.VITE_API_URL;
 
   const handlePageChange = (page) => {
     setPage(page);
@@ -28,7 +29,7 @@ export default function Main() {
   const fetchVideos = async (page, categoryId) => {
     setLoading(true);
     try {
-      const res = await axios.post("http://localhost:8080/api/trending", {
+      const res = await axios.post(`${API_BASE_URL}/api/trending`, {
         page,
         categoryId,
       });
@@ -43,7 +44,7 @@ export default function Main() {
   };
 
   useEffect(() => {
-    axios.post("http://localhost:8080/api/totalPage", {categoryId}).then((res) => {
+    axios.post(`${API_BASE_URL}/api/totalPage`, {categoryId}).then((res) => {
       setTotalItems(res.data.totalPage);
       setPage(1);
     });
