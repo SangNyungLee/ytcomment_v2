@@ -5,14 +5,19 @@
 <mapper namespace="site.ytcomment.popular.mapper.CardTrendingMapper">
 
     <select id="getTrendingVideos" parameterType="site.ytcomment.popular.mapper.DTO.CardDbDTO$In" resultType="site.ytcomment.popular.mapper.DTO.CardDbDTO$Out">
-        SELECT T1.*, T2.* FROM channelInfo AS T1 LEFT JOIN (
+        SELECT T1.*, T2.*
+        FROM channelInfo AS T1
+        LEFT JOIN (
         SELECT *, ROW_NUMBER() OVER (PARTITION BY id ORDER BY likeCount DESC) AS row_num
-        FROM comment) AS T2 ON T1.id = T2.id AND (T2.row_num = 1 OR T2.row_num IS NULL)
+        FROM comment
+        ) AS T2
+        ON T1.id = T2.id AND (T2.row_num = 1 OR T2.row_num IS NULL)
         <where>
             <if test="categoryId != null and categoryId != 0">
                 AND T1.categoryId = #{categoryId}
             </if>
         </where>
+        ORDER BY DATE(T1.createdAt) DESC, T1.createdAt ASC
         LIMIT #{startIndex}, 12
     </select>
 

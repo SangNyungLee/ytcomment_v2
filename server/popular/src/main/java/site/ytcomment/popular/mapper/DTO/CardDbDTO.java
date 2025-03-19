@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.time.LocalDateTime;
+
 public class CardDbDTO {
 
     @Getter
@@ -28,6 +30,7 @@ public class CardDbDTO {
         private final String textOriginal;
         private final String channelId;
         private final int likeCount;
+        private final LocalDateTime createdAt;
 
     }
 }

@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import site.ytcomment.popular.Service.DTO.DetailPageCommentServiceDTO;
 
+import java.time.LocalDateTime;
+
 public class DetailPageCommentControllerDTO {
 
     @Getter

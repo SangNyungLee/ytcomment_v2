@@ -31,6 +31,7 @@ public class DetailPageInfoDTO {
         private final String tags;
         private final int categoryId;
         private final LocalDateTime publishedAt;
+        private final LocalDateTime createdAt;
         private final int channelLikeCount;
     }
 }
