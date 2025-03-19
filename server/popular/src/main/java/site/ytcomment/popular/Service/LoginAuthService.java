@@ -3,9 +3,11 @@ package site.ytcomment.popular.Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import site.ytcomment.popular.Service.DTO.LoginAuthServiceDTO;
+import site.ytcomment.popular.Service.DTO.UserInfoServiceDTO;
 import site.ytcomment.popular.Util.BcryptUtil;
 import site.ytcomment.popular.common.Enum.ResponseCode;
 import site.ytcomment.popular.mapper.DTO.LoginAuthDbDTO;
+import site.ytcomment.popular.mapper.DTO.UserInfoDbDTO;
 import site.ytcomment.popular.mapper.LoginAuthMapper;
 
 @Service
@@ -35,7 +37,9 @@ public class LoginAuthService {
         }
     }
         // 이메일로 사용자 ID 가져오기
-        public String getUserEmailById(String userId){
-            return loginAuthMapper.selectUserEmailById(userId);
-        }
+    public UserInfoServiceDTO.Out getUserEmailById(UserInfoServiceDTO.In in){
+        UserInfoDbDTO.Out serviceResult = loginAuthMapper.selectUserEmailById(in.getUserId());
+        return UserInfoServiceDTO.Out.from(serviceResult);
+    }
+
 }

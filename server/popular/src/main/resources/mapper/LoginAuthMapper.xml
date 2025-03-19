@@ -9,7 +9,8 @@
             SELECT userPw, auth from userinfo where id = #{userId}
     </select>
 
-    <select id="selectUserEmailById" parameterType="String" resultType="String">
-        SELECT userEmail FROM userinfo WHERE id = #{userId}
+    <select id="selectUserEmailById" parameterType="site.ytcomment.popular.mapper.DTO.UserInfoDbDTO$In"
+            resultType="site.ytcomment.popular.mapper.DTO.UserInfoDbDTO$Out">
+        SELECT id, userEmail, userName, social FROM userinfo WHERE id = #{userId}
     </select>
 </mapper>

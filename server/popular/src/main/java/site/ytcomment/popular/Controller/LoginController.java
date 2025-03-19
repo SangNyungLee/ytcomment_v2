@@ -5,12 +5,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import site.ytcomment.popular.Controller.DTO.KakaoGetTokenControllerDTO;
-import site.ytcomment.popular.Controller.DTO.KakaoLoginCheckUserControllerDTO;
-import site.ytcomment.popular.Controller.DTO.KakaoLoginGetUserInfoControllerDTO;
-import site.ytcomment.popular.Controller.DTO.LoginAuthControllerDTO;
+import site.ytcomment.popular.Controller.DTO.*;
 import site.ytcomment.popular.DTO.TokenResponseDTO;
 import site.ytcomment.popular.Service.*;
+import site.ytcomment.popular.Service.DTO.UserInfoServiceDTO;
 import site.ytcomment.popular.common.Enum.ResponseCode;
 import site.ytcomment.popular.config.jwt.JwtTokenProvider;
 
@@ -73,9 +71,10 @@ public class LoginController {
                     .body("잘못된 인증정보 입니다.");
         else{
             // 로그인 성공시 JWT 토큰 생성
-            String email = loginAuthService.getUserEmailById(in.getUserId());
-            String token = jwtTokenProvider.createToken(email, in.getUserId());
-            TokenResponseDTO tokenResponseDTO = new TokenResponseDTO(token, in.getUserId());
+            // in.. 이런 애들 전부다 DTO로 감싸야됨
+            UserInfoServiceDTO.Out userInfo = loginAuthService.getUserEmailById(UserInfoControllerDTO.In.to(in.getUserId()));
+            String token = jwtTokenProvider.createToken(userInfo.getUserEmail(), in.getUserId());
+            TokenResponseDTO tokenResponseDTO = new TokenResponseDTO(token, userInfo.getUserName());
 
             return ResponseEntity.ok()
                     .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
