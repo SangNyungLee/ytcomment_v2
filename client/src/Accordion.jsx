@@ -15,7 +15,7 @@ function AccordionFlush() {
           유튜브 스크랩
         </Accordion.Header>
         <Accordion.Body>
-          <li onClick={() => navigate("/scrapChannel")}>MY 채널 스크랩</li>
+          {/* <li onClick={() => navigate("/scrapChannel")}>MY 채널 스크랩</li> */}
           <li onClick={() => navigate("/scrapVideo")}>MY 영상 스크랩</li>
         </Accordion.Body>
       </Accordion.Item>

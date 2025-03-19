@@ -130,8 +130,8 @@ export default function SearchPage() {
         <br />
         <div className="hashTags">
           {recData.snippet.tags
-            ? recData.snippet.tags.map((res) => (
-                <span className="tags btn" id={res}>
+            ? recData.snippet.tags.map((res, index) => (
+                <span key={index} className="tags btn" id={res}>
                   #{res}
                 </span>
               ))
@@ -157,8 +157,8 @@ export default function SearchPage() {
             </select>
           </div>
           <div className="commentList">
-            {comment.map((res) => (
-              <div className="commentDiv">
+            {comment.map((res, index) => (
+              <div key={index} className="commentDiv">
                 <img src={`${res.imgUrl}`} className="commentImg" />
                 <div>
                   <span>@{res.authorName}</span> <span>{res.time}</span>
