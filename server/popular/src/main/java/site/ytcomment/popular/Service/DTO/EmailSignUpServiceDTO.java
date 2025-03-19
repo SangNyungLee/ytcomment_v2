@@ -24,7 +24,7 @@ public class EmailSignUpServiceDTO {
                     .userId(this.userId)
                     .userEmail(this.userEmail)
                     .userPw(pw)
-                    .userName(this.userPw)
+                    .userName(this.userName)
                     .social(SocialEnum.이메일.getCode())
                     .build();
         }
