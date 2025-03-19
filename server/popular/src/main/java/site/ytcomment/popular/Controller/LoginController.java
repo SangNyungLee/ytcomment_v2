@@ -78,7 +78,8 @@ public class LoginController {
 
             return ResponseEntity.ok()
                     .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
-                    .body(tokenResponseDTO);
+                    .header(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, HttpHeaders.AUTHORIZATION) // CORS 문제 방지
+                    .body(userInfo.getUserName());
 
         }
     }
