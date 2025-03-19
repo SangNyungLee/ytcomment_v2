@@ -132,11 +132,15 @@ export default function Page() {
         </div>
         <div className="vote">
           <span className="positiveBtn">
-            <BsFillHandThumbsUpFill />
+            <span className="thumbBtn">
+              <BsFillHandThumbsUpFill/>
+            </span>
             추천 <strong>{videoData.channelLikeCount}</strong>
           </span>
           <span className="negativeBtn">
-            <BsFillHandThumbsDownFill />
+            <span className="thumbBtn">
+              <BsFillHandThumbsDownFill />
+            </span>
             비추천
             <strong>0</strong>
           </span>

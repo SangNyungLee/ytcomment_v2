@@ -48,7 +48,6 @@ function NavBar() {
             </Nav.Link>
           </Nav>
 
-          {/*  검색창 디자인 개선 */}
           <Nav className="mr-auto searchContainer">
             <div className="searchBox">
               <input

@@ -30,15 +30,19 @@
   color: #fff;
 }
 
+.thumbBtn{
+  margin-top: 8px;
+  margin-right: 5px;
+}
 .positiveBtn {
-  display: inline-block;
+  display: inline-flex;
   margin: 0 10px;
   border-radius: 4px;
   vertical-align: top;
   background-color: #db2828;
 }
 .negativeBtn {
-  display: inline-block;
+  display: inline-flex;
   margin: 0 1px;
   border-radius: 4px;
   vertical-align: top;

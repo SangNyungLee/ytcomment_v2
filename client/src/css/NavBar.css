@@ -6,10 +6,10 @@
   margin-left: 10px;
 }
 
-.navbar-collapse {
-  text-align: center;
-  justify-content: space-evenly;
-}
+/* .navbar-collapse {
+  display: flex;
+  justify-content: center;
+} */
 
 .navUnderline {
   border: 1px solid rgb(223, 223, 223);
@@ -23,13 +23,15 @@
 
 .mainNavBar {
   position: fixed;
-  width: 100%;
+  width: 85%;
   z-index: 98;
   border-bottom: 1px solid rgb(224, 224, 224);
 }
 
-.navFlex {
-  justify-content: space-between;
+.navFlex {  
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 /*  검색창 스타일 개선 */
@@ -63,12 +65,14 @@
 
 /*  검색 아이콘 */
 .searchIcons {
+
   position: absolute;
   right: 10px;
   width: 20px;
   height: 20px;
   padding-bottom: 26px;
   padding-right: 20px;
+  padding-top : 5px;
   color: gray;
   cursor: pointer;
 }

@@ -19,6 +19,7 @@ import VideoScrapingPage from "./scrap/VideoScrapingPage";
 import EmailAuthForm from "./EmailAuthForm";
 import ScrollToTop from "./func/ScrollToTop";
 import PrivateRoute from "./routes/PrivateRoute";
+import MyPage from "./MyPage";
 
 function App() {
   // 초기 상태를 window.innerWidth로 설정
@@ -58,8 +59,7 @@ function App() {
             <Route path="/redirectPage" element={<KakaoRedirectHandler/>}/>
             <Route path="/scrapChannel" element={<ChannelScrapingPage scrapId ="myChannel"/>}/>
             <Route path="/emailAuthPage" element ={<EmailAuthForm />}/>
-            <Route path="/MyPage" element={<MyPage/>}/>
-            {/* 로그인한 사용자만 접근 가능한 페이지 */}
+            <Route path="/myPage" element={<MyPage/>}/>
             <Route element={<PrivateRoute/>}>
               <Route path="/scrapVideo" element={<VideoScrapingPage scrapId = "myVideo" />}/>
             </Route>
