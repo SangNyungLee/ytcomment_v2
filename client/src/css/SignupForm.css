@@ -1,10 +1,31 @@
-.pwMatch {
-  color: #33e533;
-  font-size: 12px;
+/* 기본적으로 모든 input은 margin-bottom: 10px */
+.pwCheck input {
+  width: 100%;
+  margin-bottom: 10px;
+}
+.pwCheck .hasError{
+  margin-bottom : 10px
+}
+.userPwCheck {
+  margin-bottom: 0px !important;
+}
+/* 오류가 있을 경우 margin-bottom을 0px으로 설정 */
+.emailCheck.hasError input,
+.idCheck.hasError input,
+.pwCheck.hasError .userPw, .pwCheck.hasError {
   margin-bottom: 0px;
 }
-.userEmailTag {
+
+/* 오류 메시지 */
+.error {
+  color: #d53535;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+/* 성공 메시지 */
+.success {
   color: #33e533;
   font-size: 12px;
-  margin-bottom: 0px;
+  margin-top: 5px;
 }
