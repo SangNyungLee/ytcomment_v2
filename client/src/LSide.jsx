@@ -6,12 +6,13 @@ import { BsFillBarChartLineFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { deleteCookie } from "./func/GetApi";
 import getLogin from "./func/Login";
+import Cookies from "js-cookie";
 
 export default function Lside() {
   const [userId, setUserId] = useState("");
   const [userPw, setUserPw] = useState("");
   const cookieString = document.cookie;
-  const userName = sessionStorage.getItem("userName");
+  const userName = Cookies.get("username");
 
   const handleLogin = () => {
     // 로그인 실패하면 input값들 초기화 하기 위해서 만듬

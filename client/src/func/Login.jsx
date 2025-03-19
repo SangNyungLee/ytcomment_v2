@@ -9,8 +9,11 @@ const getLogin = async ({userId, userPw, setUserId, setUserPw}) => {
       });
       if(result.status === 200) {
         alert("로그인에 성공하셨습니다.!");
-        sessionStorage.setItem("userName", result.data.userId);
-        getCookie("token", result.data.token);
+
+        // 헤더에서 JWT 토큰 가져오기
+        const token = result.headers.authorization?.split(" ")[1]; // "Bearer token값" → "token값"
+        const username = result.data;
+        getCookie("token", token, username); 
       }
     } catch (error) {
       if (error.status == 401) {

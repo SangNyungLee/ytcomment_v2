@@ -73,18 +73,19 @@ function truncateText(text) {
     return sliceText;
   }
 }
-function getCookie(key, data) {
+function getCookie(key, data, username) {
   const token = data;
   // 만료날짜 설정
   const expires = new Date();
   expires.setTime(expires.getTime() + 2 * 60 * 60 * 1000);
   // 쿠키 설정 (path 설정 = 쿠키가 적용되는 경로지정)
   document.cookie = `${key} = ${token}; expires=${expires.toUTCString()} path=/`;
+  document.cookie = `username = ${username}; expires=${expires.toUTCString()} path=/`;
   window.location.href = "/";
 }
 function deleteCookie() {
-  document.cookie =
-    "token" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 }
 export {
   fetchComments,
