@@ -3,14 +3,9 @@ import { Card, Col, Row } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/Search.css";
 import Spinner from "react-bootstrap/Spinner";
-import { useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { BsYoutube, BsFillPinFill } from "react-icons/bs";
-import {
-  fetchComments,
-  truncateText,
-  searchYoutubeVideos,
-} from "./func/GetApi";
+import { fetchComments, truncateText, searchYoutubeVideos} from "./func/GetApi";
 
 //API키
 export default function Search() {
@@ -19,82 +14,80 @@ export default function Search() {
   const [pageToken, setPageToken] = useState("");
   const [commentData, setCommentData] = useState([]);
   const [selectedVideo, setSelectedVideo] = useState(null);
-  const [categoryNumber, setCategoryNumber] = useState(null);
-  const [searchTitle, setSearchTitle] = useState("");
-  const location = useLocation();
-  const recData = location.state.data;
-  const newCategory = useSelector((state) => state.category.category);
 
-  const fetchVideos = async (token) => {
+  // URL에서 query값 가져오기
+  const [searchParams] = useSearchParams();
+  const searchQuery = searchParams.get("query");
+
+  const fetchVideos = async (query, token = "") => {
+    if (!query) return; // 검색어가 없으면 실행하지 않음
     setLoading(true);
-    setSearchTitle(recData);
     try {
-      setVideos([]);
-      const res = await searchYoutubeVideos(recData, token);
-      //댓글 불러오기
+      const res = await searchYoutubeVideos(query, token);
       const newVideos = res.data.items;
-      if (categoryNumber === null || categoryNumber !== newCategory) {
-        setCategoryNumber(newCategory);
-        setVideos([...newVideos]);
-      } else {
-        setVideos([...videos, ...newVideos]);
-      }
+
+      //기존에 있는 데이터에 새로운 데이터 같이 넣어줌
+      setVideos((prevVideos) => {
+        const existingVideoIds = new Set(prevVideos.map(video => video.id.videoId));
+        const uniqueVideos = newVideos.filter(video => !existingVideoIds.has(video.id.videoId));
+        return [...prevVideos, ...uniqueVideos]; // 중복 없는 새로운 비디오 추가
+      });
       setPageToken(res.data.nextPageToken);
     } catch (error) {
       if (error instanceof Error) {
-        console.error("에러입니다.", error);
+        console.error("에러 발생", error);
       }
     }
     setLoading(false);
   };
 
+  // 검색어가 변경될 때마다 실행
   useEffect(() => {
-    fetchVideos("");
-  }, [newCategory]);
+    if(searchQuery){
+      setVideos([]);
+      fetchVideos(searchQuery);
+    }
+  }, [searchQuery]);
 
+  // 동영상 댓글 가져오기
   useEffect(() => {
     async function fetchCommentsForVideos() {
-      const comments = [];
+      const comments = {};
       for (const video of videos) {
         const videoId = video.id.videoId;
         const commentInfo = await fetchComments(videoId, 2, "");
         comments[videoId] = commentInfo;
       }
-      setCommentData(comments);
+      setCommentData((prevComments) => ({...prevComments, ...comments}));
     }
     if (videos.length > 0) {
       fetchCommentsForVideos();
     }
   }, [videos]);
 
-  // 스크롤 이벤트
-  window.onscroll = () => {
-    if (
-      window.innerHeight + document.documentElement.scrollTop >=
-      document.documentElement.offsetHeight - 1
-    ) {
-      if (!loading && pageToken) {
-        fetchVideos(pageToken);
-      }
-    }
-  };
-
-  ////////
+  // 스크롤 이벤트 = 스크롤이 끝까지 내려가면 추가 데이터 로딩(무한스크롤)
+  useEffect(() => {
+      const handleScroll= () =>{
+        if (
+          window.innerHeight + document.documentElement.scrollTop >=
+          document.documentElement.offsetHeight - 10
+        ) {
+          if (!loading && pageToken) {
+            fetchVideos(searchQuery, pageToken);
+          }
+        }
+      };
+  
+      window.addEventListener("scroll", handleScroll);
+      return () => window.removeEventListener("scroll", handleScroll);
+  },[loading, pageToken, searchQuery])
 
   return (
     <div className="text-center">
-      <h3>{searchTitle} 검색결과</h3>
+      <h3>{searchQuery ? `"${searchQuery}" 검색결과` : "검색어를 입력하세요."}</h3>
       <Row className="justify-content-center" style={{ width: "100%" }}>
         {videos.map((video) => (
-          <Col
-            xs={7}
-            sm={7}
-            md={5}
-            lg={4}
-            xl={3}
-            xxl={2}
-            key={video.id.videoId}
-          >
+          <Col xs={7} sm={7} md={5} lg={4} xl={3} xxl={2} key={video.id.videoId}>
             <Card style={{ width: "100%", marginBottom: "20px" }}>
 				{selectedVideo === video.id.videoId ? (
 					<iframe

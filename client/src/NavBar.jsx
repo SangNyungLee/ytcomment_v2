@@ -15,7 +15,7 @@ function NavBar() {
   const handleKeyDown = async (e) => {
     if (e.key === "Enter") {
       searchYoutubeVideos(youtubeSearch, " ");
-      navigate("/search", { state: { data: youtubeSearch } });
+      navigate(`/search?query=${youtubeSearch}`);
       setYoutubeSearch("");
     }
   };

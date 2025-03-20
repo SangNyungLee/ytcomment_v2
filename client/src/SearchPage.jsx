@@ -14,8 +14,9 @@ import { fetchComments, getStatistics } from "./func/GetApi";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import ClipIcons from "./ClipIcons";
+import formatPublishedAt from "./func/FormatPublishedAt";
+import formatNumber from "./func/FormatNumber";
 export default function SearchPage() {
-  //모달부분
   const [show, setShow] = useState(false);
   const [commentCount, setCommentCount] = useState(0);
   const [viewCount, setViewCount] = useState(0);
@@ -23,37 +24,22 @@ export default function SearchPage() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const location = useLocation();
-  const recData = location.state.data;
-  const myId = recData.id;
+  const videoData = location.state.data;
+  const myId = videoData.id;
   const [comment, setComment] = useState([]);
-  //원래 시간으로 돌려주는 함수
-  function formatPublishedAt(publishedAt) {
-    const date = new Date(publishedAt);
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, "0");
-    const day = date.getDate().toString().padStart(2, "0");
-    return `${year}-${month}-${day}`;
-  }
 
-  //조회수 변경해주는 방법
-  function formatNumber(number) {
-    return new Intl.NumberFormat("ko-KR", {
-      notation: "compact",
-      maximumFractionDigits: 1,
-    }).format(number);
-  }
   //클립 버튼 눌렀을 때 복사되는거
   const getUrl = (e) => {
   };
   useEffect(() => {
     // statistics받아옵시다
-    getStatistics(recData.id.videoId).then((res) => {
+    getStatistics(videoData.id.videoId).then((res) => {
       setCommentCount(res.items[0].statistics.commentCount);
       setViewCount(res.items[0].statistics.viewCount);
       setLikeCount(res.items[0].statistics.likeCount);
     });
 
-    fetchComments(recData.id.videoId, 10, "")
+    fetchComments(videoData.id.videoId, 10, "")
       .then((res) => {
         const newComments = res.items.map((ment) => {
           return {
@@ -77,20 +63,17 @@ export default function SearchPage() {
     <>
       <header>
         <h3 className="headTitle">
-          {/* <span>[{recData.snippet.categoryId}]</span> */}
-          <span className="chaennelTitle">{recData.snippet.title}</span>
+          <span className="chaennelTitle">{videoData.snippet.title}</span>
         </h3>
       </header>
       <section>
-        {/* <h2>{recData.snippet.localized.description}</h2> */}
         <div className="profile_info">
-          <span className="channelName">{recData.snippet.channelTitle}</span>
+          <span className="channelName">{videoData.snippet.channelTitle}</span>
           <span className="channelComments">댓글 : {commentCount}개 </span>
-          <span className="channelViews">
-            조회수 : {formatNumber(viewCount)}{" "}
+          <span className="channelViews"> 조회수 : {formatNumber(viewCount)}{" "}
           </span>
           <span className="channelUploadDate">
-            {formatPublishedAt(recData.snippet.publishedAt)}
+            {formatPublishedAt(videoData.snippet.publishedAt)}
           </span>
         </div>
       </section>
@@ -98,20 +81,20 @@ export default function SearchPage() {
         <div className="videoPlayer">
           <iframe
             className="goVideo"
-            title={`recData.snippet.channelTitle`}
-            src={`https://www.youtube.com/embed/${recData.id.videoId}`}
+            title={`videoData.snippet.channelTitle`}
+            src={`https://www.youtube.com/embed/${videoData.id.videoId}`}
           ></iframe>
         </div>
         <div className="moreInfo">
           <a
-            href={`https://www.youtube.com/watch?v=${recData.id.videoId}`}
+            href={`https://www.youtube.com/watch?v=${videoData.id.videoId}`}
             className="btn youtubeBtn"
           >
             유튜브에서 보기
           </a>
           <a
             className="btn youtubeInfo"
-            href={`https://www.youtube.com/channel/${recData.snippet.channelId}`}
+            href={`https://www.youtube.com/channel/${videoData.snippet.channelId}`}
           >
             유튜브 채널 정보
           </a>
@@ -124,12 +107,11 @@ export default function SearchPage() {
           </Button>
           <span className="btn youtubeChannelClip">채널 스크랩</span>
         </div>
-        <ClipIcons />
-        <div className="youtubeDescription">{recData.snippet.description}</div>
+        <div className="youtubeDescription">{videoData.snippet.description}</div>
         <br />
         <div className="hashTags">
-          {recData.snippet.tags
-            ? recData.snippet.tags.map((res, index) => (
+          {videoData.snippet.tags
+            ? videoData.snippet.tags.map((res, index) => (
                 <span key={index} className="tags btn" id={res}>
                   #{res}
                 </span>
@@ -138,12 +120,16 @@ export default function SearchPage() {
         </div>
         <div className="vote">
           <span className="positiveBtn">
-            <BsFillHandThumbsUpFill />
+            <span className="thumbBtn">
+              <BsFillHandThumbsUpFill/>
+            </span>
             추천 <strong>{likeCount}</strong>
           </span>
           <span className="negativeBtn">
-            <BsFillHandThumbsDownFill />
-            비추천
+            <span className="thumbBtn">
+              <BsFillHandThumbsDownFill />
+            </span>
+             비추천
             <strong>0</strong>
           </span>
         </div>
@@ -157,54 +143,36 @@ export default function SearchPage() {
           </div>
           <div className="commentList">
             {comment.map((res, index) => (
-              <div key={index} className="commentDiv">
-                <img src={`${res.imgUrl}`} className="commentImg" />
-                <div>
-                  <span>@{res.authorName}</span> <span>{res.time}</span>
-                  <br />
-                  <span>{res.text}</span>
-                  <br />
-                  <span>
-                    <BsHandThumbsUp style={{ fontWeight: "bold" }} />{" "}
-                    <span style={{ fontSize: "13px", fontWeight: "bold" }}>
-                      {res.like}
-                    </span>
-                  </span>
-                  <br />
-                  <br />
+              <div className="commentDiv" key={index}>
+                <img src={`${res.imgUrl}`} className="commentImg" alt="프로필" />
+                <div className="commentContent">
+                  <div className="commentHeader">
+                    <span className="commentAuthor">{res.authorName}</span>
+                    <span className="commentTime">{res.time}</span>
+                  </div>
+                  <div className="commentText">{res.text}</div>
+                  <div className="commentLikes">
+                    <BsHandThumbsUp />
+                    <span className="likeCount">{res.like}</span>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
-          {/* 모달부분 */}
-          <Modal
-            show={show}
-            onHide={handleClose}
-            centered // 이 속성을 추가하여 모달을 화면 가운데로 정렬
-          >
+
+          <Modal show={show} onHide={handleClose} centered>
             <Modal.Header closeButton>
               <Modal.Title>공유하기</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <div>
-                <ClipIcons />
-              </div>
+                {/* <ClipIcons /> */}
             </Modal.Body>
             <Modal.Footer style={{ justifyContent: "center" }}>
               <span style={{ border: "2px solid #ddd", padding: "5px" }}>
-                <span className="ClipUrl">{`https://www.youtube.com/watch?v=${recData.id}`}</span>
-
-                <CopyToClipboard
-                  text={`https://www.youtube.com/watch?v=${recData.id.videoId}`}
-                  onCopy={() => alert("클립보드에 복사되었습니다.")}
-                >
-                  <button
-                    className="btn"
-                    style={{ backgroundColor: "#F55145", marginLeft: "15px" }}
-                    onClick={(e) => getUrl(e.target.value)}
-                  >
-                    <BsPaperclip />
-                    복사하기
+                <span className="ClipUrl">{`https://www.youtube.com/watch?v=${videoData.id}`}</span>
+                <CopyToClipboard text={`https://www.youtube.com/watch?v=${videoData.id.videoId}`} onCopy={() => alert("클립보드에 복사되었습니다.")}>
+                  <button className="btn" style={{ backgroundColor: "#F55145", marginLeft: "15px" }}>
+                    <BsPaperclip />복사하기
                   </button>
                 </CopyToClipboard>
               </span>

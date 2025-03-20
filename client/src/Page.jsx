@@ -18,8 +18,8 @@ import formatPublishedAt from "./func/FormatPublishedAt";
 import UserVideoLike from "./scrap/UserLike";
 
 export default function Page() {
-  const [videoData, setVideoData] = useState(null);
-  const [tagsArray, setTagsArray] = useState([]);
+  const [videoData, setVideoData] = useState(null); // videoData 상태로 관리
+  const [tagsArray, setTagsArray] = useState([]); // 태그 배열도 상태로 관리
   const [show, setShow] = useState(false);
   const [channelCommentCount, setChannelCommentCount] = useState(0);
   const [channelViewCount, setChannelViewCount] = useState(0);
@@ -28,7 +28,7 @@ export default function Page() {
   const [sortOption, setSortOption] = useState("like"); 
 
   const location = useLocation();
-  const videoId = location.state.videoId;
+  const videoId = location.state.videoId; // Main에서 받은 videoId
   const API_BASE_URL = import.meta.env.VITE_API_URL;
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -175,7 +175,7 @@ export default function Page() {
               </div>
             ))}
           </div>
-
+          {/* 모달 */}
           <Modal show={show} onHide={handleClose} centered>
             <Modal.Header closeButton>
               <Modal.Title>공유하기</Modal.Title>
