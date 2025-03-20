@@ -27,7 +27,6 @@ export default function SearchPage() {
   const videoData = location.state.data;
   const myId = videoData.id;
   const [comment, setComment] = useState([]);
-
   //클립 버튼 눌렀을 때 복사되는거
   const getUrl = (e) => {
   };
@@ -134,13 +133,13 @@ export default function SearchPage() {
           </span>
         </div>
         <div>
-          <div>
+          {/* <div>
             <select style={{ marginBottom: "20px", marginTop: "20px" }}>
               <option>관련성 순</option>
               <option>좋아요 많은 순</option>
               <option>최신순</option>
             </select>
-          </div>
+          </div> */}
           <div className="commentList">
             {comment.map((res, index) => (
               <div className="commentDiv" key={index}>
@@ -169,7 +168,7 @@ export default function SearchPage() {
             </Modal.Body>
             <Modal.Footer style={{ justifyContent: "center" }}>
               <span style={{ border: "2px solid #ddd", padding: "5px" }}>
-                <span className="ClipUrl">{`https://www.youtube.com/watch?v=${videoData.id}`}</span>
+                <span className="ClipUrl">{`https://www.youtube.com/watch?v=${videoData.id.videoId}`}</span>
                 <CopyToClipboard text={`https://www.youtube.com/watch?v=${videoData.id.videoId}`} onCopy={() => alert("클립보드에 복사되었습니다.")}>
                   <button className="btn" style={{ backgroundColor: "#F55145", marginLeft: "15px" }}>
                     <BsPaperclip />복사하기

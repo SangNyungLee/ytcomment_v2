@@ -181,7 +181,7 @@ export default function Page() {
               <Modal.Title>공유하기</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <ClipIcons />
+              {/* <ClipIcons /> */}
             </Modal.Body>
             <Modal.Footer style={{ justifyContent: "center" }}>
               <span style={{ border: "2px solid #ddd", padding: "5px" }}>
