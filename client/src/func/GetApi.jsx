@@ -53,7 +53,7 @@ const searchYoutubeVideos = async (query, pageToken) => {
           type: "video",
           part: "snippet",
           q: query, //query가 검색부분임
-          maxResults: 12,
+          maxResults: 8,
           pageToken: pageToken,
         },
       }
