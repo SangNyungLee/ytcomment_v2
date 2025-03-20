@@ -1,3 +1,45 @@
 .myPageContainer{
   margin-top: 70px;
 }
+.scrap-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #f9f9f9;
+  margin-bottom: 10px;
+}
+
+.scrap-thumbnail {
+  width: 120px;
+  height: 80px;
+  background: gray;
+  border-radius: 6px;
+}
+
+.scrap-info {
+  flex-grow: 1;
+}
+
+.scrap-buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.scrap-more {
+  padding: 4px 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.scrap-action {
+  padding: 4px 8px;
+  background: black;
+  color: white;
+  border-radius: 6px;
+  font-size: 12px;
+}
