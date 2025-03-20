@@ -19,21 +19,6 @@ function AccordionFlush() {
           <li onClick={() => navigate("/scrapVideo")}>MY 영상 스크랩</li>
         </Accordion.Body>
       </Accordion.Item>
-      {/* 
-      <Accordion.Item eventKey="1">
-        <Accordion.Header>
-          <BsSearch className="accordionIcon" />
-          유튜브 영상검색
-        </Accordion.Header>
-        <Accordion.Body>
-          <ul>
-            <li>1번</li>
-            <li>2번</li>
-            <li>3번</li>
-          </ul>
-        </Accordion.Body>
-      </Accordion.Item> */}
-
       <Accordion.Item eventKey="2">
         <Accordion.Header>
           <BsChatRight className="accordionIcon" />

@@ -11,7 +11,7 @@ import {
   truncateText,
   searchYoutubeVideos,
 } from "./func/GetApi";
-import { RootState } from "./store";
+
 //API키
 export default function Search() {
   const [videos, setVideos] = useState([]);

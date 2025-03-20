@@ -22,7 +22,6 @@ export default function SearchPage() {
   const [likeCount, setLikeCount] = useState(0);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  //
   const location = useLocation();
   const recData = location.state.data;
   const myId = recData.id;

@@ -1,6 +1,6 @@
-import "@fontsource/open-sans"; // Defaults to weight 400
-import "@fontsource/open-sans/400-italic.css"; // Specify weight and style
-import "@fontsource/open-sans/400.css"; // Specify weight
+import "@fontsource/open-sans";
+import "@fontsource/open-sans/400-italic.css";
+import "@fontsource/open-sans/400.css";
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./css/App.css";
@@ -19,7 +19,6 @@ import VideoScrapingPage from "./scrap/VideoScrapingPage";
 import EmailAuthForm from "./EmailAuthForm";
 import ScrollToTop from "./func/ScrollToTop";
 import PrivateRoute from "./routes/PrivateRoute";
-import MyPage from "./MyPage";
 
 function App() {
   // 초기 상태를 window.innerWidth로 설정
@@ -59,7 +58,6 @@ function App() {
             <Route path="/redirectPage" element={<KakaoRedirectHandler/>}/>
             <Route path="/scrapChannel" element={<ChannelScrapingPage scrapId ="myChannel"/>}/>
             <Route path="/emailAuthPage" element ={<EmailAuthForm />}/>
-            <Route path="/myPage" element={<MyPage/>}/>
             <Route element={<PrivateRoute/>}>
               <Route path="/scrapVideo" element={<VideoScrapingPage scrapId = "myVideo" />}/>
             </Route>
