@@ -24,6 +24,7 @@ public class SecurityConfig {
 //                        , "/api/totalPage").permitAll()
 //                        .requestMatchers("/api/**").authenticated()
                         // TODO sanglee 2025.03.12 특정 페이지들만 나중에 authenticated 적용하기
+                        .requestMatchers("/.git/**", "/.env").denyAll() // 봇 공격 차단
                         .anyRequest().permitAll()) // 인증 필요
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
         return http.build();
