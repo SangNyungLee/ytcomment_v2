@@ -7,7 +7,7 @@ import formatPublishedAt from "../func/FormatPublishedAt";
 import UserVideoLike from "./UserLike";
 import { Link } from "react-router-dom";
 
-export default function VideoScrapingPage ({scrapId}) {
+const VideoScrapingPage =({scrapId}) => {
 	const [loading, setLoading] = useState(true);
 	const [items, setItems] = useState([]);
 
@@ -27,12 +27,12 @@ export default function VideoScrapingPage ({scrapId}) {
 		fetchData();
 	  }, [scrapId]);
 
-	  const handleVideoLike = async (videoId) => {
-		const result = await UserVideoLike(videoId);
-		if (result){
-			fetchData();
-		}
-	  };
+	const handleVideoLike = async (videoId) => {
+	const result = await UserVideoLike(videoId);
+	if (result){
+		fetchData();
+	}
+	};
 	  return (
 		<div className="scrap-content">
 		  <h1 className="scrap-title">{scrapId === "my-channel" ? "MY 채널 스크랩" : "MY 영상 스크랩"}</h1>
@@ -95,3 +95,5 @@ export default function VideoScrapingPage ({scrapId}) {
 		</div>
 	  );
 }
+
+export default VideoScrapingPage;

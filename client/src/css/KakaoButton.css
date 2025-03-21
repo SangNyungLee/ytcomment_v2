@@ -1,11 +1,28 @@
-.kakao-login-button {
-  background-color: #ffeb00;
-  color: #000000;
+.kakaoLoginBtn {
+  background-color: #FEE500;
+  color: #3C1E1E;
   border: none;
-  padding: 10px 20px;
+  padding: 12px 20px;
   font-size: 16px;
-  border-radius: 5px;
+  font-weight: 600;
+  border-radius: 8px;
   cursor: pointer;
-  line-height: 40px;
-  width: 20rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: background-color 0.2s ease;
+  width: 100%;
+  max-width: 300px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  margin-left: 10%;
+}
+
+.kakaoLoginBtn:hover {
+  background-color: #ffd600;
+}
+
+.kakaoIcon {
+  width: 24px;
+  height: 24px;
 }

@@ -14,11 +14,16 @@
   border-color: black;
   background-color: #c02929;
   color: white;
+  outline: none;
+  box-shadow: none;
 }
 .accordion-button:not(.collapsed) {
   color: white;
   background-color: #c02929;
   box-shadow: #c02929c9;
+}
+.accordion-body{
+  padding-top : 0px;
 }
 .accordion-body > li {
   padding-top: 10px;

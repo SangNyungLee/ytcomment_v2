@@ -62,9 +62,9 @@ function NavBar() {
                 <Search size={20}/>
               </Link>
             </div>
-            <Nav.Link>
+            <Link to={"/myPage"}>
               <User className="userIcon" />
-            </Nav.Link>
+            </Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

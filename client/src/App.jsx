@@ -51,17 +51,19 @@ function App() {
           <Routes>
             <Route path="/nav" element={<NavBar />} />
             <Route path="/" element={<Main />} />
-            <Route path="/search" element={<Search />} />
             <Route path="/page" element={<Page />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/signupForm" element={<SignupForm />} />
-            <Route path="/searchPage" element={<SearchPage />} />
             <Route path="/redirectPage" element={<KakaoRedirectHandler/>}/>
             <Route path="/scrapChannel" element={<ChannelScrapingPage scrapId ="myChannel"/>}/>
             <Route path="/emailAuthPage" element ={<EmailAuthForm />}/>
-            <Route path="/myPage" element={<Mypage/>}/>
+
+            {/* 로그인된 사용자만 접근 가능한 페이지 */}
             <Route element={<PrivateRoute/>}>
               <Route path="/scrapVideo" element={<VideoScrapingPage scrapId = "myVideo" />}/>
+              <Route path="/searchPage" element={<SearchPage />} />
+              <Route path="/myPage" element={<Mypage/>}/>
+              <Route path="/search" element={<Search/>} />
             </Route>
           </Routes>
         </div>

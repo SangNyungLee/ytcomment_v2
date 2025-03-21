@@ -12,7 +12,7 @@
   margin-bottom: 10px;
 }
 
-.scrap-thumbnail {
+.mypage-scrap-thumbnail {
   width: 120px;
   height: 80px;
   background: gray;
@@ -20,6 +20,7 @@
 }
 
 .scrap-info {
+  max-width: 80%;
   flex-grow: 1;
 }
 

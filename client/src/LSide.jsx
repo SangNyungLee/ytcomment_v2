@@ -4,9 +4,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import AccordionFlush from "./Accordion";
 import { BsFillBarChartLineFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import { deleteCookie } from "./func/GetApi";
 import getLogin from "./func/Login";
 import Cookies from "js-cookie";
+import logout from "./func/logout";
 
 export default function Lside() {
   const [userId, setUserId] = useState("");
@@ -25,11 +25,7 @@ export default function Lside() {
     }
   };
 
-  const logout = () => {
-    deleteCookie();
-    sessionStorage.removeItem("userName");
-    window.location.replace("/");
-  };
+
 
   return (
     <div className="mainSide">
