@@ -28,13 +28,15 @@ public class UserInfoControllerDTO {
         private final String userEmail;
         private final String userName;
         private final String social;
+        private final int count;
 
         public static UserInfoControllerDTO.Out from(UserInfoServiceDTO.Out out){
             return Out.builder()
                     .id(out.getId())
                     .userEmail(out.getUserEmail())
-                    .userEmail(out.getUserEmail())
+                    .userName(out.getUserName())
                     .social(out.getSocial())
+                    .count(out.getCount())
                     .build();
         }
     }

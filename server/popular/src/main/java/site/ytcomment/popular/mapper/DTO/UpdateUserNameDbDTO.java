@@ -4,23 +4,20 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-public class UserInfoDbDTO {
+public class UpdateUserNameDbDTO {
 
     @Getter
     @Builder
     @RequiredArgsConstructor
     public static class In{
-        private final String userId;
+        private final String id;
+        private final String userName;
     }
 
     @Getter
     @Builder
     @RequiredArgsConstructor
     public static class Out{
-        private final String id;
-        private final String userEmail;
-        private final String userName;
-        private final String social;
-        private final int count;
+        private final int result;
     }
 }

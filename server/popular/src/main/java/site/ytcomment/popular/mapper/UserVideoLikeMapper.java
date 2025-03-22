@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import site.ytcomment.popular.mapper.DTO.UserInfoDbDTO;
 import site.ytcomment.popular.mapper.DTO.scrap.FindVideoLikeDbDTO;
 import site.ytcomment.popular.mapper.DTO.scrap.UserScrapPageDbDTO;
 import site.ytcomment.popular.mapper.DTO.scrap.UserVideoLikeDbDTO;

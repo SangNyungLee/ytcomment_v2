@@ -4,13 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import site.ytcomment.popular.Controller.DTO.UserInfoControllerDTO;
 import site.ytcomment.popular.Controller.DTO.scrap.FindVideoLikeControllerDTO;
 import site.ytcomment.popular.Controller.DTO.scrap.UserScrapPageControllerDTO;
+import site.ytcomment.popular.Service.DTO.UserInfoServiceDTO;
 import site.ytcomment.popular.Service.DTO.scrap.UserScrapPageServiceDTO;
+import site.ytcomment.popular.Service.GetUserInfoService;
 import site.ytcomment.popular.Service.scrap.FindVideoLikeService;
 import site.ytcomment.popular.Service.scrap.UserLikeListService;
 import site.ytcomment.popular.Service.scrap.UserVideoLikeService;
@@ -27,6 +27,7 @@ public class ScrapController {
     private final UserVideoLikeService userVideoLikeService;
     private final FindVideoLikeService findVideoLikeService;
     private final UserLikeListService userLikeListService;
+    private final GetUserInfoService getUserInfoService;
     /*
     해당 유저가 해당 영상을 좋아요 했는지 확인
     1. 좋아요 한 영상이 없다.
