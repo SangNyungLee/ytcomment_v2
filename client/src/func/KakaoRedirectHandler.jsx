@@ -26,8 +26,7 @@ const KakaoRedirectHandler = () => {
 
                     // 성공하면 메인페이지로 보냄
                     if (response.status == 200){
-                        sessionStorage.setItem("userName", response.data.userId);
-                        getCookie("token", response.data.token);
+                        getCookie("token", response.data.token, response.data.userId, 1);
                     } else{
                         alert("로그인에 실패하였습니다.");
                         navigate("/");

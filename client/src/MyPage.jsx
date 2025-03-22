@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import UserVideoLike from "./scrap/UserLike";
 import Cookies from "js-cookie";
 import logout from "./func/logout";
+import getUserInfo from "./func/getUserInfo";
+import updateUserNickname from "./func/updateUserNickName";
 
 const Mypage = () => {
 	const username = Cookies.get("username");
@@ -14,27 +16,30 @@ const Mypage = () => {
 	const [items, setItems] = useState([]);
 	const [isEditing, setIsEditing] = useState(false);
 	const [userInfo, setUserInfo] = useState({
-		nickname: "123",
-		email: "test@example.com",
-		contact: "",
-		notification: "모든 알림 받기"
-	});
+		count : 0,
+		userName: "",
+		userEmail: "",
+		id: ""
+	  });
 
-	const handleEdit = () => {
+	const handleEdit = async () => {
 		if (isEditing) {
-			console.log("닉네임 변경됨:", userInfo.nickname);
+			const isUpdate = await updateUserNickname(userInfo.userName);
 		}
 		setIsEditing(!isEditing);
 	};
 	
 	const handleChange = (e) => {
-		setUserInfo({ ...userInfo, nickname: e.target.value });
+		setUserInfo({ ...userInfo, userName: e.target.value });
 	};
 
 	const fetchData = async () => {
 		setLoading(true);
 		try {
 			const data = await userScrapData();
+			const userInfo = await getUserInfo();
+			console.log(userInfo);
+			setUserInfo(userInfo);
 			setItems(data);
 		} catch (error) {
 			console.error("데이터 로드 실패", error)
@@ -68,12 +73,13 @@ const Mypage = () => {
 					{!isEditing ? (
 					<>
 						<h2 className="text-2xl font-semibold">{username}님</h2>
-						<p className="text-gray-500">스크랩: 45 댓글: 128 좋아요: 372</p>
+						{/* <p className="text-gray-500">스크랩: {userInfo.count} 댓글: 128 좋아요: 372</p> */}
+						<p className="text-gray-500">스크랩 개수 : {userInfo.count}개</p>
 					</>
 					) : (
 					<input
 						name="nickname"
-						value={userInfo.nickname}
+						value={userInfo.userName || ""}
 						onChange={handleChange}
 						className="border rounded-lg px-3 py-2 text-lg font-semibold"
 					/>
@@ -97,16 +103,16 @@ const Mypage = () => {
 					<label className="text-sm text-gray-600">이메일</label>
 					<input
 					name="email"
-					value={userInfo.email}
+					value={userInfo.userEmail}
 					className="border rounded-lg px-3 py-2 w-full bg-gray-100"
 					disabled
 					/>
 				</div>
 				<div>
-					<label className="text-sm text-gray-600">연락처</label>
+					<label className="text-sm text-gray-600">아이디</label>
 					<input
 					name="contact"
-					value={userInfo.contact}
+					value={userInfo.id}
 					className="border rounded-lg px-3 py-2 w-full bg-gray-100"
 					disabled
 					/>

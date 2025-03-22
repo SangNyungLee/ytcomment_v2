@@ -73,7 +73,7 @@ function truncateText(text) {
     return sliceText;
   }
 }
-function getCookie(key, data, username) {
+function getCookie(key, data, username, redirect) {
   const token = data;
   // 만료날짜 설정
   const expires = new Date();
@@ -81,7 +81,11 @@ function getCookie(key, data, username) {
   // 쿠키 설정 (path 설정 = 쿠키가 적용되는 경로지정)
   document.cookie = `${key} = ${token}; expires=${expires.toUTCString()} path=/`;
   document.cookie = `username = ${username}; expires=${expires.toUTCString()} path=/`;
-  window.location.href = "/";
+  if (redirect){
+    window.location.href = "/";
+  } else{
+    window.location.reload();
+  }
 }
 function deleteCookie() {
   document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";

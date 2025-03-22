@@ -13,7 +13,7 @@ const getLogin = async ({userId, userPw, setUserId, setUserPw}) => {
         // 헤더에서 JWT 토큰 가져오기
         const token = result.headers.authorization?.split(" ")[1]; // "Bearer token값" → "token값"
         const username = result.data;
-        getCookie("token", token, username); 
+        getCookie("token", token, username, 1); 
       }
     } catch (error) {
       if (error.status == 401) {
