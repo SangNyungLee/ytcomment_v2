@@ -68,7 +68,7 @@ const PasswordEditForm = ({ onClose }) => {
           name="currentPassword"
           value={form.currentPassword}
           onChange={handleChange}
-          className="w-full border rounded px-3 py-2"
+          className="w-full border rounded px-3 py-2 bg-white"
         />
       </div>
       <div className="mb-2">
@@ -78,7 +78,7 @@ const PasswordEditForm = ({ onClose }) => {
           name="newPassword"
           value={form.newPassword}
           onChange={handleChange}
-          className="w-full border rounded px-3 py-2"
+          className="w-full border rounded px-3 py-2 bg-white"
         />
       </div>
       <div className="mb-3">
@@ -88,7 +88,7 @@ const PasswordEditForm = ({ onClose }) => {
           name="confirmPassword"
           value={form.confirmPassword}
           onChange={handleChange}
-          className="w-full border rounded px-3 py-2"
+          className="w-full border rounded px-3 py-2 bg-white"
         />
       </div>
       <div className="flex justify-between">
