@@ -9,7 +9,7 @@ import Cookies from "js-cookie";
 import logout from "./func/logout";
 import getUserInfo from "./func/getUserInfo";
 import updateUserNickname from "./func/updateUsernickName";
-import PasswordEditForm from "./components/passwordEditform";
+import PasswordEditForm from "./components/PasswordEditform";
 import deleteAccount from "./func/deleteAccount";
 
 const Mypage = () => {
