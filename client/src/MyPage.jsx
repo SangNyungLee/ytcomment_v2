@@ -10,6 +10,7 @@ import logout from "./func/logout";
 import getUserInfo from "./func/getUserInfo";
 import updateUserNickname from "./func/updateUsernickName";
 import PasswordEditForm from "./components/passwordEditform";
+import deleteAccount from "./func/deleteAccount";
 
 const Mypage = () => {
   const username = Cookies.get("username");
@@ -118,9 +119,8 @@ const Mypage = () => {
               )}
             </div>
 
-            {/* ✅ 회원탈퇴 버튼: 프로필 수정 아래로 이동 */}
             <button
-              onClick={() => alert("회원탈퇴 처리 예정")}
+              onClick={deleteAccount}
               className="text-sm text-red-500 hover:underline mt-1"
             >
               회원탈퇴

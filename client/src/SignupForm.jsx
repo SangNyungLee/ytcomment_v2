@@ -18,19 +18,6 @@ function SignupForm() {
 
   const API_BASE_URL = import.meta.env.VITE_API_URL;
 
-  // // 이메일 형식 검증
-  // const validateEmail = (email) => {
-  //   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  //   return emailRegex.test(email);
-  // };
-
-  // // 비밀번호 검증 (영문, 숫자, 특수문자 포함 8자 이상)
-  // const validatePassword = (password) => {
-  //   const passwordRegex =
-  //     /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-  //   return passwordRegex.test(password);
-  // };
-
   // 이메일 입력 핸들러
   const handleEmailChange = (e) => {
     const email = e.target.value;
@@ -47,7 +34,9 @@ function SignupForm() {
     const password = e.target.value;
     setUserPw(password);
     if (!validatePassword(password)) {
-      setPasswordError("비밀번호는 영문, 숫자, 특수문자를 포함해 8자 이상이어야 합니다.");
+      setPasswordError(
+        "비밀번호는 영문, 숫자, 특수문자를 포함해 8자 이상이어야 합니다."
+      );
     } else {
       setPasswordError("");
     }
@@ -68,9 +57,12 @@ function SignupForm() {
     }
 
     try {
-      const response = await axios.get(`${API_BASE_URL}/api/email/check-email`, {
-        params: { email: userEmail },
-      });
+      const response = await axios.get(
+        `${API_BASE_URL}/api/email/check-email`,
+        {
+          params: { email: userEmail },
+        }
+      );
 
       if (response.data === 0) {
         alert("가입 가능한 이메일입니다.");
@@ -112,13 +104,16 @@ function SignupForm() {
 
     if (isPasswordMatch) {
       try {
-        const response = await axios.post(`${API_BASE_URL}/api/email/email-signup`, {
-          userId,
-          userEmail,
-          userPw,
-          userName,
-          social: "Email",
-        });
+        const response = await axios.post(
+          `${API_BASE_URL}/api/email/email-signup`,
+          {
+            userId,
+            userEmail,
+            userPw,
+            userName,
+            social: "Email",
+          }
+        );
 
         if (response.data === 0) {
           alert("회원가입이 완료되었습니다!");
@@ -140,72 +135,86 @@ function SignupForm() {
         </div>
         <div className="loginForm" style={{ marginBottom: "3rem" }}>
           <form className="formTag">
-			{/* 이메일 입력 필드 */}
-			<div className={`emailCheck ${emailError ? "hasError" : ""}`}>
-			<input
-				type="text"
-				className="userEmail"
-				value={userEmail}
-				onChange={handleEmailChange}
-				placeholder="이메일주소"
-			/>
-			<button
-				type="button"
-				className="btn"
-				style={{ color: "white", backgroundColor: "#d53535", marginLeft: "0.5rem" }}
-				onClick={checkUserEmail}
-			>
-				이메일 중복확인
-			</button>
+            {/* 이메일 입력 필드 */}
+            <div className={`emailCheck ${emailError ? "hasError" : ""}`}>
+              <input
+                type="text"
+                className="userEmail"
+                value={userEmail}
+                onChange={handleEmailChange}
+                placeholder="이메일주소"
+              />
+              <button
+                type="button"
+                className="btn"
+                style={{
+                  color: "white",
+                  backgroundColor: "#d53535",
+                  marginLeft: "0.5rem",
+                }}
+                onClick={checkUserEmail}
+              >
+                이메일 중복확인
+              </button>
 
-			{/* 오류 메시지가 있으면 표시 */}
-			{emailError && <div className="error">{emailError}</div>}
-			{userEmailCheck && <div className="success">가입 가능한 이메일입니다.</div>}
-			</div>
+              {/* 오류 메시지가 있으면 표시 */}
+              {emailError && <div className="error">{emailError}</div>}
+              {userEmailCheck && (
+                <div className="success">가입 가능한 이메일입니다.</div>
+              )}
+            </div>
 
-			{/* 아이디 입력 필드 */}
-			<div className={`idCheck ${userIdCheck ? "hasSuccess" : ""}`}>
-			<input
-				type="text"
-				className="userId"
-				value={userId}
-				onChange={(e) => setUserId(e.target.value)}
-				placeholder="아이디"
-			/>
-			<button
-				type="button"
-				className="btn"
-				style={{ color: "white", backgroundColor: "#d53535", marginLeft: "0.5rem" }}
-				onClick={checkUserId}
-			>
-				아이디 중복확인
-			</button>
+            {/* 아이디 입력 필드 */}
+            <div className={`idCheck ${userIdCheck ? "hasSuccess" : ""}`}>
+              <input
+                type="text"
+                className="userId"
+                value={userId}
+                onChange={(e) => setUserId(e.target.value)}
+                placeholder="아이디"
+              />
+              <button
+                type="button"
+                className="btn"
+                style={{
+                  color: "white",
+                  backgroundColor: "#d53535",
+                  marginLeft: "0.5rem",
+                }}
+                onClick={checkUserId}
+              >
+                아이디 중복확인
+              </button>
 
-			{userIdCheck && <div className="success">가입 가능한 아이디입니다.</div>}
-			</div>
+              {userIdCheck && (
+                <div className="success">가입 가능한 아이디입니다.</div>
+              )}
+            </div>
 
-			{/* 비밀번호 입력 필드 */}
-			<div className={`pwCheck ${passwordError ? "hasError" : ""}`}>
-			<input
-				type="password"
-				className="userPw"
-				value={userPw}
-				onChange={handlePasswordChange}
-				placeholder="비밀번호"
-			/>
-			{/* 오류 메시지가 있으면 표시 */}
-			{passwordError && <span className="error">{passwordError}</span>}
+            {/* 비밀번호 입력 필드 */}
+            <div className={`pwCheck ${passwordError ? "hasError" : ""}`}>
+              <input
+                type="password"
+                className="userPw"
+                value={userPw}
+                onChange={handlePasswordChange}
+                placeholder="비밀번호"
+              />
+              {/* 오류 메시지가 있으면 표시 */}
+              {passwordError && <span className="error">{passwordError}</span>}
 
-			<input
-				type="password"
-				className="userPwCheck"
-				value={userPwCheck}
-				onChange={handlePasswordCheck}
-				placeholder="비밀번호 확인"
-			/>
-			{/* 비밀번호 일치 메시지 */}
-			{isPasswordMatch && <span className="success">비밀번호가 일치합니다.</span>}
-			</div>
+              <input
+                type="password"
+                className="userPwCheck"
+                value={userPwCheck}
+                onChange={handlePasswordCheck}
+                placeholder="비밀번호 확인"
+              />
+              {/* 비밀번호 일치 메시지 */}
+              {isPasswordMatch && (
+                <span className="success">비밀번호가 일치합니다.</span>
+              )}
+            </div>
 
             <input
               type="text"
