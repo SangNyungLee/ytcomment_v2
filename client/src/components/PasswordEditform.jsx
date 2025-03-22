@@ -1,3 +1,6 @@
+import validatePassword from "@/func/login/validatePassword";
+import axios from "axios";
+import Cookies from "js-cookie";
 import { useState } from "react";
 
 const PasswordEditForm = ({ onClose }) => {
@@ -12,9 +15,13 @@ const PasswordEditForm = ({ onClose }) => {
     setForm({ ...form, [name]: value });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const { currentPassword, newPassword, confirmPassword } = form;
-
+    // if (!validatePassword(confirmPassword)) {
+    //   alert("비밀번호는 영문, 숫자, 특수문자를 포함해 8자 이상이어야 합니다.");
+    //   setForm((prev) => ({ ...prev, newPassword: "", confirmPassword: "" }));
+    //   return;
+    // }
     if (!currentPassword || !newPassword || !confirmPassword) {
       alert("모든 항목을 입력해주세요.");
       return;
@@ -22,10 +29,25 @@ const PasswordEditForm = ({ onClose }) => {
 
     if (newPassword !== confirmPassword) {
       alert("새 비밀번호가 일치하지 않습니다.");
+      setForm((prev) => ({ ...prev, confirmPassword: "" }));
       return;
     }
-
-    // TODO: API 연동
+    try {
+      const token = Cookies.get("token");
+      const result = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/updateUserPw`,
+        { currentPassword, confirmPassword },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      if (result.data.result == 0) {
+        alert("비밀번호를 확인해주세요.");
+        setForm((prev) => ({ ...prev, currentPassword: "" }));
+        return;
+      }
+    } catch (error) {
+      console.error("비밀번호 오류입니다.");
+      return;
+    }
     alert("비밀번호 수정 완료!");
 
     setForm({
