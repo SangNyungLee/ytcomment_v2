@@ -8,8 +8,7 @@ import UserVideoLike from "./scrap/UserLike";
 import Cookies from "js-cookie";
 import logout from "./func/logout";
 import getUserInfo from "./func/getUserInfo";
-import updateUserNickname from "./func/updateUserNickName";
-
+import updateUserNickname from "./func/updateUsernickName";
 const Mypage = () => {
 	const username = Cookies.get("username");
 	const [loading, setLoading] = useState(true);
@@ -25,6 +24,9 @@ const Mypage = () => {
 	const handleEdit = async () => {
 		if (isEditing && (userInfo.userName != username)) {
 				const isUpdate = await updateUserNickname(userInfo.userName);
+				if(isUpdate){
+					alert("닉네임 수정이 완료되었습니다.");
+				}
 		}
 		setIsEditing(!isEditing);
 	};

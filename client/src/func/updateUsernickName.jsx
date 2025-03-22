@@ -14,6 +14,7 @@ const updateUserNickname = async (userName) => {
 		if (result.data.result == 1){
 			// 성공하면 쿠키 다시 발급해서 쿠키 안에 userName같이 보내서 업데이트 시켜버리기
 			getCookie("token", token, userName, 0);
+			return (1);
 		} else{
 			alert("오류가 발생했습니다.");
 		}
