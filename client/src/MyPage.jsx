@@ -23,8 +23,8 @@ const Mypage = () => {
 	  });
 
 	const handleEdit = async () => {
-		if (isEditing) {
-			const isUpdate = await updateUserNickname(userInfo.userName);
+		if (isEditing && (userInfo.userName != username)) {
+				const isUpdate = await updateUserNickname(userInfo.userName);
 		}
 		setIsEditing(!isEditing);
 	};
@@ -38,7 +38,6 @@ const Mypage = () => {
 		try {
 			const data = await userScrapData();
 			const userInfo = await getUserInfo();
-			console.log(userInfo);
 			setUserInfo(userInfo);
 			setItems(data);
 		} catch (error) {
