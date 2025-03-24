@@ -14,8 +14,8 @@ function NavBar() {
 
   const handleKeyDown = async (e) => {
     if (e.key === "Enter") {
-      searchYoutubeVideos(youtubeSearch, " ");
-      navigate(`/search?query=${youtubeSearch}`);
+      await searchYoutubeVideos(youtubeSearch, " ");
+      await navigate(`/search?query=${youtubeSearch}`);
       setYoutubeSearch("");
     }
   };
@@ -34,16 +34,28 @@ function NavBar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" className="order-0" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto navFlex">
-            <Nav.Link onClick={() => navigateToCategory("recent")} className="navborder">
+            <Nav.Link
+              onClick={() => navigateToCategory("recent")}
+              className="navborder"
+            >
               최신
             </Nav.Link>
-            <Nav.Link onClick={() => navigateToCategory("music")} className="navborder">
+            <Nav.Link
+              onClick={() => navigateToCategory("music")}
+              className="navborder"
+            >
               음악
             </Nav.Link>
-            <Nav.Link onClick={() => navigateToCategory("game")} className="navborder">
+            <Nav.Link
+              onClick={() => navigateToCategory("game")}
+              className="navborder"
+            >
               게임
             </Nav.Link>
-            <Nav.Link onClick={() => navigateToCategory("animal")} className="navborder">
+            <Nav.Link
+              onClick={() => navigateToCategory("animal")}
+              className="navborder"
+            >
               동물
             </Nav.Link>
           </Nav>
@@ -58,8 +70,12 @@ function NavBar() {
                 onChange={(e) => setYoutubeSearch(e.target.value)}
                 onKeyDown={handleKeyDown}
               />
-              <Link to={"/search"} state={{ data: youtubeSearch }} className="searchIcons">
-                <Search size={20}/>
+              <Link
+                to={"/search"}
+                state={{ data: youtubeSearch }}
+                className="searchIcons"
+              >
+                <Search size={20} />
               </Link>
             </div>
             <Link to={"/myPage"}>

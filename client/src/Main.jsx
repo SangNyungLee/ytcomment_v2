@@ -44,12 +44,12 @@ export default function Main() {
   };
 
   useEffect(() => {
-    axios.post(`${API_BASE_URL}/api/totalPage`, {categoryId}).then((res) => {
+    axios.post(`${API_BASE_URL}/api/totalPage`, { categoryId }).then((res) => {
       setTotalItems(res.data.totalPage);
       setPage(1);
     });
   }, [categoryId]);
-  
+
   useEffect(() => {
     window.scrollTo(0, 0);
     fetchVideos(page, categoryId);
@@ -113,13 +113,16 @@ export default function Main() {
                     <div className="button-container">
                       <Link
                         to="/page"
-                        state={{ videoId : video.id }}
+                        state={{ videoId: video.id }}
                         className="btn moreBtn"
                       >
                         <BsYoutube className="btnIcon" />
                         더보기
                       </Link>
-                      <button className="btn clipBtn" onClick={() => UserVideoLike(video.id)}>
+                      <button
+                        className="btn clipBtn"
+                        onClick={() => UserVideoLike(video.id)}
+                      >
                         <BsFillPinFill className="btnIcon" />
                         스크랩
                       </button>
