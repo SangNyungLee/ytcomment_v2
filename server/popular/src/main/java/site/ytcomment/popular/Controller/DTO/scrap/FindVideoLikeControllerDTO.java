@@ -21,6 +21,12 @@ public class FindVideoLikeControllerDTO {
                     .videoId(this.videoId)
                     .build();
         }
+
+        public FindVideoLikeServiceDTO.In toFindVideo(){
+            return FindVideoLikeServiceDTO.In.builder()
+                    .videoId(this.videoId)
+                    .build();
+        }
     }
 
     @Getter

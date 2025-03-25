@@ -19,6 +19,9 @@ public interface UserVideoLikeMapper {
     @Select("SELECT COUNT(*) FROM likes WHERE userId = #{userId} AND videoId = #{videoId}")
     FindVideoLikeDbDTO.Out countUserVideoLike(FindVideoLikeDbDTO.In in);
 
+    @Select("select count(*) from channelInfo where id = #{videoId}")
+    FindVideoLikeDbDTO.Out findVideoLikeById(FindVideoLikeDbDTO.In in);
+
     @Delete("DELETE FROM likes WHERE userId = #{userId} AND videoId = #{videoId}")
     void deleteUserVideoLike(UserVideoLikeDbDTO.In in);
 

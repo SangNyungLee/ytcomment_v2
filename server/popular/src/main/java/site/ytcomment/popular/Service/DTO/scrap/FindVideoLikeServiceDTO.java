@@ -45,5 +45,11 @@ public class FindVideoLikeServiceDTO {
                     .userId(this.getUserId())
                     .build();
         }
+
+        public static FindVideoLikeServiceDTO.Out fromFindVideo(FindVideoLikeDbDTO.Out out){
+            return Out.builder()
+                    .count(out.getCount())
+                    .build();
+        }
     }
 }
