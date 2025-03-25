@@ -16,23 +16,28 @@ import Modal from "react-bootstrap/Modal";
 import ClipIcons from "./ClipIcons";
 import formatPublishedAt from "./func/FormatPublishedAt";
 import formatNumber from "./func/FormatNumber";
+import searchPageScrap from "./func/searchPageScrap";
 export default function SearchPage() {
   const [show, setShow] = useState(false);
   const [commentCount, setCommentCount] = useState(0);
   const [viewCount, setViewCount] = useState(0);
   const [likeCount, setLikeCount] = useState(0);
+  const [statisticsData, setStatisticsData] = useState([]);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const location = useLocation();
   const videoData = location.state.data;
   const myId = videoData.id;
   const [comment, setComment] = useState([]);
+  console.log("데이터 받아온 값", videoData);
+  console.log("내 아이디", myId.videoId);
   //클립 버튼 눌렀을 때 복사되는거
-  const getUrl = (e) => {
-  };
+  const getUrl = (e) => {};
   useEffect(() => {
     // statistics받아옵시다
     getStatistics(videoData.id.videoId).then((res) => {
+      console.log("statistics data is : ", res);
+      setStatisticsData(res);
       setCommentCount(res.items[0].statistics.commentCount);
       setViewCount(res.items[0].statistics.viewCount);
       setLikeCount(res.items[0].statistics.likeCount);
@@ -69,7 +74,9 @@ export default function SearchPage() {
         <div className="profile_info">
           <span className="channelName">{videoData.snippet.channelTitle}</span>
           <span className="channelComments">댓글 : {commentCount}개 </span>
-          <span className="channelViews"> 조회수 : {formatNumber(viewCount)}{" "}
+          <span className="channelViews">
+            {" "}
+            조회수 : {formatNumber(viewCount)}{" "}
           </span>
           <span className="channelUploadDate">
             {formatPublishedAt(videoData.snippet.publishedAt)}
@@ -104,9 +111,18 @@ export default function SearchPage() {
           >
             영상 스크랩
           </Button>
-          <span className="btn youtubeChannelClip">채널 스크랩</span>
+          <span
+            className="btn youtubeChannelClip"
+            onClick={() => {
+              searchPageScrap(videoData.id.videoId);
+            }}
+          >
+            채널 스크랩
+          </span>
         </div>
-        <div className="youtubeDescription">{videoData.snippet.description}</div>
+        <div className="youtubeDescription">
+          {videoData.snippet.description}
+        </div>
         <br />
         <div className="hashTags">
           {videoData.snippet.tags
@@ -120,7 +136,7 @@ export default function SearchPage() {
         <div className="vote">
           <span className="positiveBtn">
             <span className="thumbBtn">
-              <BsFillHandThumbsUpFill/>
+              <BsFillHandThumbsUpFill />
             </span>
             추천 <strong>{likeCount}</strong>
           </span>
@@ -128,22 +144,26 @@ export default function SearchPage() {
             <span className="thumbBtn">
               <BsFillHandThumbsDownFill />
             </span>
-             비추천
+            비추천
             <strong>0</strong>
           </span>
         </div>
         <div>
-          {/* <div>
+          <div>
             <select style={{ marginBottom: "20px", marginTop: "20px" }}>
               <option>관련성 순</option>
               <option>좋아요 많은 순</option>
               <option>최신순</option>
             </select>
-          </div> */}
+          </div>
           <div className="commentList">
             {comment.map((res, index) => (
               <div className="commentDiv" key={index}>
-                <img src={`${res.imgUrl}`} className="commentImg" alt="프로필" />
+                <img
+                  src={`${res.imgUrl}`}
+                  className="commentImg"
+                  alt="프로필"
+                />
                 <div className="commentContent">
                   <div className="commentHeader">
                     <span className="commentAuthor">{res.authorName}</span>
@@ -163,15 +183,20 @@ export default function SearchPage() {
             <Modal.Header closeButton>
               <Modal.Title>공유하기</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
-                {/* <ClipIcons /> */}
-            </Modal.Body>
+            <Modal.Body>{/* <ClipIcons /> */}</Modal.Body>
             <Modal.Footer style={{ justifyContent: "center" }}>
               <span style={{ border: "2px solid #ddd", padding: "5px" }}>
                 <span className="ClipUrl">{`https://www.youtube.com/watch?v=${videoData.id.videoId}`}</span>
-                <CopyToClipboard text={`https://www.youtube.com/watch?v=${videoData.id.videoId}`} onCopy={() => alert("클립보드에 복사되었습니다.")}>
-                  <button className="btn" style={{ backgroundColor: "#F55145", marginLeft: "15px" }}>
-                    <BsPaperclip />복사하기
+                <CopyToClipboard
+                  text={`https://www.youtube.com/watch?v=${videoData.id.videoId}`}
+                  onCopy={() => alert("클립보드에 복사되었습니다.")}
+                >
+                  <button
+                    className="btn"
+                    style={{ backgroundColor: "#F55145", marginLeft: "15px" }}
+                  >
+                    <BsPaperclip />
+                    복사하기
                   </button>
                 </CopyToClipboard>
               </span>

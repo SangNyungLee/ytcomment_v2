@@ -41,7 +41,7 @@ function App() {
   return (
     <div className="myContainer">
       <BrowserRouter>
-      <ScrollToTop/>
+        <ScrollToTop />
         <div>
           {windowWidth > 991 && <Lside />}
           {windowWidth <= 991 && <Sidebar />}
@@ -54,16 +54,22 @@ function App() {
             <Route path="/page" element={<Page />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/signupForm" element={<SignupForm />} />
-            <Route path="/redirectPage" element={<KakaoRedirectHandler/>}/>
-            <Route path="/scrapChannel" element={<ChannelScrapingPage scrapId ="myChannel"/>}/>
-            <Route path="/emailAuthPage" element ={<EmailAuthForm />}/>
+            <Route path="/redirectPage" element={<KakaoRedirectHandler />} />
+            <Route
+              path="/scrapChannel"
+              element={<ChannelScrapingPage scrapId="myChannel" />}
+            />
+            <Route path="/emailAuthPage" element={<EmailAuthForm />} />
 
             {/* 로그인된 사용자만 접근 가능한 페이지 */}
-            <Route element={<PrivateRoute/>}>
-              <Route path="/scrapVideo" element={<VideoScrapingPage scrapId = "myVideo" />}/>
+            <Route element={<PrivateRoute />}>
+              <Route
+                path="/scrapVideo"
+                element={<VideoScrapingPage scrapId="myVideo" />}
+              />
               <Route path="/searchPage" element={<SearchPage />} />
-              <Route path="/myPage" element={<Mypage/>}/>
-              <Route path="/search" element={<Search/>} />
+              <Route path="/myPage" element={<Mypage />} />
+              <Route path="/search" element={<Search />} />
             </Route>
           </Routes>
         </div>
