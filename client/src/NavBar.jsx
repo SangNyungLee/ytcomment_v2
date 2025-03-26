@@ -20,6 +20,11 @@ function NavBar() {
     }
   };
 
+  const handleClickSearch = async () => {
+    await searchYoutubeVideos(youtubeSearch, " ");
+    await navigate(`/search?query=${youtubeSearch}`);
+    setYoutubeSearch("");
+  };
   const navigateToCategory = (category) => {
     dispatch(changeCategory[category]());
     navigate("/");
@@ -74,6 +79,7 @@ function NavBar() {
                 to={"/search"}
                 state={{ data: youtubeSearch }}
                 className="searchIcons"
+                onClick={handleClickSearch}
               >
                 <Search size={20} />
               </Link>
