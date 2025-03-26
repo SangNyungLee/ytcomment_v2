@@ -216,3 +216,46 @@
   font-size: 13px;
   color: #000;
 }
+
+.copy-btn {
+  display: flex;
+  align-items: center;
+  background-color: #f55145;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  gap: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.copy-btn:hover {
+  background-color: #e03f38;
+}
+
+.copy-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.copy-text {
+  display: inline-block;
+}
+
+.copy-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 2px solid #ddd;
+  padding: 10px 15px;
+  border-radius: 8px;
+  background-color: #fafafa;
+  flex-wrap: wrap; /* 모바일에서도 깨지지 않게 */
+}
+
+.clip-url {
+  font-size: 14px;
+  color: #333;
+  word-break: break-all;
+}

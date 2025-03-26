@@ -233,20 +233,18 @@ export default function Page() {
             </Modal.Header>
             <Modal.Body>{/* <ClipIcons /> */}</Modal.Body>
             <Modal.Footer style={{ justifyContent: "center" }}>
-              <span style={{ border: "2px solid #ddd", padding: "5px" }}>
-                <span className="ClipUrl">{`https://www.youtube.com/watch?v=${videoData.id}`}</span>
+              <div className="copy-container">
+                <span className="clip-url">{`https://www.youtube.com/watch?v=${videoData.id}`}</span>
                 <CopyToClipboard
                   text={`https://www.youtube.com/watch?v=${videoData.id}`}
                   onCopy={() => alert("클립보드에 복사되었습니다.")}
                 >
-                  <button
-                    className="btn"
-                    style={{ backgroundColor: "#F55145", marginLeft: "15px" }}
-                  >
-                    <BsPaperclip /> 복사하기
+                  <button className="copy-btn">
+                    <BsPaperclip className="copy-icon" />
+                    <span className="copy-text">복사하기</span>
                   </button>
                 </CopyToClipboard>
-              </span>
+              </div>
             </Modal.Footer>
           </Modal>
         </div>
