@@ -1,7 +1,15 @@
-.headTitle{
-    padding-top: 60px;
-    padding-left: 10px;
-    padding-right: 20px;
+.no-comments {
+  text-align: center;
+  color: #888;
+  font-size: 25px;
+  padding: 40px 0;
+  font-style: italic;
+  opacity: 0.8;
+}
+.headTitle {
+  padding-top: 60px;
+  padding-left: 10px;
+  padding-right: 20px;
 }
 .moreInfo {
   display: flex;
@@ -30,7 +38,7 @@
   color: #fff;
 }
 
-.thumbBtn{
+.thumbBtn {
   margin-top: 8px;
   margin-right: 5px;
 }

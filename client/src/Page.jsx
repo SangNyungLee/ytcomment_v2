@@ -25,7 +25,7 @@ export default function Page() {
   const [channelViewCount, setChannelViewCount] = useState(0);
   const [publishedDate, setPublishedDate] = useState(0);
   const [comment, setComment] = useState([]);
-  const [sortOption, setSortOption] = useState("like"); 
+  const [sortOption, setSortOption] = useState("like");
 
   const location = useLocation();
   const videoId = location.state.videoId; // Main에서 받은 videoId
@@ -37,7 +37,9 @@ export default function Page() {
   const fetchData = async () => {
     try {
       // 영상 정보 불러오기
-      const videoInfo = await axios.post(`${API_BASE_URL}/api/getTags`, { videoId });
+      const videoInfo = await axios.post(`${API_BASE_URL}/api/getTags`, {
+        videoId,
+      });
       setVideoData(videoInfo.data);
 
       // 태그 문자열을 쉼표 기준으로 나누기
@@ -45,20 +47,25 @@ export default function Page() {
         if (Array.isArray(videoInfo.data.tags)) {
           setTagsArray(videoInfo.data.tags);
         } else if (typeof videoInfo.data.tags === "string") {
-          setTagsArray(videoInfo.data.tags.split(",").map(tag => tag.trim()));
+          setTagsArray(videoInfo.data.tags.split(",").map((tag) => tag.trim()));
         }
       }
 
-
       // 통계 데이터 불러오기
-      const resStats = await axios.post(`${API_BASE_URL}/api/getPageStatistics`, { id: videoId });
+      const resStats = await axios.post(
+        `${API_BASE_URL}/api/getPageStatistics`,
+        { id: videoId }
+      );
       setChannelCommentCount(resStats.data.channelCommentCount);
       setChannelViewCount(resStats.data.channelViewCount);
       setPublishedDate(resStats.data.publishedAt);
 
       // 댓글 데이터 불러오기
-      const resComments = await axios.post(`${API_BASE_URL}/api/getPageComment`, { id: videoId });
-      const newComments = resComments.data.map(ment => ({
+      const resComments = await axios.post(
+        `${API_BASE_URL}/api/getPageComment`,
+        { id: videoId }
+      );
+      const newComments = resComments.data.map((ment) => ({
         authorDisplayName: ment.authorDisplayName,
         text: ment.textOriginal,
         like: ment.likeCount,
@@ -67,7 +74,6 @@ export default function Page() {
         imgUrl: ment.authorProfileImageUrl,
       }));
       setComment(newComments);
-      
     } catch (error) {
       console.error("데이터 불러오기 오류:", error);
     }
@@ -91,9 +97,15 @@ export default function Page() {
       <section>
         <div className="profile_info">
           <span className="channelName">{videoData.channelTitle}</span>
-          <span className="channelComments">댓글 : {channelCommentCount}개 </span>
-          <span className="channelViews">조회수 : {formatNumber(channelViewCount)} </span>
-          <span className="channelUploadDate">{formatPublishedAt(publishedDate)}</span>
+          <span className="channelComments">
+            댓글 : {channelCommentCount}개{" "}
+          </span>
+          <span className="channelViews">
+            조회수 : {formatNumber(channelViewCount)}{" "}
+          </span>
+          <span className="channelUploadDate">
+            {formatPublishedAt(publishedDate)}
+          </span>
         </div>
       </section>
       <section className="videoSection">
@@ -105,16 +117,31 @@ export default function Page() {
           ></iframe>
         </div>
         <div className="moreInfo">
-          <a href={`https://www.youtube.com/watch?v=${videoData.id}`} className="btn youtubeBtn">
+          <a
+            href={`https://www.youtube.com/watch?v=${videoData.id}`}
+            className="btn youtubeBtn"
+          >
             유튜브에서 보기
           </a>
-          <a className="btn youtubeInfo" href={`https://www.youtube.com/channel/${videoData.channelId}`}>
+          <a
+            className="btn youtubeInfo"
+            href={`https://www.youtube.com/channel/${videoData.channelId}`}
+          >
             유튜브 채널 정보
           </a>
-          <button className="btn youtubeClip" variant="primary" onClick={handleShow}>
+          <button
+            className="btn youtubeClip"
+            variant="primary"
+            onClick={handleShow}
+          >
             공유하기
           </button>
-          <span className="btn youtubeChannelClip" onClick={() => UserVideoLike(videoData.id)}>영상 스크랩</span>
+          <span
+            className="btn youtubeChannelClip"
+            onClick={() => UserVideoLike(videoData.id)}
+          >
+            영상 스크랩
+          </span>
         </div>
         <div className="youtubeDescription">
           {videoData.description.split("\\n").map((line, index) => (
@@ -127,13 +154,15 @@ export default function Page() {
         <br />
         <div className="hashTags">
           {tagsArray.map((res, index) => (
-            <span className="tags btn" key={index}>#{res}</span>
+            <span className="tags btn" key={index}>
+              #{res}
+            </span>
           ))}
         </div>
         <div className="vote">
           <span className="positiveBtn">
             <span className="thumbBtn">
-              <BsFillHandThumbsUpFill/>
+              <BsFillHandThumbsUpFill />
             </span>
             추천 <strong>{videoData.channelLikeCount}</strong>
           </span>
@@ -147,47 +176,73 @@ export default function Page() {
         </div>
         <div>
           <div>
-            <select style={{ marginBottom: "20px", marginTop: "20px" }} value={sortOption} onChange={(e) => setSortOption(e.target.value)}>
+            <select
+              style={{ marginBottom: "20px", marginTop: "20px" }}
+              value={sortOption}
+              onChange={(e) => setSortOption(e.target.value)}
+            >
               <option value="relevance">관련성 순</option>
               <option value="likes">좋아요 많은 순</option>
               <option value="date">최신순</option>
             </select>
           </div>
+          {/*  댓글 부분 */}
           <div className="commentList">
-            {comment.sort((a, b) => {
-              if (sortOption === "likes") return b.like - a.like;
-              if (sortOption === "date") return new Date(b.originalDate) - new Date(a.originalDate);
-              return 0;
-            }).map((res, index) => (
-              <div className="commentDiv" key={index}>
-                <img src={`${res.imgUrl}`} className="commentImg" alt="프로필" />
-                <div className="commentContent">
-                  <div className="commentHeader">
-                    <span className="commentAuthor">{res.authorDisplayName}</span>
-                    <span className="commentTime">{res.time}</span>
-                  </div>
-                  <div className="commentText">{res.text}</div>
-                  <div className="commentLikes">
-                    <BsHandThumbsUp />
-                    <span className="likeCount">{res.like}</span>
-                  </div>
-                </div>
+            {comment.length == 0 ? (
+              <div className="no-comments">
+                {" "}
+                댓글을 지원하지 않는 영상입니다.😥
               </div>
-            ))}
+            ) : (
+              comment
+                .sort((a, b) => {
+                  if (sortOption === "likes") return b.like - a.like;
+                  if (sortOption === "date")
+                    return new Date(b.originalDate) - new Date(a.originalDate);
+                  return 0;
+                })
+
+                .map((res, index) => (
+                  <div className="commentDiv" key={index}>
+                    <img
+                      src={`${res.imgUrl}`}
+                      className="commentImg"
+                      alt="프로필"
+                    />
+                    <div className="commentContent">
+                      <div className="commentHeader">
+                        <span className="commentAuthor">
+                          {res.authorDisplayName}
+                        </span>
+                        <span className="commentTime">{res.time}</span>
+                      </div>
+                      <div className="commentText">{res.text}</div>
+                      <div className="commentLikes">
+                        <BsHandThumbsUp />
+                        <span className="likeCount">{res.like}</span>
+                      </div>
+                    </div>
+                  </div>
+                ))
+            )}
           </div>
           {/* 모달 */}
           <Modal show={show} onHide={handleClose} centered>
             <Modal.Header closeButton>
               <Modal.Title>공유하기</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
-              {/* <ClipIcons /> */}
-            </Modal.Body>
+            <Modal.Body>{/* <ClipIcons /> */}</Modal.Body>
             <Modal.Footer style={{ justifyContent: "center" }}>
               <span style={{ border: "2px solid #ddd", padding: "5px" }}>
                 <span className="ClipUrl">{`https://www.youtube.com/watch?v=${videoData.id}`}</span>
-                <CopyToClipboard text={`https://www.youtube.com/watch?v=${videoData.id}`} onCopy={() => alert("클립보드에 복사되었습니다.")}>
-                  <button className="btn" style={{ backgroundColor: "#F55145", marginLeft: "15px" }}>
+                <CopyToClipboard
+                  text={`https://www.youtube.com/watch?v=${videoData.id}`}
+                  onCopy={() => alert("클립보드에 복사되었습니다.")}
+                >
+                  <button
+                    className="btn"
+                    style={{ backgroundColor: "#F55145", marginLeft: "15px" }}
+                  >
                     <BsPaperclip /> 복사하기
                   </button>
                 </CopyToClipboard>
