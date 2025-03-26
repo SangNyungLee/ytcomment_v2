@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import Pagination from "react-js-pagination";
 import getMyTotalPage from "@/func/getMyTotalPage";
 
-const ITEMS_PER_PAGE = 8;
+const ITEMS_PER_PAGE = 10;
 
 const VideoScrapingPage = ({ scrapId }) => {
   const [loading, setLoading] = useState(true);
