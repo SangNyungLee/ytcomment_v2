@@ -16,7 +16,10 @@ public class UserLikeListService {
     private final UserVideoLikeMapper userVideoLikeMapper;
 
     public List<UserScrapPageServiceDTO.Out> userLikeList(UserScrapPageServiceDTO.In in){
-        List<UserScrapPageDbDTO.Out> result = userVideoLikeMapper.selectUserScrapPage(in.to());
+        int offset = (in.getPage() - 1) * in.getSize();
+        System.out.println("나와야 될 offset은?" + offset);
+        System.out.println("size = " + in.getSize());
+        List<UserScrapPageDbDTO.Out> result = userVideoLikeMapper.selectUserScrapPage(in.to(offset));
 
         return result.stream()
                 .map(UserScrapPageServiceDTO.Out::from)

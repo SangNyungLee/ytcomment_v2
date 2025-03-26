@@ -14,9 +14,9 @@ public class UserScrapPageServiceDTO {
         private final int page;
         private final int size;
 
-        public UserScrapPageDbDTO.In to(){
+        public UserScrapPageDbDTO.In to(int newPage){
             return UserScrapPageDbDTO.In.builder()
-                    .page(this.page)
+                    .page(newPage)
                     .size(this.size)
                     .userId(this.userId)
                     .build();
