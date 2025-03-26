@@ -129,7 +129,7 @@ const VideoScrapingPage = ({ scrapId }) => {
           activePage={page}
           itemsCountPerPage={ITEMS_PER_PAGE}
           totalItemsCount={totalPage}
-          pageRangeDisplayed={8}
+          pageRangeDisplayed={ITEMS_PER_PAGE}
           prevPageText={"‹"}
           nextPageText={"›"}
           onChange={handlePageChange}

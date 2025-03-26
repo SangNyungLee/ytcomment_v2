@@ -1,142 +1,142 @@
 .scrap-content {
-    padding: 20px;
-    padding-top: 60px;
-  }
-  
-  .scrap-title {
-    font-size: 16px;
-    font-weight: bold;
-    margin: 5px 0;
-    min-height: 40px;
-    max-height: 40px; /* 두 줄까지만 허용 */
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2; /* 최대 2줄까지만 표시 */
-    -webkit-box-orient: vertical;
-  }
-  
-  .scrap-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-  }
-  
-  .scrap-card {
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    overflow: hidden;
-    transition: transform 0.2s ease-in-out;
-  }
-  
-  .scrap-card:hover {
-    transform: scale(1.02);
-  }
-  
-  /* Skeleton UI 스타일 */
-  .skeleton {
-    background: linear-gradient(90deg, #e0e0e0 25%, #f5f5f5 50%, #e0e0e0 75%);
-    background-size: 200% 100%;
-    animation: loading 1.5s infinite;
-    border-radius: 6px;
-  }
-  
-  .skeleton-thumbnail {
-    width: 100%;
-    height: 150px;
-  }
-  
-  .skeleton-text {
-    height: 14px;
-    width: 80%;
-    margin: 10px;
-  }
-  
-  .skeleton-text.short {
-    width: 60%;
-  }
-  
-  .skeleton-icon {
-    width: 24px;
-    height: 24px;
-    margin: 8px;
-  }
-  
-  /* Skeleton UI 애니메이션 */
-  @keyframes loading {
-    0% {
-      background-position: 200% 0;
-    }
-    100% {
-      background-position: -200% 0;
-    }
-  }
-  
-  /* 카드 컨텐츠 스타일 */
-  .scrap-thumbnail {
-    width: 100%; /* 부모 요소에 맞게 너비 조정 */
-    height: auto; /* 비율 유지 */
-    object-fit: contain; /* 이미지가 잘리지 않도록 조정 */
-    aspect-ratio: 12/9; /* 16:9 비율 유지 */
-    background-color: #f0f0f0; /* 빈 공간이 생길 경우 배경 처리 */
+  padding: 20px;
+  padding-top: 60px;
 }
-  
-  .scrap-info {
-    padding : 10px;
-    min-height: 80px; /* 제목 길이에 상관없이 일정한 높이 유지 */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  
-  .scrap-category {
-    font-size: 12px;
-    color: #007bff;
-    margin-bottom: 5px;
-  }
-  
-  .scrap-meta {
-    display: flex;
-    flex-direction: column; /* 세로 정렬 */
-    gap: 4px; /* 요소 간격 */
-  }
 
-  
-  .scrap-font {
-    font-size: 15px; /* 기본 크기 */
-    font-weight: bold; /* 채널 이름 강조 */
-    color: #535252; /* 어두운 회색 */
-  }
-  .scrap-font2 {
-    font-size: 12px
-  }
+.scrap-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 5px 0;
+  min-height: 40px;
+  max-height: 40px; /* 두 줄까지만 허용 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* 최대 2줄까지만 표시 */
+  -webkit-box-orient: vertical;
+}
 
-  /* 아이콘 버튼 스타일 */
-  .scrap-footer {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    border-top: 1px solid #ddd;
+.scrap-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.scrap-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.scrap-card:hover {
+  transform: scale(1.02);
+}
+
+/* Skeleton UI 스타일 */
+.skeleton {
+  background: linear-gradient(90deg, #e0e0e0 25%, #f5f5f5 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 6px;
+}
+
+.skeleton-thumbnail {
+  width: 100%;
+  height: 150px;
+}
+
+.skeleton-text {
+  height: 14px;
+  width: 80%;
+  margin: 10px;
+}
+
+.skeleton-text.short {
+  width: 60%;
+}
+
+.skeleton-icon {
+  width: 24px;
+  height: 24px;
+  margin: 8px;
+}
+
+/* Skeleton UI 애니메이션 */
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
   }
-  
-  .icon-btn {
-    display: flex;
-    align-items: center;
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 14px;
-    color: #666;
+  100% {
+    background-position: -200% 0;
   }
-  
-  .icon-btn .icon {
-    width: 20px;
-    height: 20px;
-    margin-right: 5px;
-  }
-  
-  .icon-btn:hover {
-    color: #007bff;
-  }
-  
+}
+
+/* 카드 컨텐츠 스타일 */
+.scrap-thumbnail {
+  width: 100%; /* 부모 요소에 맞게 너비 조정 */
+  height: auto; /* 비율 유지 */
+  object-fit: contain; /* 이미지가 잘리지 않도록 조정 */
+  aspect-ratio: 12/9; /* 16:9 비율 유지 */
+  background-color: #f0f0f0; /* 빈 공간이 생길 경우 배경 처리 */
+}
+
+.scrap-info {
+  padding: 10px;
+  min-height: 80px; /* 제목 길이에 상관없이 일정한 높이 유지 */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.scrap-category {
+  font-size: 12px;
+  color: #007bff;
+  margin-bottom: 5px;
+}
+
+.scrap-meta {
+  display: flex;
+  flex-direction: column; /* 세로 정렬 */
+  gap: 4px; /* 요소 간격 */
+}
+
+.scrap-font {
+  font-size: 15px; /* 기본 크기 */
+  font-weight: bold; /* 채널 이름 강조 */
+  color: #535252; /* 어두운 회색 */
+}
+.scrap-font2 {
+  font-size: 12px;
+}
+
+/* 아이콘 버튼 스타일 */
+.scrap-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-top: 1px solid #ddd;
+}
+
+.icon-btn {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #666;
+}
+
+.icon-btn .icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.icon-btn:hover {
+  color: #007bff;
+}
