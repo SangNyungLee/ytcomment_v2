@@ -11,12 +11,17 @@ import getUserInfo from "./func/getUserInfo";
 import updateUserNickname from "./func/updateUsernickName";
 import PasswordEditForm from "./components/PasswordEditform";
 import deleteAccount from "./func/deleteAccount";
+import Pagination from "react-js-pagination";
+import getMyTotalPage from "./func/getMyTotalPage";
+const ITEMS_PER_PAGE = 5;
 
 const Mypage = () => {
   const username = Cookies.get("username");
   const [loading, setLoading] = useState(true);
   const [items, setItems] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
+  const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(0);
   const [showPasswordForm, setShowPasswordForm] = useState(false);
   const [userInfo, setUserInfo] = useState({
     count: 0,
@@ -39,12 +44,25 @@ const Mypage = () => {
     setUserInfo({ ...userInfo, userName: e.target.value });
   };
 
+  // 전체 페이지 불러오기
+  const fetchTotalPage = async () => {
+    try {
+      const pageNum = await getMyTotalPage();
+      setTotalPage(pageNum);
+    } catch (error) {
+      console.error("전체 페이지 수 로드 실패", error);
+    }
+  };
+
+  const handlePageChange = (pageNumber) => {
+    setPage(pageNumber);
+  };
+
   const fetchData = async () => {
     setLoading(true);
     try {
-      const data = await userScrapData();
+      const data = await userScrapData({ page, size: ITEMS_PER_PAGE });
       const userInfo = await getUserInfo();
-      console.log("data 값", data);
       setUserInfo(userInfo);
       setItems(data);
     } catch (error) {
@@ -62,8 +80,14 @@ const Mypage = () => {
     }
   };
 
+  // 페이지가 변경되면 새로운 데이터를 받아옴
   useEffect(() => {
     fetchData();
+  }, [page]);
+
+  // 처음 렌더링 될 때 전체 페이지 가져오게 하기
+  useEffect(() => {
+    fetchTotalPage();
   }, []);
 
   return (
@@ -235,7 +259,16 @@ const Mypage = () => {
           </div>
         </div>
 
-        {/* 로그아웃 버튼 */}
+        <Pagination
+          activePage={page}
+          itemsCountPerPage={ITEMS_PER_PAGE}
+          totalItemsCount={totalPage}
+          pageRangeDisplayed={8}
+          prevPageText={"‹"}
+          nextPageText={"›"}
+          onChange={handlePageChange}
+        />
+        {/* 로그아웃 버튼
         <div className="mt-6 text-center">
           <button
             onClick={logout}
@@ -243,7 +276,7 @@ const Mypage = () => {
           >
             <LogOut size={16} /> 로그아웃
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );
