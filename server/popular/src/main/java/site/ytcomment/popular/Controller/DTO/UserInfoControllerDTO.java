@@ -39,5 +39,11 @@ public class UserInfoControllerDTO {
                     .count(out.getCount())
                     .build();
         }
+
+        public static UserInfoControllerDTO.Out fromUserLikeCount(UserInfoServiceDTO.Out out){
+            return Out.builder()
+                    .count(out.getCount())
+                    .build();
+        }
     }
 }

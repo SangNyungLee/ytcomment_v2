@@ -26,10 +26,17 @@ public class MyPageController {
     private final UpdateUserNameService updateUserNameService;
     private final UpdateUserPwService updateUserPwService;
     private final LoginAuthService loginAuthService;
+
     @GetMapping("/getUserInfo")
     public UserInfoControllerDTO.Out getMyInfo(@AuthenticationPrincipal CustomUserDetails userDetails) {
         UserInfoServiceDTO.Out serviceResult = getUserInfoService.fetchUserInfo(UserInfoControllerDTO.In.to(userDetails.getUserId()));
         return UserInfoControllerDTO.Out.from(serviceResult);
+    }
+
+    @GetMapping("/getUserLikeInfo")
+    public UserInfoControllerDTO.Out getUserLikeCount(@AuthenticationPrincipal CustomUserDetails userDetails) {
+        UserInfoServiceDTO.Out serviceResult = getUserInfoService.fetchUserInfo(UserInfoControllerDTO.In.to(userDetails.getUserId()));
+        return UserInfoControllerDTO.Out.fromUserLikeCount(serviceResult);
     }
 
     @PostMapping("/updateUserName")

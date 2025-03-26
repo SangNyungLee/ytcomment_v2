@@ -19,8 +19,9 @@
         FROM likes l
                  JOIN channelInfo c ON l.videoId = c.id
                  JOIN statistics s ON c.id = s.id
-        WHERE l.userId = #{userId}
-        ORDER BY l.likedAt DESC;
+        WHERE l.userId = 123
+        ORDER BY l.likedAt DESC
+        LIMIT #{page}, #{size};
     </select>
 
 </mapper>

@@ -13,6 +13,8 @@ public class UserScrapPageDbDTO {
     @RequiredArgsConstructor
     public static class In{
         private final String userId;
+        private final int page;
+        private final int size;
     }
 
     @Getter

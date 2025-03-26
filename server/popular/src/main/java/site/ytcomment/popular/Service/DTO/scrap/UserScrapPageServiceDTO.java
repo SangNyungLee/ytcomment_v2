@@ -11,9 +11,13 @@ public class UserScrapPageServiceDTO {
     @RequiredArgsConstructor
     public static class In{
         private final String userId;
+        private final int page;
+        private final int size;
 
         public UserScrapPageDbDTO.In to(){
             return UserScrapPageDbDTO.In.builder()
+                    .page(this.page)
+                    .size(this.size)
                     .userId(this.userId)
                     .build();
         }

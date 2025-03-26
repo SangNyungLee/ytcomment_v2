@@ -14,10 +14,13 @@ public class UserScrapPageControllerDTO {
     @NoArgsConstructor(force = true)
     @RequiredArgsConstructor
     public static class In{
-        private final String userId;
+        private final int page;
+        private final int size;
 
-        public static UserScrapPageServiceDTO.In to(String userId){
+        public UserScrapPageServiceDTO.In to(String userId){
             return UserScrapPageServiceDTO.In.builder()
+                    .page(this.page)
+                    .size(this.size)
                     .userId(userId)
                     .build();
         }
