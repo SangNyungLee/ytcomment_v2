@@ -10,7 +10,6 @@ function AccordionFlush() {
 
   return (
     <Accordion className="accordion">
-
       {/* 마이페이지 */}
       <Accordion.Item eventKey="3">
         <Accordion.Header>
@@ -19,7 +18,7 @@ function AccordionFlush() {
         </Accordion.Header>
         <Accordion.Body>
           <li onClick={() => navigate("/mypage")}>내 정보</li>
-          <li>비밀번호 변경</li>
+          {/* <li>비밀번호 변경</li> */}
         </Accordion.Body>
       </Accordion.Item>
 
@@ -49,7 +48,7 @@ function AccordionFlush() {
       </Accordion.Item>
 
       {/* 유튜브 채널랭킹 */}
-      <Accordion.Item eventKey="2">
+      {/* <Accordion.Item eventKey="2">
         <Accordion.Header>
           <BsTrophy className="accordionIcon" />
           유튜브 채널랭킹
@@ -76,7 +75,7 @@ function AccordionFlush() {
           <li>주식/경제/부동산</li>
           <li>기타</li>
         </Accordion.Body>
-      </Accordion.Item>
+      </Accordion.Item> */}
     </Accordion>
   );
 }
