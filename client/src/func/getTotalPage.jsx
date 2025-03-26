@@ -5,7 +5,6 @@ const getTotalPage = async ({ categoryId }) => {
   const result = await axios.post(`${API_BASE_URL}/api/totalPage`, {
     categoryId,
   });
-  console.log("totalPage Result : ", result);
   return result.data.totalPage;
 };
 

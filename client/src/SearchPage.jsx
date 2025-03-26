@@ -29,14 +29,11 @@ export default function SearchPage() {
   const videoData = location.state.data;
   const myId = videoData.id;
   const [comment, setComment] = useState([]);
-  console.log("데이터 받아온 값", videoData);
-  console.log("내 아이디", myId.videoId);
   //클립 버튼 눌렀을 때 복사되는거
   const getUrl = (e) => {};
   useEffect(() => {
     // statistics받아옵시다
     getStatistics(videoData.id.videoId).then((res) => {
-      console.log("statistics data is : ", res);
       setStatisticsData(res);
       setCommentCount(res.items[0].statistics.commentCount);
       setViewCount(res.items[0].statistics.viewCount);
