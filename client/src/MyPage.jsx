@@ -44,6 +44,7 @@ const Mypage = () => {
     try {
       const data = await userScrapData();
       const userInfo = await getUserInfo();
+      console.log("data 값", data);
       setUserInfo(userInfo);
       setItems(data);
     } catch (error) {

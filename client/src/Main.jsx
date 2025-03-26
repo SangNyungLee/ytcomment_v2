@@ -11,6 +11,7 @@ import { truncateText } from "./func/GetApi";
 import "./css/Pagination.css";
 import Pagination from "react-js-pagination";
 import UserVideoLike from "./scrap/UserLike";
+import getTotalPage from "./func/getTotalPage";
 
 export default function Main() {
   const [videos, setVideos] = useState([]);
@@ -44,10 +45,12 @@ export default function Main() {
   };
 
   useEffect(() => {
-    axios.post(`${API_BASE_URL}/api/totalPage`, { categoryId }).then((res) => {
-      setTotalItems(res.data.totalPage);
+    const totalPage = async () => {
+      const totalPage = await getTotalPage({ categoryId });
+      setTotalItems(totalPage);
       setPage(1);
-    });
+    };
+    totalPage();
   }, [categoryId]);
 
   useEffect(() => {
