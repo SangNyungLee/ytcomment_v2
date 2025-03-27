@@ -16,9 +16,9 @@ public class UserLikeListService {
     private final UserVideoLikeMapper userVideoLikeMapper;
 
     public List<UserScrapPageServiceDTO.Out> userLikeList(UserScrapPageServiceDTO.In in){
+        // offset, size => 페이지네이션 할 때 필요한 값
+        // offset : 시작, size : 크기
         int offset = (in.getPage() - 1) * in.getSize();
-        System.out.println("나와야 될 offset은?" + offset);
-        System.out.println("size = " + in.getSize());
         List<UserScrapPageDbDTO.Out> result = userVideoLikeMapper.selectUserScrapPage(in.to(offset));
 
         return result.stream()
