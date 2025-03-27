@@ -15,10 +15,16 @@ function SignupForm() {
   const [isPasswordMatch, setIsPasswordMatch] = useState(false);
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [userIdError, setUserIdError] = useState("");
+  const [userNameError, setUserNameError] = useState("");
 
   const API_BASE_URL = import.meta.env.VITE_API_URL;
 
-  // 이메일 입력 핸들러
+  // 유효성 검사 함수
+  const isValidUserId = (value) => /^[a-zA-Z0-9]+$/.test(value);
+  const isValidUserName = (value) => /^[가-힣a-zA-Z0-9]+$/.test(value);
+
+  // 입력 핸들러
   const handleEmailChange = (e) => {
     const email = e.target.value;
     setUserEmail(email);
@@ -29,7 +35,6 @@ function SignupForm() {
     }
   };
 
-  // 비밀번호 입력 핸들러
   const handlePasswordChange = (e) => {
     const password = e.target.value;
     setUserPw(password);
@@ -42,14 +47,33 @@ function SignupForm() {
     }
   };
 
-  // 비밀번호 확인 핸들러
   const handlePasswordCheck = (e) => {
-    const { value } = e.target;
+    const value = e.target.value;
     setUserPwCheck(value);
     setIsPasswordMatch(value === userPw);
   };
 
-  // 이메일 중복 검사
+  const handleUserIdChange = (e) => {
+    const id = e.target.value;
+    setUserId(id);
+    if (!isValidUserId(id)) {
+      setUserIdError("아이디는 영문과 숫자만 사용할 수 있습니다.");
+    } else {
+      setUserIdError("");
+    }
+  };
+
+  const handleUserNameChange = (e) => {
+    const name = e.target.value;
+    setUserName(name);
+    if (!isValidUserName(name)) {
+      setUserNameError("닉네임은 한글, 영문, 숫자만 사용할 수 있습니다.");
+    } else {
+      setUserNameError("");
+    }
+  };
+
+  // 중복 체크
   const checkUserEmail = async () => {
     if (!validateEmail(userEmail)) {
       alert("올바른 이메일 형식을 입력하세요.");
@@ -70,15 +94,18 @@ function SignupForm() {
       } else {
         alert("중복된 이메일입니다.");
         setUserEmailCheck(false);
-        setUserEmail(""); // 중복된 경우 입력 필드 초기화
       }
     } catch (error) {
-      console.error("에러", error);
+      console.error("이메일 중복 확인 에러", error);
     }
   };
 
-  // 아이디 중복 검사
   const checkUserId = async () => {
+    if (!isValidUserId(userId)) {
+      alert("아이디는 영문과 숫자만 입력 가능합니다.");
+      return;
+    }
+
     try {
       const result = await axios.get(`${API_BASE_URL}/api/email/check-id`, {
         params: { id: userId },
@@ -89,20 +116,27 @@ function SignupForm() {
         setUserIdCheck(true);
       } else {
         alert("중복된 아이디입니다.");
+        setUserIdCheck(false);
       }
     } catch (error) {
-      console.error("에러", error);
+      console.error("아이디 중복 확인 에러", error);
     }
   };
 
-  // 회원가입 처리
+  // 회원가입 요청
   const handleSignup = async () => {
     if (!validatePassword(userPw)) {
       alert("비밀번호는 영문, 숫자, 특수문자를 포함해 8자 이상이어야 합니다.");
       return;
     }
 
-    if (isPasswordMatch) {
+    if (
+      isPasswordMatch &&
+      userEmailCheck &&
+      userIdCheck &&
+      !userIdError &&
+      !userNameError
+    ) {
       try {
         const response = await axios.post(
           `${API_BASE_URL}/api/email/email-signup`,
@@ -135,7 +169,7 @@ function SignupForm() {
         </div>
         <div className="loginForm" style={{ marginBottom: "3rem" }}>
           <form className="formTag">
-            {/* 이메일 입력 필드 */}
+            {/* 이메일 */}
             <div className={`emailCheck ${emailError ? "hasError" : ""}`}>
               <input
                 type="text"
@@ -156,21 +190,19 @@ function SignupForm() {
               >
                 이메일 중복확인
               </button>
-
-              {/* 오류 메시지가 있으면 표시 */}
               {emailError && <div className="error">{emailError}</div>}
               {userEmailCheck && (
                 <div className="success">가입 가능한 이메일입니다.</div>
               )}
             </div>
 
-            {/* 아이디 입력 필드 */}
+            {/* 아이디 */}
             <div className={`idCheck ${userIdCheck ? "hasSuccess" : ""}`}>
               <input
                 type="text"
                 className="userId"
                 value={userId}
-                onChange={(e) => setUserId(e.target.value)}
+                onChange={handleUserIdChange}
                 placeholder="아이디"
               />
               <button
@@ -185,13 +217,13 @@ function SignupForm() {
               >
                 아이디 중복확인
               </button>
-
-              {userIdCheck && (
+              {userIdError && <div className="error">{userIdError}</div>}
+              {userIdCheck && !userIdError && (
                 <div className="success">가입 가능한 아이디입니다.</div>
               )}
             </div>
 
-            {/* 비밀번호 입력 필드 */}
+            {/* 비밀번호 */}
             <div className={`pwCheck ${passwordError ? "hasError" : ""}`}>
               <input
                 type="password"
@@ -200,9 +232,7 @@ function SignupForm() {
                 onChange={handlePasswordChange}
                 placeholder="비밀번호"
               />
-              {/* 오류 메시지가 있으면 표시 */}
               {passwordError && <span className="error">{passwordError}</span>}
-
               <input
                 type="password"
                 className="userPwCheck"
@@ -210,25 +240,36 @@ function SignupForm() {
                 onChange={handlePasswordCheck}
                 placeholder="비밀번호 확인"
               />
-              {/* 비밀번호 일치 메시지 */}
               {isPasswordMatch && (
                 <span className="success">비밀번호가 일치합니다.</span>
               )}
             </div>
 
-            <input
-              type="text"
-              className="userName"
-              value={userName}
-              onChange={(e) => setUserName(e.target.value)}
-              placeholder="닉네임"
-            />
+            {/* 닉네임 */}
+            <div className="nicknameCheck">
+              <input
+                type="text"
+                className="userName"
+                value={userName}
+                onChange={handleUserNameChange}
+                placeholder="닉네임"
+              />
+              {userNameError && <div className="error">{userNameError}</div>}
+            </div>
 
+            {/* 회원가입 버튼 */}
             <button
               type="button"
               style={{ color: "white", backgroundColor: "#6bcf70" }}
               className="btn signupBtn"
-              disabled={!isPasswordMatch || !userEmailCheck || !userName}
+              disabled={
+                !isPasswordMatch ||
+                !userEmailCheck ||
+                !userIdCheck ||
+                !userName ||
+                userIdError ||
+                userNameError
+              }
               onClick={handleSignup}
             >
               회원가입
