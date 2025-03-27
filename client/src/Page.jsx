@@ -11,7 +11,6 @@ import {
 import { CopyToClipboard } from "react-copy-to-clipboard/src";
 import { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
-import ClipIcons from "./ClipIcons";
 import axios from "axios";
 import formatNumber from "./func/FormatNumber";
 import formatPublishedAt from "./func/FormatPublishedAt";

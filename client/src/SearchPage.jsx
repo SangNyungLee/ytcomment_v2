@@ -13,10 +13,10 @@ import { useEffect, useState } from "react";
 import { fetchComments, getStatistics } from "./func/GetApi";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import ClipIcons from "./ClipIcons";
 import formatPublishedAt from "./func/FormatPublishedAt";
 import formatNumber from "./func/FormatNumber";
-import searchPageScrap from "./func/searchPageScrap";
+import UserVideoLike from "./scrap/UserLike";
+
 export default function SearchPage() {
   const [show, setShow] = useState(false);
   const [commentCount, setCommentCount] = useState(0);
@@ -106,15 +106,15 @@ export default function SearchPage() {
             variant="primary"
             onClick={handleShow}
           >
-            영상 스크랩
+            공유하기
           </Button>
           <span
             className="btn youtubeChannelClip"
             onClick={() => {
-              searchPageScrap(videoData.id.videoId);
+              UserVideoLike(videoData.id.videoId);
             }}
           >
-            채널 스크랩
+            영상 스크랩
           </span>
         </div>
         <div className="youtubeDescription">

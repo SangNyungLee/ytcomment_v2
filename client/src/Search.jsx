@@ -3,7 +3,12 @@ import { Card, Col, Row, Spinner, Placeholder } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link, useSearchParams } from "react-router-dom";
 import { BsYoutube, BsFillPinFill } from "react-icons/bs";
-import { fetchComments, truncateText, searchYoutubeVideos } from "./func/GetApi";
+import {
+  fetchComments,
+  truncateText,
+  searchYoutubeVideos,
+} from "./func/GetApi";
+import UserVideoLike from "./scrap/UserLike";
 
 export default function Search() {
   const [videos, setVideos] = useState([]);
@@ -29,7 +34,10 @@ export default function Search() {
       const newVideos = res.data.items;
       setVideos((prev) => {
         const existingIds = new Set(prev.map((v) => v.id.videoId));
-        return [...prev, ...newVideos.filter((v) => !existingIds.has(v.id.videoId))];
+        return [
+          ...prev,
+          ...newVideos.filter((v) => !existingIds.has(v.id.videoId)),
+        ];
       });
       setPageToken(res.data.nextPageToken);
     } catch (error) {
@@ -71,10 +79,20 @@ export default function Search() {
 
   return (
     <div className="text-center">
-      <h3>{searchQuery ? `"${searchQuery}" 검색결과` : "검색어를 입력하세요."}</h3>
+      <h3>
+        {searchQuery ? `"${searchQuery}" 검색결과` : "검색어를 입력하세요."}
+      </h3>
       <Row className="justify-content-center" style={{ width: "100%" }}>
         {videos.map((video) => (
-          <Col xs={7} sm={7} md={5} lg={4} xl={3} xxl={2} key={video.id.videoId}>
+          <Col
+            xs={7}
+            sm={7}
+            md={5}
+            lg={4}
+            xl={3}
+            xxl={2}
+            key={video.id.videoId}
+          >
             <Card style={{ width: "100%", marginBottom: "20px" }}>
               {selectedVideo === video.id.videoId ? (
                 <iframe
@@ -94,9 +112,15 @@ export default function Search() {
                 />
               )}
               <Card.Body>
-                <Link to="/searchPage" state={{ data: video }} className="erText">
+                <Link
+                  to="/searchPage"
+                  state={{ data: video }}
+                  className="erText"
+                >
                   <Card.Title>{video.snippet.channelTitle}</Card.Title>
-                  <Card.Text className="cardText">{video.snippet.title}</Card.Text>
+                  <Card.Text className="cardText">
+                    {video.snippet.title}
+                  </Card.Text>
                 </Link>
                 <div style={{ color: "gray", marginBottom: "10px" }}>
                   {truncateText(video.snippet.description)}
@@ -120,12 +144,19 @@ export default function Search() {
                     <Placeholder xs={4} />
                   </Placeholder>
                 )}
-                <Link to="/searchPage" state={{ data: video }} className="linkColor">
+                <Link
+                  to="/searchPage"
+                  state={{ data: video }}
+                  className="linkColor"
+                >
                   <button className="btn moreBtn">
                     <BsYoutube className="btnIcon" /> 더보기
                   </button>
                 </Link>
-                <button className="btn clipBtn">
+                <button
+                  className="btn clipBtn"
+                  onClick={() => UserVideoLike(video.id.videoId)}
+                >
                   <BsFillPinFill className="btnIcon" /> 스크랩
                 </button>
               </Card.Body>
