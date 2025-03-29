@@ -15,7 +15,6 @@ public class UpdateUserPwService {
 
     private final UserInfoMapper userInfoMapper;
     public UpdateUserPwServiceDTO.Out updateUserPw(UpdateUserPwServiceDTO.In in){
-        System.out.println("service In result : " + in.getResult());
         if (in.getResult().equals("0")){
             System.out.println("성공으로 들어옴");
             // 성공했으면 비밀번호 변경

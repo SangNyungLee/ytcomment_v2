@@ -53,7 +53,6 @@ public class MyPageController {
         // 기존 비밀번호랑 같은지 비교하고 비밀번호가 같다면 새로운 비밀번호 암호화 한 후 DB에 저장
         // 1. 비밀번호가 기존 비밀번호와 동일하면
         String checkResult = loginAuthService.getUserPw(in.toLoginAuth(userDetails.getUserId()));
-        System.out.println("checkResult = " + checkResult);
         UpdateUserPwServiceDTO.Out serviceResult =
                 updateUserPwService.updateUserPw(in.to(checkResult, userDetails.getUserId()));
         return ResponseEntity.ok(serviceResult);
