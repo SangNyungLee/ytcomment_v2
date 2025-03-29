@@ -32,10 +32,7 @@ public class SingleVideoSaveService {
 
     public void saveVideoById(SingleVideoSaveServiceDTO.In in) {
         // count 값이 0 일 때만 실행할거임
-        System.out.println("서비스 드러옴 " + in.getCount());
         if (in.getCount() == 0) {
-            System.out.println("서비스 조건문 안에 들어옴 " + in.getCount());
-            System.out.println("서비스 조건문 안에 id값 : " + in.getVideoId());
             try {
                 String result = webClientBuilder.baseUrl(apiUrl)
                         .build()
@@ -78,7 +75,6 @@ public class SingleVideoSaveService {
                                 ? item.get("statistics").get("likeCount").asInt()
                                 : 0)
                         .build();
-                System.out.println("저장하는 부분 까지 왔음, singleVideoSaveService부분");
                 getVideoMapper.insertVideo(videoInfo);
                 getVideoMapper.insertStatistics(stats);
 

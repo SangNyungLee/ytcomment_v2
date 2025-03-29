@@ -50,7 +50,6 @@ public class EmailController {
     @Operation(summary = "이메일 전송")
     public BaseResponse sendEmail(@RequestBody EmailSendControllerDTO.In req) {
         String result = emailAuthService.requestEmailAuth(req.to());
-        System.out.println("이메일 보내기");
         return BaseResponse.success("이메일 전송 성공");
     }
 
@@ -58,7 +57,6 @@ public class EmailController {
     @Operation(summary = "이메일 인증")
     public BaseResponse checkEmail(@RequestBody EmailVerifyAuthControllerDTO.In in) {
         BaseResponse result = emailAuthCodeService.verifyAuthCode(in.to());
-        System.out.println("!!" + result.getStatusCode());
         // 0 : 성공, 1 : 실패
         if (result.getMessage().equals(0)){
             //성공햇을 때 그 아이디의 auth를 true로 바꾸기
@@ -66,7 +64,6 @@ public class EmailController {
                     .email(in.getEmail()).build();
             checkEmailAuthService.updateUserAuth(authDTO.to());
         }
-        System.out.println("?? " + result.getMessage());
         return result;
     }
 
