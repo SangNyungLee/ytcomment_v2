@@ -3,8 +3,8 @@
   width: 100%;
   margin-bottom: 10px;
 }
-.pwCheck .hasError{
-  margin-bottom : 10px
+.pwCheck .hasError {
+  margin-bottom: 10px;
 }
 .userPwCheck {
   margin-bottom: 0px !important;
@@ -12,7 +12,8 @@
 /* 오류가 있을 경우 margin-bottom을 0px으로 설정 */
 .emailCheck.hasError input,
 .idCheck.hasError input,
-.pwCheck.hasError .userPw, .pwCheck.hasError {
+.pwCheck.hasError .userPw,
+.pwCheck.hasError {
   margin-bottom: 0px;
 }
 
@@ -28,4 +29,21 @@
   color: #33e533;
   font-size: 12px;
   margin-top: 5px;
+}
+
+input {
+  border: 1px solid #ccc;
+  padding: 4px;
+  border-radius: 4px;
+  outline: none;
+  background-color: white;
+  color: black;
+}
+
+input:focus {
+  border-color: #4d627b;
+}
+
+.nicknameCheck input {
+  width: 100%;
 }
