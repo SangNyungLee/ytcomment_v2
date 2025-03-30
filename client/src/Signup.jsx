@@ -1,22 +1,22 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./css/Signup.css";
 import SocialKaKao from "./func/SocialLogin";
 import getLogin from "./func/Login";
 function Signup() {
   const [userId, setUserId] = useState("");
   const [userPw, setUserPw] = useState("");
-
+  const navigate = useNavigate();
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
-      getLogin({userId, userPw});
+      getLogin({ userId, userPw, setUserId, setUserPw, navigate });
     }
   };
 
   const handleLogin = () => {
     // 로그인 실패하면 input값들 초기화 하기 위해서 만듬
-    getLogin({userId, userPw, setUserId, setUserPw});
-  }
+    getLogin({ userId, userPw, setUserId, setUserPw, navigate });
+  };
   return (
     <div className="mom">
       <div className="login">

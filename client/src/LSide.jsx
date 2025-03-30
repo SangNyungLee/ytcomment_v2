@@ -3,7 +3,7 @@ import "./css/LsideStyle.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AccordionFlush from "./Accordion";
 import { BsFillBarChartLineFill } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import getLogin from "./func/Login";
 import Cookies from "js-cookie";
 import logout from "./func/logout";
@@ -12,20 +12,19 @@ export default function Lside() {
   const [userId, setUserId] = useState("");
   const [userPw, setUserPw] = useState("");
   const cookieString = document.cookie;
+  const navigate = useNavigate();
   const userName = Cookies.get("username");
 
   const handleLogin = () => {
     // 로그인 실패하면 input값들 초기화 하기 위해서 만듬
-    getLogin({userId, userPw, setUserId, setUserPw});
-  }
+    getLogin({ userId, userPw, setUserId, setUserPw, navigate });
+  };
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
-      getLogin({userId, userPw});
+      getLogin({ userId, userPw, setUserId, setUserPw, navigate });
     }
   };
-
-
 
   return (
     <div className="mainSide">
