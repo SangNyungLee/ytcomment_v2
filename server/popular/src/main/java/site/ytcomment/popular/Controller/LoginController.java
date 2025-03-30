@@ -63,12 +63,14 @@ public class LoginController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginAuthControllerDTO.In in){
         String result = loginAuthService.getUserPw(in.to());
-        if (result.equals(ResponseCode.인증없음.getCode()))
+        // 0 : 인증 안된 계정
+        // 1 : 인증 된 계정
+        if (result.equals("0"))
             return ResponseEntity.status(HttpStatus.FORBIDDEN)
                     .body("인증이 되지 않았습니다.");
-        else if (result.equals(ResponseCode.실패.getCode()))
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body("잘못된 인증정보 입니다.");
+//        else if (result.equals(ResponseCode.실패.getCode()))
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+//                    .body("잘못된 인증정보 입니다.");
         else{
             // 로그인 성공시 JWT 토큰 생성
             // in.. 이런 애들 전부다 DTO로 감싸야됨
