@@ -14,12 +14,12 @@ ID: test
 PW: test!
 ```
 
-## 🖥 Screenshots
+## 📖 Description
 
 **Youtube Comment**는 유튜브 급상승 영상들을 댓글과 함께 한눈에 보여주는 서비스입니다.  
 알고리즘 없이 정제된 인기 댓글을 기반으로, **댓글 중심의 소비 경험**을 제공합니다.
 
-# 🖥화면구성(영어로 수정해주셈)
+## 🖥 Screenshots
 |메인 페이지|로그인페이지|회원가입페이지|
 |-|-|-|
 |![image](https://github.com/user-attachments/assets/2fde38a0-63d9-4097-84a3-a9079d818ca3)|![image](https://github.com/user-attachments/assets/6e87a9c1-5280-460c-a6ef-a9cf214d1bd6)|![image](https://github.com/user-attachments/assets/9cc55ec2-d952-4f7e-95db-99683b81f049)|
