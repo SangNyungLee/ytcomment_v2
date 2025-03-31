@@ -7,7 +7,6 @@ const getLogin = async ({ userId, userPw, setUserId, setUserPw, navigate }) => {
       userId,
       userPw,
     });
-    console.log("반환결과", result);
     if (result.status === 200) {
       alert("로그인에 성공하셨습니다.!");
 
@@ -23,7 +22,7 @@ const getLogin = async ({ userId, userPw, setUserId, setUserPw, navigate }) => {
       setUserPw("");
     } else if (error.status === 403) {
       alert("이메일 인증 후 사용가능합니다.");
-      navigate("/emailAuthPage");
+      navigate("/emailAuthPage", { state: { userEmail: error.response.data } });
     }
   }
 };
