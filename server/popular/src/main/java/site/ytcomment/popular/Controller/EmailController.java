@@ -57,8 +57,7 @@ public class EmailController {
     @Operation(summary = "이메일 인증")
     public BaseResponse checkEmail(@RequestBody EmailVerifyAuthControllerDTO.In in) {
         BaseResponse result = emailAuthCodeService.verifyAuthCode(in.to());
-        // 0 : 성공, 1 : 실패
-        if (result.getMessage().equals(0)){
+        if (result.getMessage().equals("0")){
             //성공햇을 때 그 아이디의 auth를 true로 바꾸기
             ChangeEmailAuthControllerDTO.In authDTO = ChangeEmailAuthControllerDTO.In.builder()
                     .email(in.getEmail()).build();

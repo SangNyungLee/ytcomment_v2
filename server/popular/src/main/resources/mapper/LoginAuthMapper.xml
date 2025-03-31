@@ -6,7 +6,7 @@
 
     <select id="selectUserPw" parameterType="site.ytcomment.popular.mapper.DTO.LoginAuthDbDTO$In"
             resultType="site.ytcomment.popular.mapper.DTO.LoginAuthDbDTO$Out">
-            SELECT userPw, auth from userinfo where id = #{userId}
+            SELECT userPw, auth, userEmail from userinfo where id = #{userId}
     </select>
 
     <select id="selectUserEmailById" parameterType="site.ytcomment.popular.mapper.DTO.UserInfoDbDTO$In"

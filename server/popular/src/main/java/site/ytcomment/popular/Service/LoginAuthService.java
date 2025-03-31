@@ -2,6 +2,7 @@ package site.ytcomment.popular.Service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.handler.MatchableHandlerMapping;
 import site.ytcomment.popular.Service.DTO.LoginAuthServiceDTO;
 import site.ytcomment.popular.Service.DTO.UserInfoServiceDTO;
 import site.ytcomment.popular.Util.BcryptUtil;
@@ -16,24 +17,22 @@ public class LoginAuthService {
 
     private final LoginAuthMapper loginAuthMapper;
 
-    public String getUserPw(LoginAuthServiceDTO.In in){
+    public LoginAuthServiceDTO.Out getUserPw(LoginAuthServiceDTO.In in){
         /*
-        1. 클라이언트 비밀번호 암호화 후 서버에 있는 비밀번호 가져와서 서로 비교
-         */
+        * 실패 : 0,
+        * 성공 : 1,
+        * 인증실패 : 2
+        * */
         LoginAuthDbDTO.Out dbResult = loginAuthMapper.selectUserPw(in.to());
-        if (dbResult == null){
-            return ResponseCode.실패.getCode();
+        LoginAuthServiceDTO.Out serviceDTO = LoginAuthServiceDTO.Out.from(dbResult);
+        if (serviceDTO == null){
+            return null;
         }
-        boolean matchesResult = BcryptUtil.matchesPassword(in.getUserPw(), dbResult.getUserPw());
-
+        boolean matchesResult = BcryptUtil.matchesPassword(in.getUserPw(), serviceDTO.getUserPw());
         if (matchesResult){
-            if (dbResult.getUserAuth().equals(0)){
-                return ResponseCode.인증없음.getCode();
-            } else {
-                return ResponseCode.성공.getCode();
-            }
+            return serviceDTO;
         } else {
-            return ResponseCode.실패.getCode();
+            return null;
         }
     }
         // 이메일로 사용자 ID 가져오기

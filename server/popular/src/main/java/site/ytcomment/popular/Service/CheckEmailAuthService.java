@@ -12,6 +12,7 @@ public class CheckEmailAuthService {
     private final ChangeEmailAuthMapper changeEmailAuthMapper;
 
     public void updateUserAuth(ChangeEmailAuthServiceDTO.In in){
+        System.out.println(in.getEmail());
         changeEmailAuthMapper.updateAuth(in.to());
     }
 }

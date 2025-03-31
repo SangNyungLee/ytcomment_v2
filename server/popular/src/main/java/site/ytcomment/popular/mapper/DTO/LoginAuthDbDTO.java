@@ -19,5 +19,6 @@ public class LoginAuthDbDTO {
     public static class Out{
         private final String userPw;
         private final String userAuth;
+        private final String userEmail;
     }
 }

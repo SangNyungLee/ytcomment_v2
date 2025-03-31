@@ -20,4 +20,21 @@ public class LoginAuthServiceDTO {
                     .build();
         }
     }
+
+    @Getter
+    @Builder
+    @RequiredArgsConstructor
+    public static class Out{
+        private final String userPw;
+        private final String userAuth;
+        private final String userEmail;
+
+        public static LoginAuthServiceDTO.Out from(LoginAuthDbDTO.Out out){
+            return Out.builder()
+                    .userPw(out.getUserPw())
+                    .userAuth(out.getUserAuth())
+                    .userEmail(out.getUserEmail())
+                    .build();
+        }
+    }
 }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import site.ytcomment.popular.Controller.DTO.*;
 import site.ytcomment.popular.DTO.TokenResponseDTO;
 import site.ytcomment.popular.Service.*;
+import site.ytcomment.popular.Service.DTO.LoginAuthServiceDTO;
 import site.ytcomment.popular.Service.DTO.UserInfoServiceDTO;
 import site.ytcomment.popular.common.Enum.ResponseCode;
 import site.ytcomment.popular.config.jwt.JwtTokenProvider;
@@ -62,16 +63,17 @@ public class LoginController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginAuthControllerDTO.In in){
-        String result = loginAuthService.getUserPw(in.to());
+        LoginAuthServiceDTO.Out result = loginAuthService.getUserPw(in.to());
         // 0 : 인증 안된 계정
         // 1 : 인증 된 계정
-        if (result.equals("0"))
+        if (result == null){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("잘못된 인증정보 입니다.");
+        }
+        if ("2".equals(result.getUserAuth())){
             return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                    .body("인증이 되지 않았습니다.");
-//        else if (result.equals(ResponseCode.실패.getCode()))
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-//                    .body("잘못된 인증정보 입니다.");
-        else{
+                    .body(result.getUserEmail());
+        }
             // 로그인 성공시 JWT 토큰 생성
             // in.. 이런 애들 전부다 DTO로 감싸야됨
             UserInfoServiceDTO.Out userInfo = loginAuthService.getUserEmailById(UserInfoControllerDTO.In.to(in.getUserId()));
@@ -82,7 +84,5 @@ public class LoginController {
                     .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                     .header(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, HttpHeaders.AUTHORIZATION) // CORS 문제 방지
                     .body(userInfo.getUserName());
-
-        }
     }
 }

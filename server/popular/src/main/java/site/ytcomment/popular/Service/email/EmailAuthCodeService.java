@@ -32,7 +32,8 @@ public class EmailAuthCodeService {
     // Redis에 인증 코드 저장
     public void saveAuthCode(String email, String authCode) {
         ValueOperations<String, String> valueOperations = redisConfig.redisTemplate().opsForValue();
-        valueOperations.set(email, authCode, 180, TimeUnit.SECONDS);
+        // 제한시간 5분임
+        valueOperations.set(email, authCode, 300, TimeUnit.SECONDS);
     }
 
     // 인증 코드 검증
