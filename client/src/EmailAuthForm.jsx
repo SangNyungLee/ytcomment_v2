@@ -1,12 +1,15 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import CountDownTimer from "./func/CountDownTimer";
 
 export default function emailAuthPage() {
   const [userEmail, setUserEmail] = useState("");
   const [authCode, setAuthCode] = useState("");
-  const navigate = useNavigate();
+  const [showTimer, setShowTimer] = useState(false); // 타이머 시작 컨트롤
+
   const location = useLocation(); // state로 받은 값을 받기 위해 사용함
+  const navigate = useNavigate();
   const API_BASE_URL = import.meta.env.VITE_API_URL;
 
   // state로 받은 값을 바로 email에 적용될 수 있게 설정
@@ -21,6 +24,8 @@ export default function emailAuthPage() {
     const result = await axios.post(`${API_BASE_URL}/api/email/send`, {
       email: userEmail,
     });
+    setShowTimer(false); // 이전 타이머 초기화
+    setTimeout(() => setShowTimer(true), 0); // 리셋하고 다시 시작
   };
 
   const checkUserAuthCode = async () => {
@@ -74,6 +79,9 @@ export default function emailAuthPage() {
               >
                 인증코드 전송
               </button>
+              {showTimer && (
+                <CountDownTimer initialSeconds={300} isActive={showTimer} />
+              )}
             </div>
             <input
               type="text"
