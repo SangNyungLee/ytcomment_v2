@@ -62,7 +62,7 @@ export default function Main() {
     <div className="text-center">
       <Row className="justify-content-center" style={{ width: "100%" }}>
         {videos.map((video) => (
-          <Col xs={7} sm={7} md={5} lg={4} xl={3} xxl={2} key={video.id}>
+          <Col xs={7} sm={7} md={5} lg={4} xl={3} xxl={3} key={video.id}>
             <Card style={{ width: "100%", marginBottom: "20px" }}>
               {selectedVideo === video.id ? (
                 <iframe
