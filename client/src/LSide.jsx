@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./css/LsideStyle.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AccordionFlush from "./Accordion";
 import { BsFillBarChartLineFill } from "react-icons/bs";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import getLogin from "./func/Login";
 import Cookies from "js-cookie";
 import logout from "./func/logout";
@@ -13,6 +13,7 @@ export default function Lside() {
   const [userPw, setUserPw] = useState("");
   const cookieString = document.cookie;
   const navigate = useNavigate();
+  const location = useLocation();
   const userName = Cookies.get("username");
 
   const handleLogin = () => {
@@ -26,6 +27,13 @@ export default function Lside() {
     }
   };
 
+  useEffect(() => {
+    if (location.state?.resetLoginForm) {
+      setUserId("");
+      setUserPw("");
+      navigate(location.pathname, { replace: true, state: {} });
+    }
+  }, [location, navigate]);
   return (
     <div className="mainSide">
       <div className="title">

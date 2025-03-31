@@ -34,8 +34,8 @@ export default function emailAuthPage() {
       authNum: authCode,
     });
     if (result.data.message === "0") {
-      alert("인증에 성공했습니다.");
-      navigate("/");
+      alert("인증에 성공했습니다. 다시 로그인 해주세요");
+      navigate("/", { state: { resetLoginForm: true } });
     } else {
       alert("인증에 실패했습니다. 인증코드를 다시 확인해주세요.");
       setAuthCode("");
