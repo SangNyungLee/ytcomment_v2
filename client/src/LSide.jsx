@@ -7,6 +7,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import getLogin from "./func/Login";
 import Cookies from "js-cookie";
 import logout from "./func/logout";
+import SidebarMenus from "./components/SideBarMenus";
 
 export default function Lside() {
   const [userId, setUserId] = useState("");
@@ -91,7 +92,7 @@ export default function Lside() {
           </div>
         </div>
       )}
-      <AccordionFlush />
+      <SidebarMenus />
     </div>
   );
 }

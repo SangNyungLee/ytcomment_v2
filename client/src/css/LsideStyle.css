@@ -89,3 +89,76 @@ li {
 .welcome {
   text-align: center;
 }
+.sidebar-links {
+  margin-top: 20px;
+  padding: 0 16px;
+}
+
+.write-button {
+  width: 100%;
+  padding: 10px 0;
+  background-color: #a02121;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 15px;
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+
+.write-button:hover {
+  background-color: #861919;
+}
+
+.main-menu {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 16px;
+}
+
+.main-menu li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  font-size: 16px;
+  padding: 10px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.main-menu li:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.board-section {
+  padding-top: 8px;
+}
+
+.board-title {
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 8px;
+  padding-left: 4px;
+}
+
+.board-menu {
+  list-style: none;
+  padding-left: 0;
+}
+
+.board-menu li {
+  color: white;
+  padding: 6px 10px;
+  font-size: 15px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
+.board-menu li:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}

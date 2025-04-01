@@ -20,6 +20,7 @@ import EmailAuthForm from "./EmailAuthForm";
 import ScrollToTop from "./func/ScrollToTop";
 import PrivateRoute from "./routes/PrivateRoute";
 import Mypage from "./MyPage";
+import FreeBoardList from "./components/post/BoardList";
 
 function App() {
   // 초기 상태를 window.innerWidth로 설정
@@ -60,6 +61,9 @@ function App() {
               element={<ChannelScrapingPage scrapId="myChannel" />}
             />
             <Route path="/emailAuthPage" element={<EmailAuthForm />} />
+
+            {/* Board */}
+            <Route path="/boardLists" element={<FreeBoardList />} />
 
             {/* 로그인된 사용자만 접근 가능한 페이지 */}
             <Route element={<PrivateRoute />}>
