@@ -29,5 +29,6 @@ dist-ssr
 .env.production
 
 # macOS 시스템 파일
+*.DS_Store
 .DS_Store
 **/.DS_Store
