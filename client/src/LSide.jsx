@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./css/LsideStyle.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import AccordionFlush from "./Accordion";
-import { BsFillBarChartLineFill } from "react-icons/bs";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import getLogin from "./func/Login";
 import Cookies from "js-cookie";
@@ -38,10 +36,14 @@ export default function Lside() {
   return (
     <div className="mainSide">
       <div className="title">
-        <span className="commentLogo">
-          <BsFillBarChartLineFill className="myLogo" />
-          <span className="additionalText">YTComment </span>
-        </span>
+        <div
+          className="text-white text-2xl font-bold"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          YTComment
+        </div>
       </div>
       {cookieString ? (
         <div>
@@ -49,7 +51,7 @@ export default function Lside() {
             <span style={{ color: "black", fontWeight: "700" }}>
               {userName}
             </span>{" "}
-            님 환영합니다.~
+            님 환영합니다.
           </div>
           <button className="btnLogin" onClick={logout}>
             로그아웃

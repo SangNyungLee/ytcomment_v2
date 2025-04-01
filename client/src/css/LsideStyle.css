@@ -1,5 +1,5 @@
 .mainSide {
-  background-color: #c02929;
+  background-color: #dc2625;
   height: 100vh;
   position: fixed;
   width: 220px;
@@ -17,6 +17,7 @@ li {
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 .commentLogo {
   display: flex;
@@ -114,7 +115,7 @@ li {
 .main-menu {
   list-style: none;
   padding-left: 0;
-  margin-bottom: 16px;
+  margin-bottom: 0px;
 }
 
 .main-menu li {
@@ -148,10 +149,12 @@ li {
 .board-menu {
   list-style: none;
   padding-left: 0;
+  margin-left: 15px;
 }
 
 .board-menu li {
   color: white;
+  margin-top: 0px;
   padding: 6px 10px;
   font-size: 15px;
   cursor: pointer;
