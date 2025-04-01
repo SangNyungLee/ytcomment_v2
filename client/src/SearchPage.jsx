@@ -147,7 +147,13 @@ export default function SearchPage() {
         </div>
         <div>
           <div>
-            <select style={{ marginBottom: "20px", marginTop: "20px" }}>
+            <select
+              style={{
+                marginBottom: "20px",
+                marginTop: "20px",
+                border: "1px solid",
+              }}
+            >
               <option>관련성 순</option>
               <option>좋아요 많은 순</option>
               <option>최신순</option>

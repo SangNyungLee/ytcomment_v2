@@ -176,7 +176,11 @@ export default function Page() {
         <div>
           <div>
             <select
-              style={{ marginBottom: "20px", marginTop: "20px" }}
+              style={{
+                marginBottom: "20px",
+                marginTop: "20px",
+                border: "1px solid",
+              }}
               value={sortOption}
               onChange={(e) => setSortOption(e.target.value)}
             >
