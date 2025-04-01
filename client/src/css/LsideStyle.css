@@ -48,21 +48,21 @@ li {
   font-size: 13px;
   border-radius: 3px;
   box-shadow: none;
-  border: 1px solid rgba(255, 255, 255, 0.5); /* 테두리를 연한 회색으로 변경 */
+  border: 1px solid rgba(255, 255, 255, 0.5);
   margin-bottom: 5px;
   padding: 5px;
-  background-color: white; /* 입력 필드 배경색을 흰색으로 유지 */
+  background-color: white;
   color: black;
 }
 
 .idInput:focus {
-  border-color: #a02020; /* 포커스 시 좀 더 어두운 빨간색 테두리 */
+  border-color: #a02020;
   outline: none;
   box-shadow: 0 0 5px rgba(160, 32, 32, 0.5);
 }
 
 .btnLogin {
-  background-color: #e71414; /* 더 부드러운 붉은색 */
+  background-color: #e71414;
   width: 100%;
   color: #fff;
   cursor: pointer;
@@ -77,7 +77,7 @@ li {
 }
 
 .btnLogin:hover {
-  background-color: #8b1a1a; /* 호버 시 더 짙은 빨간색 */
+  background-color: #8b1a1a;
   border-color: rgba(255, 255, 255, 0.8);
 }
 

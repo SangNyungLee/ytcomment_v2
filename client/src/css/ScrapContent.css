@@ -77,16 +77,16 @@
 
 /* 카드 컨텐츠 스타일 */
 .scrap-thumbnail {
-  width: 100%; /* 부모 요소에 맞게 너비 조정 */
-  height: auto; /* 비율 유지 */
-  object-fit: contain; /* 이미지가 잘리지 않도록 조정 */
-  aspect-ratio: 12/9; /* 16:9 비율 유지 */
-  background-color: #f0f0f0; /* 빈 공간이 생길 경우 배경 처리 */
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  aspect-ratio: 12/9;
+  background-color: #f0f0f0;
 }
 
 .scrap-info {
   padding: 10px;
-  min-height: 80px; /* 제목 길이에 상관없이 일정한 높이 유지 */
+  min-height: 80px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -100,14 +100,14 @@
 
 .scrap-meta {
   display: flex;
-  flex-direction: column; /* 세로 정렬 */
-  gap: 4px; /* 요소 간격 */
+  flex-direction: column;
+  gap: 4px;
 }
 
 .scrap-font {
-  font-size: 15px; /* 기본 크기 */
-  font-weight: bold; /* 채널 이름 강조 */
-  color: #535252; /* 어두운 회색 */
+  font-size: 15px;
+  font-weight: bold;
+  color: #535252;
 }
 .scrap-font2 {
   font-size: 12px;
