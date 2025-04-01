@@ -43,7 +43,7 @@ export default function SidebarMenus() {
       {boardOpen && (
         <ul className="board-menu">
           <li onClick={() => navigate("/notice")}>공지사항</li>
-          <li onClick={() => navigate("/freeboard")}>자유게시판</li>
+          <li onClick={() => navigate("/boardLists")}>자유게시판</li>
           {/* <li onClick={() => navigate("/qna")}>질문게시판</li>
           <li onClick={() => navigate("/debate")}>토론게시판</li> */}
         </ul>
