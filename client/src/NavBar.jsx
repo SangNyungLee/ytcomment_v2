@@ -33,9 +33,9 @@ function NavBar() {
   return (
     <div>
       <Navbar bg="light" expand="lg" className="mainNavBar">
-        {/* <Navbar.Brand href="/">
+        <Navbar.Brand href="/">
           <House className="goHome" />
-        </Navbar.Brand> */}
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" className="order-0" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto navFlex">

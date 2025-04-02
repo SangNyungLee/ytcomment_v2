@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./css/sidebar.module.css";
 import Lside from "./LSide";
 import { BsArrowBarRight } from "react-icons/bs";
+import { ArrowBigRightDash } from "lucide-react";
 const Sidebar = ({ width = 220 }) => {
   const [isOpen, setOpen] = useState(false);
   const [xPosition, setX] = useState(width);
@@ -52,7 +53,7 @@ const Sidebar = ({ width = 220 }) => {
           {isOpen ? (
             <span style={{ fontSize: "20px" }}>X</span>
           ) : (
-            <BsArrowBarRight />
+            <ArrowBigRightDash style={{ pointerEvents: "none" }} />
           )}
         </button>
       </div>
