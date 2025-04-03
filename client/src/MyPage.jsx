@@ -13,7 +13,6 @@ import PasswordEditForm from "./components/PasswordEditform";
 import deleteAccount from "./func/deleteAccount";
 import Pagination from "react-js-pagination";
 import getMyTotalPage from "./func/getMyTotalPage";
-import defaultImage from "../src/assets/defaultProfile.jpg";
 
 const ITEMS_PER_PAGE = 5;
 
@@ -30,6 +29,7 @@ const Mypage = () => {
     userName: "",
     userEmail: "",
     id: "",
+    userProfileImg: "https://picsum.photos/250/250",
   });
 
   const handleEdit = async () => {
@@ -100,7 +100,7 @@ const Mypage = () => {
           <div className="flex items-center gap-4">
             <div>
               <img
-                src={defaultImage}
+                src={userInfo.userProfileImg}
                 className="w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center text-xl font-bold"
               />
             </div>
