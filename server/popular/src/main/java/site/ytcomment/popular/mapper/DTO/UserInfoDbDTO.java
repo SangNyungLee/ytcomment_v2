@@ -21,6 +21,7 @@ public class UserInfoDbDTO {
         private final String userEmail;
         private final String userName;
         private final String social;
+        private final String userProfileImg;
         private final int count;
     }
 }

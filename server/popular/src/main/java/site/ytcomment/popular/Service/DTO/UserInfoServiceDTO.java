@@ -28,6 +28,7 @@ public class UserInfoServiceDTO {
         private final String userEmail;
         private final String userName;
         private final String social;
+        private final String userProfileImg;
         private final int count;
 
         public static UserInfoServiceDTO.Out from(UserInfoDbDTO.Out out){
@@ -36,6 +37,7 @@ public class UserInfoServiceDTO {
                     .userEmail(out.getUserEmail())
                     .userName(out.getUserName())
                     .social(out.getSocial())
+                    .userProfileImg(out.getUserProfileImg())
                     .count(out.getCount())
                     .build();
         }

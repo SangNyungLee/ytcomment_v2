@@ -10,7 +10,7 @@ import site.ytcomment.popular.mapper.DTO.UserInfoDbDTO;
 @Mapper
 public interface UserInfoMapper {
 
-    @Select("SELECT a.id, a.userEmail, a.userName, a.social, (select count(*) from likes where userId = #{userId}) as count from userinfo as a WHERE a.id = #{userId};")
+    @Select("SELECT a.id, a.userEmail, a.userName, a.social, a.userProfileImg, (select count(*) from likes where userId = #{userId}) as count from userinfo as a WHERE a.id = #{userId};")
     UserInfoDbDTO.Out selectUserInfo(UserInfoDbDTO.In in);
 
     // 사용자 닉네임 변경하는 쿼리

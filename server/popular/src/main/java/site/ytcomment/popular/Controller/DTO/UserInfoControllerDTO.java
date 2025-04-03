@@ -28,6 +28,7 @@ public class UserInfoControllerDTO {
         private final String userEmail;
         private final String userName;
         private final String social;
+        private final String userProfileImg;
         private final int count;
 
         public static UserInfoControllerDTO.Out from(UserInfoServiceDTO.Out out){
@@ -37,6 +38,7 @@ public class UserInfoControllerDTO {
                     .userName(out.getUserName())
                     .social(out.getSocial())
                     .count(out.getCount())
+                    .userProfileImg(out.getUserProfileImg())
                     .build();
         }
 

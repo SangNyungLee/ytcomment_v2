@@ -11,6 +11,6 @@
 
     <select id="selectUserEmailById" parameterType="site.ytcomment.popular.mapper.DTO.UserInfoDbDTO$In"
             resultType="site.ytcomment.popular.mapper.DTO.UserInfoDbDTO$Out">
-        SELECT id, userEmail, userName, social, count(*) FROM userinfo WHERE id = #{userId}
+        SELECT id, userEmail, userName, social, userProfileImg, count(*) FROM userinfo WHERE id = #{userId}
     </select>
 </mapper>
