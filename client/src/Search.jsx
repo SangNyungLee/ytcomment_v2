@@ -90,7 +90,7 @@ export default function Search() {
             md={5}
             lg={4}
             xl={3}
-            xxl={2}
+            xxl={3}
             key={video.id.videoId}
           >
             <Card style={{ width: "100%", marginBottom: "20px" }}>
