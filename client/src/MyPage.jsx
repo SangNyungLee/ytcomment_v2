@@ -99,8 +99,9 @@ const Mypage = () => {
         <div className="flex items-center justify-between p-4 border-b">
           <div className="flex items-center gap-4">
             <div>
+              {/* img부분 db에 있는 profile 값 가져오기 */}
               <img
-                src={userInfo.userProfileImg}
+                src="https://picsum.photos/250/250"
                 className="w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center text-xl font-bold"
               />
             </div>
