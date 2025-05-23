@@ -1,8 +1,10 @@
 package site.ytcomment.popular.Controller;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import site.ytcomment.popular.Controller.DTO.*;
@@ -62,7 +64,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginAuthControllerDTO.In in){
+    public ResponseEntity<?> login(HttpServletResponse response, @RequestBody LoginAuthControllerDTO.In in){
         LoginAuthServiceDTO.Out result = loginAuthService.getUserPw(in.to());
         // 0 : 인증 안된 계정
         // 1 : 인증 된 계정
@@ -78,8 +80,10 @@ public class LoginController {
             // in.. 이런 애들 전부다 DTO로 감싸야됨
             UserInfoServiceDTO.Out userInfo = loginAuthService.getUserEmailById(UserInfoControllerDTO.In.to(in.getUserId()));
             String token = jwtTokenProvider.createToken(userInfo.getUserEmail(), in.getUserId());
-            TokenResponseDTO tokenResponseDTO = new TokenResponseDTO(token, userInfo.getUserName());
-
+            String refreshToken = jwtTokenProvider.createRefreshToken(userInfo.getUserEmail(), in.getUserId());
+            ResponseCookie getCookie = jwtTokenProvider.giveMeCookie(refreshToken);
+            // refreshToken 응답헤더(쿠키)에 저장해두는 거임
+            response.setHeader(HttpHeaders.SET_COOKIE, getCookie.toString());
             return ResponseEntity.ok()
                     .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                     .header(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, HttpHeaders.AUTHORIZATION) // CORS 문제 방지

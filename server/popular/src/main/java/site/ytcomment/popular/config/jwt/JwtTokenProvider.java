@@ -4,6 +4,7 @@ import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,14 +21,24 @@ public class JwtTokenProvider {
 
     private final Key key;
     private final long tokenValidityInSeconds;
+    private final long refreshTokenValidityInSeconds;
 
     public JwtTokenProvider(
             @Value("${jwt.secret}") String secret,
             @Value("${jwt.time}") long tokenValidityInSeconds){
         this.key = Keys.hmacShaKeyFor(secret.getBytes());
         this.tokenValidityInSeconds = tokenValidityInSeconds * 1000;
+        this.refreshTokenValidityInSeconds = tokenValidityInSeconds * 5000;
     }
-
+    public ResponseCookie giveMeCookie(String refreshToken) {
+        return ResponseCookie.from("refreshToken", refreshToken)
+                .httpOnly(true)
+                .secure(true)
+                .maxAge(refreshTokenValidityInSeconds)
+                .path("/")
+                .sameSite("None")
+                .build();
+    }
     // 토큰생성
     public String createToken(String email, String userId){
         Date now = new Date();
@@ -41,7 +52,19 @@ public class JwtTokenProvider {
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
+    // 리프레쉬 토큰 생성
+    public String createRefreshToken(String email, String userId){
+        Date now = new Date();
+        Date validity = new Date(now.getTime() + refreshTokenValidityInSeconds);
 
+        return Jwts.builder()
+                .setSubject(email)
+                .claim("userId", userId)
+                .setIssuedAt(now)
+                .setExpiration(validity)
+                .signWith(key, SignatureAlgorithm.HS256)
+                .compact();
+    }
     // 토큰 검증
     public boolean validateToken(String token) {
         try {
