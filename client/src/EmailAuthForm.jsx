@@ -11,7 +11,19 @@ export default function emailAuthPage() {
   const location = useLocation(); // state로 받은 값을 받기 위해 사용함
   const navigate = useNavigate();
   const API_BASE_URL = import.meta.env.VITE_API_URL;
-
+  // 이메일 평균값 테스트 하는거
+  /*
+  const smtpTimes = [];
+  const emailTest = async () => {
+    for (let i = 0; i < 100; i++) {
+      const start = Date.now();
+      await sendUserAuthCode();
+      const end = Date.now();
+      smtpTimes.push(end - start);
+    }
+    console.log(smtpTimes);
+  };
+  */
   // state로 받은 값을 바로 email에 적용될 수 있게 설정
   useEffect(() => {
     if (location.state?.userEmail) {
@@ -20,7 +32,6 @@ export default function emailAuthPage() {
   }, [location]);
 
   const sendUserAuthCode = async () => {
-    alert("인증코드가 전송되었습니다.");
     const result = await axios.post(`${API_BASE_URL}/api/email/send`, {
       email: userEmail,
     });
@@ -28,6 +39,15 @@ export default function emailAuthPage() {
     setTimeout(() => setShowTimer(true), 0); // 리셋하고 다시 시작
   };
 
+  // AWS SES 테스트
+  const sendUserSesCode = async () => {
+    const result = await axios.post(
+      `${API_BASE_URL}/api/email/send-test-email`,
+      {
+        email: userEmail,
+      }
+    );
+  };
   const checkUserAuthCode = async () => {
     const result = await axios.post(`${API_BASE_URL}/api/email/check`, {
       email: userEmail,
@@ -60,7 +80,7 @@ export default function emailAuthPage() {
                 type="text"
                 className="userEmail"
                 value={userEmail}
-                readOnly
+                onChange={(e) => setUserEmail(e.target.value)}
                 placeholder="이메일주소"
                 style={{
                   color: "gray",
