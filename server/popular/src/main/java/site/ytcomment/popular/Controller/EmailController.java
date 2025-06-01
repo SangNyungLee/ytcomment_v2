@@ -23,6 +23,8 @@ public class EmailController {
     private final EmailSignUpService emailSignUpService;
     private final EmailIdDupCheckService emailIdDupCheckService;
     private final CheckEmailAuthService checkEmailAuthService;
+    private final SesEmailService sesEmailService;
+
     // 이메일 중복확인
     @GetMapping("/check-email")
     public ResponseEntity<String> EmailDupCheck(@RequestParam(name = "email") EmailDupControllerDTO.In in){
@@ -64,6 +66,14 @@ public class EmailController {
             checkEmailAuthService.updateUserAuth(authDTO.to());
         }
         return result;
+    }
+
+    // aws ses 이메일 테스트 전송
+    @PostMapping("/send-test-email")
+    public String sendTestEmail(@RequestBody EmailSendControllerDTO.In in) {
+        System.out.println(in.getEmail());
+        sesEmailService.sendEmail(in.getEmail(), "테스트 제목", "이메일 테스트 본문입니다.");
+        return "email success";
     }
 
 }

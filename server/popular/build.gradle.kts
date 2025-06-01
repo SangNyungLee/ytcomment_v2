@@ -51,8 +51,13 @@ dependencies {
 	runtimeOnly ("io.jsonwebtoken:jjwt-jackson:0.11.5") // JSON 처리 라이브러리
 	// s3 Bucket
 	implementation("io.awspring.cloud:spring-cloud-aws-starter-s3:3.3.0")
-
-
+	// AWS SDK BOM을 사용하여 버전 관리를 일관되게 함
+	implementation(platform("software.amazon.awssdk:bom:2.31.53"))
+	// SES 모듈 추가
+	implementation ("software.amazon.awssdk:ses")
+	// 인증 및 지역 설정을 위한 모듈
+	implementation ("software.amazon.awssdk:auth")
+	implementation ("software.amazon.awssdk:regions")
 }
 
 tasks.withType<Test> {
